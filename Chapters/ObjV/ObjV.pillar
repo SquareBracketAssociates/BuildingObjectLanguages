@@ -1,15 +1,3 @@
-!! Descriving a minimal reflective class-based kernel
-
-!!! In a nutshell
-
-!!! Classes
-
-!!! Metaclasses
-
-!!! Inheritance
-
-!!! Metaclasses at work
-
 !! Building a minimal, reflective class-based kernel
 
 This tutorial written by Stéphane Ducasse will guide you step by step to build 
