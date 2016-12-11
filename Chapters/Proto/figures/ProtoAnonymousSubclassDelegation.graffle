@@ -63,8 +63,8 @@
 			<integer>75</integer>
 			<key>Points</key>
 			<array>
-				<string>{371.99998049042063, 248.5}</string>
-				<string>{371.99992111343988, 213.5000000000006}</string>
+				<string>{366.00606336107427, 248.5000000700422}</string>
+				<string>{366.02451707024159, 213.4999973436037}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -98,8 +98,8 @@
 			<integer>74</integer>
 			<key>Points</key>
 			<array>
-				<string>{443.50000185638169, 178.12417405960105}</string>
-				<string>{417.49999539178464, 178.19513068562489}</string>
+				<string>{449.5, 178.00001225694831}</string>
+				<string>{405.5, 178.00001225694831}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -133,8 +133,8 @@
 			<integer>73</integer>
 			<key>Points</key>
 			<array>
-				<string>{489.00000963215393, 248.5}</string>
-				<string>{489.00000963215393, 213.5}</string>
+				<string>{488.96240573187708, 248.5000026907322}</string>
+				<string>{488.84798802285019, 213.4998973118783}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -191,7 +191,7 @@
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{444, 171}, {90, 14}}</string>
+					<string>{{450, 171}, {78, 14}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -232,7 +232,7 @@
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{444, 185}, {90, 14}}</string>
+					<string>{{450, 185}, {78, 14}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -275,7 +275,7 @@
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{444, 199}, {90, 14}}</string>
+					<string>{{450, 199}, {78, 14}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -339,8 +339,8 @@
 			<integer>67</integer>
 			<key>Points</key>
 			<array>
-				<string>{375.76002613627804, 170.55367373011609}</string>
-				<string>{408.63601346768235, 105.44632626988391}</string>
+				<string>{370.19629467190691, 170.56455948146842}</string>
+				<string>{406.95281948360179, 105.43544551934255}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -364,7 +364,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{349, 249}, {46, 22}}</string>
+			<string>{{343, 249}, {46, 22}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -397,7 +397,7 @@
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{327, 171}, {90, 14}}</string>
+					<string>{{327, 171}, {78, 14}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -438,7 +438,7 @@
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{327, 185}, {90, 14}}</string>
+					<string>{{327, 185}, {78, 14}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -481,7 +481,7 @@
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{327, 199}, {90, 14}}</string>
+					<string>{{327, 199}, {78, 14}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -691,8 +691,8 @@ delegateTo:}</string>
 			<integer>57</integer>
 			<key>Points</key>
 			<array>
-				<string>{169.1522295492675, 170.58144218903061}</string>
-				<string>{126.5705427279602, 105.4185578109694}</string>
+				<string>{169.14869135037719, 170.58153519356173}</string>
+				<string>{126.5354860279799, 105.41879523919727}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -726,8 +726,8 @@ delegateTo:}</string>
 			<integer>56</integer>
 			<key>Points</key>
 			<array>
-				<string>{174.00000963215342, 248.5}</string>
-				<string>{174.00000963215342, 213.5}</string>
+				<string>{173.9624056814435, 248.50000269073223}</string>
+				<string>{173.84798781892258, 213.49989731187864}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -784,7 +784,7 @@ delegateTo:}</string>
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{129, 171}, {90, 14}}</string>
+					<string>{{135, 171}, {78, 14}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -825,7 +825,7 @@ delegateTo:}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{129, 185}, {90, 14}}</string>
+					<string>{{135, 185}, {78, 14}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -868,7 +868,7 @@ delegateTo:}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{129, 199}, {90, 14}}</string>
+					<string>{{135, 199}, {78, 14}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -932,8 +932,8 @@ delegateTo:}</string>
 			<integer>9</integer>
 			<key>Points</key>
 			<array>
-				<string>{56.999996419563786, 248.5}</string>
-				<string>{56.999996419563786, 213.5}</string>
+				<string>{56.962405731877105, 248.5000026907322}</string>
+				<string>{56.847988022850188, 213.4998973118783}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -967,8 +967,8 @@ delegateTo:}</string>
 			<integer>27</integer>
 			<key>Points</key>
 			<array>
-				<string>{60.760026136278007, 170.55367373011609}</string>
-				<string>{93.636013467682375, 105.44632626988391}</string>
+				<string>{60.756433034354785, 170.55358598930817}</string>
+				<string>{93.600685526524558, 105.44610245595629}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -1025,7 +1025,7 @@ delegateTo:}</string>
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{12, 171}, {90, 14}}</string>
+					<string>{{18, 171}, {78, 14}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -1066,7 +1066,7 @@ delegateTo:}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{12, 185}, {90, 14}}</string>
+					<string>{{18, 185}, {78, 14}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -1109,7 +1109,7 @@ delegateTo:}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{12, 199}, {90, 14}}</string>
+					<string>{{18, 199}, {78, 14}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -1355,7 +1355,7 @@ delegateTo:}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2016-12-11 08:01:43 +0000</string>
+	<string>2016-12-11 12:13:11 +0000</string>
 	<key>Modifier</key>
 	<string>ducasse</string>
 	<key>NotesVisible</key>
@@ -1436,7 +1436,7 @@ delegateTo:}</string>
 			</dict>
 		</array>
 		<key>Frame</key>
-		<string>{{986, 145}, {1070, 1232}}</string>
+		<string>{{1091, 185}, {1070, 1232}}</string>
 		<key>ListView</key>
 		<true/>
 		<key>OutlineWidth</key>
