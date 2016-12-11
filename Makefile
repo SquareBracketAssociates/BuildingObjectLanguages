@@ -1,6 +1,7 @@
 MAIN = book
 CHAPTERS = \
 	Chapters/Proto/Proto \
+	Chapters/ObjV/ObjV
 
 OUTPUTDIRECTORY = build
 LATEXTEMPLATE = support/templates/main.latex.mustache

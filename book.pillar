@@ -1,6 +1,32 @@
 { "metadata": { "title": "Exploring Object Language Kernels" ,
 	"attribution" : "Stéphane Ducasse"} } 
 
+In this book we will explore various language kernels by building them. 
+Doing so we will learn about objects, object creation instantiation, message lookup, delegation, inheritance and much more. 
+
+We plan to have at least three kernels: 
+- Class based reflective (ObjVlisp)
+- Prototypes
+- Actors
+
+Possible future adventures
+- Mirrors?
+- MirrorMethod?
+- SplitObject Views
+- Mixin?
+- Traits?
+- Talents? (pablo?)
+
+
+!! Implementation Techniques
+
+Here I will present 
+
+- Anonymous classes
+- and may be some tricks of the reflection chapter
+- Proxy?
+
 
 ${inputFile:Chapters/Proto/Proto.pillar}$
 
+${inputFile:Chapters/ObjV/ObjV.pillar}$

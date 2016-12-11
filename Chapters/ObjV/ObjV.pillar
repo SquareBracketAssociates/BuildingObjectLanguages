@@ -1,4 +1,16 @@
-!! Building a Minimal, Uniform and Reflective Object-Oriented Language Kernel
+!! Descriving a minimal reflective class-based kernel
+
+!!! In a nutshell
+
+!!! Classes
+
+!!! Metaclasses
+
+!!! Inheritance
+
+!!! Metaclasses at work
+
+!! Building a minimal, reflective class-based kernel
 
 This tutorial written by Stéphane Ducasse will guide you step by step to build 
 the kernel of the ObjVLisp model. ObjVlisp was designed by P. Cointe who got inspired by the kernel  of Smalltalk 78. It has explicit metaclasses and it is composed of two classes ==Object== and ==Class==.

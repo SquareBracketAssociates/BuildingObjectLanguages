@@ -1,31 +1,119 @@
+!! A word about prototypes
+
+In this chapter we will give a first presentation of prototype-based language. We will present the key principles and some of the limits. 
+Our goal is not to be exhaustive but to set the stage for the next chapter and provide some culture around prototypes but 
+without diving in lengthly details. 
+
+newtonscript javascript io Self
+@@todo add a diagram
+exnihilo creation
+
+${cite:Dony92a}$
+
+
+
+!!! Problems with state sharing
+
+When clyde loses a leg, you do not want all your elephants to get only three legs.
+
+Many prototype languages suffer from the following problem: when the parent changes its state, all the objects delegating to it 
+get automatically impacted. Even in Javascript you get the exact problem as shown with the following script
+
+[[[
+o = {legs:4}
+o1 = {}
+o1.__proto__ = o
+o.legs
+>4
+o1.legs
+>4
+o.legs = 3
+o1.legs
+> 3
+]]]
+
+In Self it was worse since modifying a children was modifying its parent. 
+
+[[[
+In self : unwanted children :-) 
+o.legs
+>4
+o1.legs = 3
+o1.legs
+>3
+o.legs
+>3
+]]]
+
+This problem does not exist in Javascript and most prototype language
+since writing to a field is local to the object. So even if the parent already has 
+the same field with a value, the child is modified and get a new field.
+Now the first problem still occur since the property legs when not found in the receiver is looked
+up in the parent as shown before. 
+
+[[[
+o.legs
+>4
+o1.legs = 3
+o1.legs
+>3
+o.legs
+>4
+]]]
+
+
+
+
 !! Experimenting with Prototypes
 
-In this chapter we want to build with you step by step a little prototype language. With prototype single object can have an instance specific state and behavior. 
-This language does not unify state and behavior: it means that the basic clone operation only clone state and delegation only share behavior.  
+In this chapter we want to build with you step by step a little prototype language named Propha. In prototype kernels, a single object can have instance specific state and more fundamental instance specific behavior. 
 
-With this approach we can build other operation to clone and share behavior at that moment. 
+The kernel of Propha that we will build does not unify state and behavior as in Self. In particular, it means that the basic clone operation only clones state and delegation only look for behavior in another object when it does not find it in the current object. With this separation, we avoid the problem that when a parent changes its state, its sons are impacted. 
+We can build other operations that would clone state as well as delegate to the cloned object. 
 
 Our implementation is based on the use of anonymous class that we can dynamically inject in the superclass chain (between an instance and its class) and where we can then compile instance specific behavior. 
 
-!!! A word about prototypes
+!!! A glimpse at our implementation
+We will model object state with a dictionary and use the traditional instance variable semantic: each object has its own value. So each prototype will have its own dictionary of variables. 
 
-newtonscript
-javascript
-
-@@todo add a diagram
-
-exnihilo creation
+Now for the behavior we will use anonymous classes. As we mentioned earlier, we can define hidden subclasses to a given class. Such subclasses have all the same format for their instances and they have their own method dictionary (see Figure *@fig:protoAnoPrinciple*).
 
 
-!!! ExNihilo creation
++Using anonymous subclasses to have instance specific method dictionary.>file://figures/ProtoAnonymousSubclassPrinciple.png|width=40|label=fig:protoAnoPrinciple+
+
+
+!!!! Delegation
+
+Delegation can be easily implementated. When an object delegates to another ones, it means that when a method is not found in its method pool, the lookup should look in 
+the ones of his parent or prototype. We can reuse the Pharo method dispatch and dynamically change the superclass chain as shown in Figure *@fig:protoAnoPrinciple*.
+When ==o2== delegates to ==o1==, its behavior should point to the one of ==o1== (notice that in Propha state is not shared by delegation). At the implementation level, the superclass of anonymous class of ==o2== will point the anonymous class of ==o1==.
+
+
++Changing superclass chain to model delegation.>file://figures/ProtoAnonymousSubclassDelegation.png|width=90|label=fig:protoAnoPrinciple+
+
+
+
+!!! Starting with ExNihilo creation
 
 There are different ways to create prototypes and our language supports two ways: the exnihilo creation and the cloning. Let us start with the exnihilo one. 
+Let us write some tests to make sure that we do not get semantic regression during our little journey. 
 
 [[[
-testExNihiloCreateDifferentObjects
+TestCase subclass: #ProphaTest
+	...
+]]]
+
+Let first test that two exNihilo created objects have a distinct identity. 
+[[[
+ProphaTest >> testExNihiloCreateDifferentObjects
 
 	self deny: Proto exNihilo == Proto exNihilo
 ]]]
+
+Now we want to make sure that each created object has its own behavior so that it can have instance specific method. 
+The following test uses the message ==class== to access to the behavior (the anonymous class in fact). 
+
+
 
 [[[
 testExNihiloCreateDifferentImplementationClasses
@@ -37,17 +125,29 @@ testExNihiloCreateDifferentImplementationClasses
 	self deny: p1 class == p2 class.
 ]]]
 
+
+
+
+
+
 [[[
 Proto class >> exNihilo
 
-	^ self behavior new
+	^ self installBehavior new
 ]]]
 
 [[[ 
-Proto class >> behavior
+Proto class >> installBehavior
 
 	^ Proto newAnonymousSubclass
 ]]]
+
+A nicer solution in terms of API would be to compile 
+- either in the class ==Proto== (the class from which ultimately inherits all the anonymous classes) 
+- or in each of the anonymous classes
+- or to get one prototype the root of delegation similar to ==Lobby== in Self. With this solution we would have to convert all the methods that we are defining the class ==Proto== into such prototype. We could do that by copying all the methods. 
+
+
 
 The following snippet shows that we create two objects from nothing and that we can set to them different values and retrieve them. 
 
