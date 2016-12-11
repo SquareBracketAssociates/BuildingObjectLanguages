@@ -1,8 +1,13 @@
+!! Implementing a little actor kernel
+
+
+!!! Actor: id, mailbox and behavior
+
 [[[	
 ProtoObject subclass: #AActor
 	instanceVariableNames: 'mailbox behavior'
 	classVariableNames: ''
-	category: 'Actalk'
+	category: 'Acpha'
 ]]]
 
 - ==mailbox== represents the queue of message. It is an instance of 
@@ -10,86 +15,88 @@ ProtoObject subclass: #AActor
 - ==behavior== represents the behavior with processes the message. It will be an instance of subclass of the class ActorBehavior (see below).
 
 [[[
-AActor>>initialize
+AActor >> initialize
 	mailbox := SharedQueue new
 ]]]
 
 [[[
-AActor>>asynchronousSend: aMessage
+AActor >> asynchronousSend: aMessage
 	mailbox nextPut: aMessage
 ]]]
 
 [[[
-AActor>>initializeBehavior: aBehavior
+AActor >> initializeBehavior: aBehavior
 	behavior := aBehavior.
 	behavior initializeAself: self.
 ]]]
 
 [[[
-AActor>>mailbox
+AActor >> mailbox
 	^ mailbox
 ]]]
 
 [[[
-AActor>>doesNotUnderstand: aMessage
+AActor >> doesNotUnderstand: aMessage
 	^ self asynchronousSend: aMessage
 ]]]
 
 [[[
-AActor class>>behavior: aBehavior
+AActor class >> behavior: aBehavior
 	^ self new initializeBehavior: aBehavior	
 ]]]
 
 
 
-!! Actor behavior
+!!! Actor behavior
 
 [[[
 Object subclass: #AActorBehavior
 	instanceVariableNames: 'aself'
 	classVariableNames: ''
-	category: 'Actalk'
+	category: 'Acpha'
 ]]]
 
 [[[
-AActorBehavior>>initializeAself: anActor
+AActorBehavior >> initializeAself: anActor
 	aself := anActor.
 	self setProcess.
 ]]]
 
 [[[
-AActorBehavior>>set
+AActorBehavior >> set
 	[ [ true ] whileTrue: [ self acceptNextMessage ] ] fork 
 ]]]
 
 [[[
-AActorBehavior>>acceptMessage: aMessage
+AActorBehavior >> acceptMessage: aMessage
 	self perform: aMessage selector withArguments: aMessage arguments
 ]]]
 
 
 A special message to create actor. 
 [[[
-AActorBehavior>>actor
+AActorBehavior >> actor
 	^ AActor behavior: self
 ]]]
 
 
-!! First example
+!!! First example
 
 [[[
-AActorBehavior subclass: #Counter
+AActorBehavior subclass: #AACounter
 	instanceVariableNames: 'contents'
 	classVariableNames: ''
-	category: 'Actalk'
+	category: 'Acpha'
 ]]]
 
 [[[
-Counter>>incr
+AACounter >> incr
 	contents := contents + 1
 ]]]
 
 [[[
-Counter>>reset
+AACounter >> reset
 	contents := 0
 ]]]
+
+!!! Conclusion

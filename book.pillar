@@ -26,7 +26,12 @@ Here I will present
 - and may be some tricks of the reflection chapter
 - Proxy?
 
+${inputFile:Chapters/Proto/ProtoTheory.pillar}$
 
 ${inputFile:Chapters/Proto/Proto.pillar}$
 
+${inputFile:Chapters/ObjVTheory/ObjVTheory.pillar}$
+
 ${inputFile:Chapters/ObjV/ObjV.pillar}$
+
+${inputFile:Chapters/Actalk/Actalk.pillar}$
