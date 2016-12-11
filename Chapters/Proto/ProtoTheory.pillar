@@ -1,0 +1,68 @@
+!! About prototypes
+
+In this chapter we will give a first presentation of prototype-based language. We will present the key principles and some of the limits. 
+Our goal is not to be exhaustive but to set the stage for the next chapter and provide some culture around prototypes but 
+without diving in lengthly details. 
+
+newtonscript javascript io Self
+@@todo add a diagram
+exnihilo creation
+
+${cite:Dony92a}$
+
+
+
+!!! Problems with state sharing
+
+When clyde loses a leg, you do not want all your elephants to get only three legs.
+
+Many prototype languages suffer from the following problem: when the parent changes its state, all the objects delegating to it 
+get automatically impacted. Even in Javascript you get the exact problem as shown with the following script
+
+[[[
+o = {legs:4}
+o1 = {}
+o1.__proto__ = o
+o.legs
+>4
+o1.legs
+>4
+o.legs = 3
+o1.legs
+> 3
+]]]
+
+In Self it was worse since modifying a children was modifying its parent. 
+
+[[[
+In self : unwanted children :-) 
+o.legs
+>4
+o1.legs = 3
+o1.legs
+>3
+o.legs
+>3
+]]]
+
+This problem does not exist in Javascript and most prototype language
+since writing to a field is local to the object. So even if the parent already has 
+the same field with a value, the child is modified and get a new field.
+Now the first problem still occur since the property legs when not found in the receiver is looked
+up in the parent as shown before. 
+
+[[[
+o.legs
+>4
+o1.legs = 3
+o1.legs
+>3
+o.legs
+>4
+]]]
+
+!!! Readings
+
+We suggest as further readings the following article ${cite:Dony92a}$ self paper lieberman
+
+
