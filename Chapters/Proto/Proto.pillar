@@ -63,7 +63,7 @@ In addition, we want to make sure that each created object has its own behavior 
 
 
 [[[
-testExNihiloCreateDifferentImplementationClasses
+ProphaTest >> testExNihiloCreateDifferentImplementationClasses
 
 	| o1 o2 |
 	o1 := Proto exNihilo.
@@ -92,7 +92,7 @@ Proto class >> exNihilo
 
 !!!! About class
 
-The  test ==testExNihiloCreateDifferentImplementationClasses== uses the message ==class== to access to the behavior (the anonymous class in fact) and we do not really like that. So we propose to define an extra method.
+The  test ==testExNihiloCreateDifferentImplementationClasses== uses the message ==class== to access to the behavior (the anonymous class in fact) and we do not really like that. So we propose to define an extra method ==behavior== to encapsulate this internal representation point. 
 
 [[[ 
 Proto >> behavior 
@@ -100,15 +100,16 @@ Proto >> behavior
 ]]]
 
 [[[
-ProtoTest >> testBehavior
+ProphaTest >> testBehavior
 
 	| b |
 	b := Proto createBehavior.
 	self assert: (b new behavior == b)
 ]]]
 
+We change the method ==testExNihiloCreateDifferentImplementationClasses== to use the new message ==behavior==.
 [[[
-ProtoTest >> testExNihiloCreateDifferentImplementationClasses
+ProphaTest >> testExNihiloCreateDifferentImplementationClasses
 
 	| p1 p2 |
 	p1 := Proto exNihilo.
@@ -123,7 +124,7 @@ Another solution would be to define one prototype as the root of delegation simi
 
 !!! State
 
-The following snippet shows that we create two objects from nothing and that we can set to them different values and retrieve them. 
+The following snippet shows that we create two prototype objects. The creation there is from nihilo following the prototype convention of languages such as Javascript. The snippet also shows that we can set to them different values and retrieve them. 
 
 [[[
 | o1 o2 |
@@ -141,7 +142,7 @@ o2 at: #foo.
 Let us turn that into a test, of course!
 
 [[[
-ProtoTest >> testExNihiloCreation 
+ProphaTest >> testExNihiloCreation 
 
 	| o1 |
 	o1 := Proto exNihilo.
@@ -150,9 +151,10 @@ ProtoTest >> testExNihiloCreation
 ]]]
 
 And we should add a test to verify that two different states are created. 
+These tests do not work yet since we did not introduce object state so far in our kernel. 
 
 [[[
-ProtoTest >> testExNihiloCreationDifferentState
+ProphaTest >> testExNihiloCreationDifferentState
 
 	| o1 o2 |
 	o1 := Proto exNihilo.
@@ -175,22 +177,22 @@ We add two methods ==at:== and ==at:put:== to access and set value to a variable
 [[[
 Proto >> at: aSymbol
 	^ states at: aSymbol
-
+]]]
+[[[	
 Proto >> at: aSymbol put: aValue 
 	^ states at: aSymbol put: aValue
 ]]]
 
+!!!! Adding a bit of structural reflection.  
 Since we love representation of implementation and introspective systems, let's define a little API for it. Let us set that the message ==variableNamed== returns the list of variables of the object.
 
 [[[
-ProtoTest >> testStructuralReflection
+ProphaTest >> testStructuralReflection
 
-	| o1 o2 |
+	| o1 |
 	o1 := Proto exNihilo.
 	o1 at: #foo put: 42.
 	self assert: (o1 variableNames includes: #foo).  
-	o2 := o1 clone.
-	self assert: (o2 variableNames includes: #foo).  
 ]]]
 
 The method implementation is straigthforward. 
@@ -201,6 +203,7 @@ Proto >> variableNames
 	^ states keys
 ]]]
 
+Now all your tests should pass and we can continue to the next point. 
 
 !!! Instance creation as cloning 
 
@@ -226,7 +229,7 @@ o1 at: #foo.
 Now let us write some tests. First let us ensure that both objects have access to the same variable. 
 
 [[[
-ProtoTest >> testAfterCloningClonedObjectHasBeSameState
+ProphaTest >> testAfterCloningClonedObjectHasBeSameState
 
 	| o1 o2 |
 	o1 := Proto exNihilo.
@@ -236,10 +239,10 @@ ProtoTest >> testAfterCloningClonedObjectHasBeSameState
 	self assert: (o2 at: #foo) equals: 42. 
 ]]]
 
-Now this test is a bit weak since it does not show that the sharing is only during creation time. The following test verifies that the value is shared forever.
+Now this test is a bit weak since it does not show that the sharing is only during creation time. The following test verifies that the value is shared forever. Since we did not define ==clone== these tests should not pass.
 
 [[[
-ProtoTest >> testAfterCloningClonedObjectDoNotShareState
+ProphaTest >> testAfterCloningClonedObjectDoNotShareState
 
 	| o1 o2 |
 	o1 := Proto exNihilo.
@@ -254,7 +257,7 @@ ProtoTest >> testAfterCloningClonedObjectDoNotShareState
 Finally we want to make sure that modifying the state of the parent does not impact the objects that got cloned from it. It shows that Propha offers at the same time behavior sharing and state creation time sharing but in addition Propha avoids parent state change propagation.
 
 [[[
-ProtoTest >> testAfterCloningNoParentStatePropagation
+ProphaTest >> testAfterCloningNoParentStatePropagation
 
 	| o1 o2 |
 	o1 := Proto exNihilo.
@@ -286,6 +289,21 @@ Proto >> postCopy
 
 We will see that this is not correct because now our two objects are sharing the same anonymous subclass and the same behavior. So adding one method will add this behavior to both objects while it should not. We are not in class-based languages.
 
+Let us verify that cloning does not break ==variableNames==. 
+
+[[[
+ProphaTest >> testStructuralReflectionAfterClone
+
+	| o1 o2 |
+	o1 := Proto exNihilo.
+	o1 at: #foo put: 42.
+	self assert: (o1 variableNames includes: #foo).  
+	o2 := o1 clone. 
+	self assert: (o2 variableNames includes: #foo).  
+]]]
+
+
+Again all your tests should now pass and we are ready to work on the definition of object behavior. 
 
 !!! About behavior
 
@@ -303,8 +321,9 @@ o1 double.
 >>>84
 ]]]
 
+Let us turn it into a test!
 [[[
-ProtoTest >> testBehaviorDefinition
+ProphaTest >> testBehaviorDefinition
 
 	| o |
 	o := Proto exNihilo.
@@ -314,7 +333,7 @@ ProtoTest >> testBehaviorDefinition
 ]]]
 
 The easiest way is to simply compile the method in the anynomous class as follows: 
-
+We access the anonymous class and compile the method placing it in the protocol named =='methods'==.
 [[[
 Proto >> define: aString
 	self behavior compile: aString classified: 'methods' 
@@ -324,8 +343,9 @@ Proto >> define: aString
 
 Now we should verify that the behavior that we define is really specific to the object and that only when using delegation such behavior is shared. 
 
-The following snippet shows that our implementation is wrong. 
-Cloning an object should not share the behavior only the state. 
+The following snippet shows that our implementation is wrong, as we expected.
+In our model cloning an object should not share the behavior only the state. 
+We want to decouple the two operations (cloning and delegating) so that we can recompose them if we want. 
 
 [[[
 o1 := Proto exNihilo.
@@ -350,10 +370,10 @@ This is not really correct since it is more like class-based where multiple clas
 common behavior. Here ==double== should not be available to ==o2== because we want ==clone==
 to be only be about state and not behavior. 
 
-Let us write a test to cover such aspect. Here we checks that ==double== is not available and similarly that ==triple== when defined in a clone does not impact the parent. 
+Let us write a test to cover such aspect. Here we checks that ==double== is not available in the clone and similarly that ==triple== when defined in a clone does not impact the clone's parent. 
 
 [[[
-ProtoTest >> testCloningShouldNotShareBehavior
+ProphaTest >> testCloningShouldNotShareBehavior
 
 	| o1 o2 |
 	o1 := Proto exNihilo.
@@ -368,16 +388,17 @@ ProtoTest >> testCloningShouldNotShareBehavior
 	self assert: o2 triple equals: 99.  
 ]]]
 
-
- So we should create a new prototype with its own anonymous class and copy the 
+The solution is to create a new prototype with its own anonymous class and copy the 
 the state of its mother prototype. Then after the two objects are autonomous. 
+We should redefine the method ==clone== as follows: and remove the method ==postCopy== 
+since the logic is not different. 
 
 [[[
 Proto >> clone
 
 	| newObject |
 	newObject := self class exNihilo.
-	newObject states: self states copy.
+	newObject states: states copy.
 	^ newObject
 ]]]
 
@@ -387,18 +408,6 @@ Proto >> states: aDictionary
 	states := aDictionary
 ]]]
 
-[[[
-testCloningShouldNotShareBehavior
-
-	| o o1 |
-	o := Proto exNihilo.
-	o at: #foo put: 42.
-	o define: 'double  ^ (self at: #foo) * 2'.
-	self assert: o double equals: 84.
-	o1 := o clone.
-	o1 at: #foo put: 33.
-	self should:  [ o1 double] raise: MessageNotUnderstood 
-]]]	
 
 !!! Delegation
 In class-based language, a class reuses and extends the behavior of other class using inheritance. In prototype-based language the pendant is delegation. With prototype delegation
@@ -408,7 +417,7 @@ when a method is not found in the receiver it is looked up in its proto or paren
 
 Let us write some test to cover the semantics we want to implement. 
 [[[
-ProtoTest >>testDelegation
+ProphaTest >>testDelegation
 
 	| o1 o2 |
 	o1 := Proto exNihilo.
@@ -432,7 +441,7 @@ In the model we implemented we make a difference between state and behavior.
 Cloning only clones the state and does not clone the behavior and delegation only share behavior. The following test shows that applying a parent method on a children not having the correct field raise an error. This is expected when creating an object ex nihilo.
 
 [[[
-ProtoTest >> testDelegationOnlyShareBehavior
+ProphaTest >> testDelegationOnlyShareBehavior
 
 	| o1 o2 |
 	o1 := Proto exNihilo.
@@ -445,8 +454,9 @@ ProtoTest >> testDelegationOnlyShareBehavior
 ]]]
 
 The following test show that cloning and delegating together are a better way to achieve sharing. 
+
 [[[
-ProtoTest >> testDelegationWorksBetterWithCloning
+ProphaTest >> testDelegationWorksBetterWithCloning
 
 	| o1 o2 |
 	o1 := Proto exNihilo.
@@ -455,7 +465,8 @@ ProtoTest >> testDelegationWorksBetterWithCloning
 	o2 := o1 clone.
 	self should: [ o2 double] raise: MessageNotUnderstood. 
 	o2 delegateTo: o1.
-	self shouldnt: [ o2 double] raise: KeyNotFound
+	o2 at: #foo put: 33.
+	self assert: o2 double equals: 66
 ]]]
 
 !!! Conclusion
