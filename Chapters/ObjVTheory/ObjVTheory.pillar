@@ -1,11 +1,64 @@
-!! Describing a minimal reflective class-based kernel
+!! Class-based reflective minimal kernel
 
-!!! In a nutshell
 
-!!! Classes
 
-!!! Metaclasses
 
-!!! Inheritance
 
-!!! Metaclasses at work
+
+
+Delegation can be easily implemented with anonymous classes. When an object delegates to another one, it means that when a method is not found in its method pool, the lookup should look in the ones of his parent or prototype. We will reuse the Pharo method dispatch and dynamically change the superclass chain as shown in Figure *@fig:delegationAnoPrinciple*.
+When ==o2== delegates to ==o1==, its behavior should point to the one of ==o1== (notice that in Propha state is not shared by delegation). At the implementation level, the superclass of anonymous class of ==o2== will point the anonymous class of ==o1==.
+
+
++Message passing .>file://figures/Ref-MsgPassing.png|width=90|label=fig:MsgPassing+
+
+!!! Kernel
++ObjVlisp Kernel.>file://figures/ObjVlisp.png|width=90|label=fig:ObjVlisp+
+
++ObjVlisp kernel with specialized metaclasses.>file://figures/ObjVlispSingleton.png|width=90|label=fig:ObjVlispSingleton+
+
++ObjVlisp kernel with specialized metaclasses explained.>file://figures/ObjVlispSingleton2.png|width=90|label=fig:ObjVlispSingleton2+
+
+
++ObjVlisp kernel.>file://figures/Ref-KernelTwo.png|width=90|label=fig:kernel2+
+
+!!! Instance of
+
++Simple instances.>file://figures/Ref-Instances.png|width=90|label=fig:Instances+
+
++Instantiation of chain.>file://figures/Ref-InstantiationLink.png|width=90|label=fig:Instantiation+
+
++Looking at objects.>file://figures/Ref-InstanceGlobalPicture.png|width=90|label=fig:Instanceshier+
+
+
+!!! Sending a message
+
++Sending a message.>file://figures/Ref-LookupNoError.png|width=90|label=fig:LookupNoError+
+
++Sending an erronous message.>file://figures/Ref-LookupWithError.png|width=90|label=fig:LookupWithError+
+
+!!! Full inheritance 
+
++Full inheritance graph.>file://figures/Ref-InheritanceGraph.png|width=90|label=fig:inheritancegraph+
+
+
+
+!!! Instantiation hierarchy
++Full instance hierarchy.>file://figures/Ref-InstanceGlobalPictureWithObject.png|width=90|label=fig:Instanceshier+
+
+
+!!! Instance creation: Role of the metaclass
+
++Metaclass role during instance creation.>file://figures/Ref-InstanceCreationMetaclassRole.png|width=90|label=fig:metaclassrole+
+
+!!! Class creation: Role of the metaclass
+
+
++Metaclass role during class creation.>file://figures/Ref-ClassCreation.png|width=90|label=fig:ClassCreation+
+
+
+!!! Abstract Metaclass
+
++Abstract metaclass.>file://figures/Ref-Abstract.png|width=90|label=fig:Abstract+
+
++Abstract metaclass at work.>file://figures/Ref-AbstractLookup.png|width=90|label=fig:AbstractLookup+
