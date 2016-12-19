@@ -10,11 +10,11 @@
 		<string>139.18.0.187838</string>
 	</array>
 	<key>AutoAdjust</key>
-	<false/>
+	<true/>
 	<key>BackgroundGraphic</key>
 	<dict>
 		<key>Bounds</key>
-		<string>{{0, 0}, {571, 818}}</string>
+		<string>{{0, 0}, {1118, 783}}</string>
 		<key>Class</key>
 		<string>SolidGraphic</string>
 		<key>ID</key>
@@ -42,7 +42,7 @@
 	<key>ColumnSpacing</key>
 	<real>36</real>
 	<key>CreationDate</key>
-	<string>2005-08-25 13:05:56 +0000</string>
+	<string>2016-12-19 20:47:16 +0000</string>
 	<key>Creator</key>
 	<string>ducasse</string>
 	<key>DisplayScale</key>
@@ -53,7 +53,7 @@
 	<array>
 		<dict>
 			<key>Bounds</key>
-			<string>{{205.5, 194.048}, {99, 19}}</string>
+			<string>{{249.827, 166.91799499999999}, {99, 19}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -123,8 +123,8 @@
 			<integer>80</integer>
 			<key>Points</key>
 			<array>
-				<string>{210.878206193762, 400.65926946722334}</string>
-				<string>{172.1886171353994, 364.63373030936367}</string>
+				<string>{255.20518175041477, 373.52926458994875}</string>
+				<string>{216.51556887917107, 337.50372541005129}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -148,7 +148,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{190.346, 401}, {121, 73.75}}</string>
+			<string>{{234.673, 373.86999500000002}, {121, 73.75}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -185,7 +185,7 @@ mac3}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{205.5, 370.58699999999999}, {99, 19}}</string>
+			<string>{{249.827, 343.45699500000001}, {99, 19}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -255,8 +255,8 @@ mac3}</string>
 			<integer>77</integer>
 			<key>Points</key>
 			<array>
-				<string>{87.057717347139928, 400.5006939777528}</string>
-				<string>{88.941069876373007, 364.7923060227368}</string>
+				<string>{131.38471358056611, 373.37068897774611}</string>
+				<string>{133.26806251114101, 337.66230102225393}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -280,7 +280,7 @@ mac3}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{321, 428.375}, {228, 19}}</string>
+			<string>{{77.653999999999996, 459.03299510681154}, {228, 19}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -333,7 +333,7 @@ mac3}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{12.173, 401}, {145.827, 73.75}}</string>
+			<string>{{56.5, 373.86999500000002}, {145.827, 73.75}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -387,8 +387,8 @@ mac1\
 			<integer>74</integer>
 			<key>Points</key>
 			<array>
-				<string>{529.28973513070014, 261.44620545354786}</string>
-				<string>{515.72044259190898, 218.47772633417043}</string>
+				<string>{520.63055172272027, 262.93820913966817}</string>
+				<string>{509.47004465360351, 218.72887925510543}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -429,8 +429,8 @@ mac1\
 			<integer>73</integer>
 			<key>Points</key>
 			<array>
-				<string>{202.97176421355979, 245.35798293401885}</string>
-				<string>{375.21073586254079, 174.35689184758576}</string>
+				<string>{247.30276281224559, 220.97872606847227}</string>
+				<string>{373.3612568582912, 172.16484259440131}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -459,7 +459,7 @@ mac1\
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{531.66300000000001, 237.49999584960938}, {120, 19}}</string>
+					<string>{{518.31700000000001, 239}, {120, 19}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -512,7 +512,7 @@ mac1\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{443, 261.92299584960938}, {219.327, 147.077}}</string>
+					<string>{{429.654, 263.423}, {219.327, 147.077}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>ID</key>
@@ -564,7 +564,7 @@ methods(distance:...)}</string>
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{-44.326999999999998, 192.79300000000001}, {168, 19}}</string>
+					<string>{{0, 165.662995}, {168, 19}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -617,7 +617,7 @@ methods(distance:...)}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{-16.817499999999999, 217.21600000000001}, {219.327, 147.077}}</string>
+					<string>{{27.509499999999999, 190.08599500000003}, {219.327, 147.077}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>ID</key>
@@ -669,7 +669,7 @@ methods(accept: send:..}</string>
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{312.346, -0.24499499999999999}, {99, 19}}</string>
+					<string>{{310.49999584960938, -5.8286708792820718e-16}, {99, 19}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -745,10 +745,10 @@ methods(accept: send:..}</string>
 					<real>0.80864042043685913</real>
 					<key>Points</key>
 					<array>
-						<string>{422.61685915401665, 37.517281355414674}</string>
-						<string>{410, 20}</string>
-						<string>{315, 106}</string>
-						<string>{375.17699166122998, 113.64980798374678}</string>
+						<string>{420.77085500362602, 37.762276355414691}</string>
+						<string>{408.15399584960937, 20.244995000000003}</string>
+						<string>{313.15399584960937, 106.244995}</string>
+						<string>{373.33098751083935, 113.89480298374679}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -774,7 +774,7 @@ methods(accept: send:..}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{375.673, 37.923000000000002}, {224.173, 180.077}}</string>
+					<string>{{373.82699584960938, 38.167995000000019}, {224.173, 180.077}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>ID</key>
@@ -817,7 +817,7 @@ methods(new  allocate..)}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{251.673, 138.5}, {123, 19}}</string>
+					<string>{{249.82699584960938, 138.74499500000002}, {123, 19}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -874,18 +874,13 @@ methods(new  allocate..)}</string>
 		</dict>
 	</array>
 	<key>GridInfo</key>
-	<dict>
-		<key>GridSpacing</key>
-		<real>14.17322826385498</real>
-		<key>MajorGridSpacing</key>
-		<integer>10</integer>
-	</dict>
+	<dict/>
 	<key>GuidesLocked</key>
 	<string>NO</string>
 	<key>GuidesVisible</key>
 	<string>YES</string>
 	<key>HPages</key>
-	<integer>1</integer>
+	<integer>2</integer>
 	<key>ImageCounter</key>
 	<integer>1</integer>
 	<key>KeepToScale</key>
@@ -925,7 +920,7 @@ methods(new  allocate..)}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2016-12-14 19:59:15 +0000</string>
+	<string>2016-12-19 20:48:07 +0000</string>
 	<key>Modifier</key>
 	<string>ducasse</string>
 	<key>NotesVisible</key>
@@ -941,44 +936,24 @@ methods(new  allocate..)}</string>
 		<key>NSBottomMargin</key>
 		<array>
 			<string>float</string>
-			<string>12</string>
+			<string>41</string>
 		</array>
 		<key>NSHorizonalPagination</key>
 		<array>
 			<string>coded</string>
 			<string>BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU051bWJlcgCEhAdOU1ZhbHVlAISECE5TT2JqZWN0AIWEASqEhAFxlwCG</string>
 		</array>
-		<key>NSJobFeatures</key>
-		<array>
-			<string>coded</string>
-			<string>BAtzdHJlYW10eXBlZIHoA4QBQISEhBNOU011dGFibGVEaWN0aW9uYXJ5AISEDE5TRGljdGlvbmFyeQCEhAhOU09iamVjdACFhAFpAIY=</string>
-		</array>
 		<key>NSLeftMargin</key>
 		<array>
 			<string>float</string>
-			<string>12</string>
-		</array>
-		<key>NSPagesPerSheet</key>
-		<array>
-			<string>int</string>
-			<string>1</string>
+			<string>18</string>
 		</array>
 		<key>NSPaperSize</key>
 		<array>
 			<string>size</string>
 			<string>{595, 842}</string>
 		</array>
-		<key>NSPrintAllPages</key>
-		<array>
-			<string>int</string>
-			<string>0</string>
-		</array>
 		<key>NSPrintReverseOrientation</key>
-		<array>
-			<string>int</string>
-			<string>0</string>
-		</array>
-		<key>NSReversePageOrder</key>
 		<array>
 			<string>int</string>
 			<string>0</string>
@@ -986,12 +961,12 @@ methods(new  allocate..)}</string>
 		<key>NSRightMargin</key>
 		<array>
 			<string>float</string>
-			<string>12</string>
+			<string>18</string>
 		</array>
 		<key>NSTopMargin</key>
 		<array>
 			<string>float</string>
-			<string>12</string>
+			<string>18</string>
 		</array>
 	</dict>
 	<key>PrintOnePage</key>
@@ -1011,7 +986,7 @@ methods(new  allocate..)}</string>
 	<key>UniqueID</key>
 	<integer>1</integer>
 	<key>UseEntirePage</key>
-	<true/>
+	<false/>
 	<key>VPages</key>
 	<integer>1</integer>
 	<key>WindowInfo</key>
@@ -1019,21 +994,28 @@ methods(new  allocate..)}</string>
 		<key>CurrentSheet</key>
 		<integer>0</integer>
 		<key>ExpandedCanvases</key>
-		<array/>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Canvas 1</string>
+			</dict>
+		</array>
 		<key>Frame</key>
-		<string>{{669, 123}, {859, 1023}}</string>
+		<string>{{966, 504}, {1391, 1053}}</string>
 		<key>ListView</key>
-		<false/>
+		<true/>
 		<key>OutlineWidth</key>
 		<integer>142</integer>
 		<key>RightSidebar</key>
 		<false/>
+		<key>ShowRuler</key>
+		<true/>
 		<key>Sidebar</key>
-		<false/>
+		<true/>
 		<key>SidebarWidth</key>
-		<integer>138</integer>
+		<integer>120</integer>
 		<key>VisibleRegion</key>
-		<string>{{-120, -54}, {859, 926}}</string>
+		<string>{{-69, -64}, {1256, 911}}</string>
 		<key>Zoom</key>
 		<real>1</real>
 		<key>ZoomValues</key>

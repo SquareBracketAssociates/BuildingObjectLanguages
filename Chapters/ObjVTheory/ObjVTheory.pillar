@@ -1,37 +1,90 @@
 !! Class-based reflective minimal kernel
 
+''"The difference between classes and objects has been repeatedly emphasized. In the view presented here, these concepts belong to different worlds: the program text only contains classes; at run-time, only objects exist. This is not the only approach. One of the subcultures of object-oriented programming, influenced by Lisp and exemplified by Smalltalk, views classes as object themselves, which still have an existence at run-time."'' B. Meyer Object-Oriented Software Construction
+
+In this chapter we will explore a minimal reflective class-based kernel, inspired from ObjVlisp {cite=Coint86a} which was also inspired from
+the kernel of Smalltalk-78. 
+
+
+Studying this kernel is really worth since
+- It unifies class and instances (there is only one data structure to represent all objects classes included).
+- It is composed of only two classes ==Class== and ==Object==. 
+- It raises the question of meta-circularity infinite regression (a class is instance of another class....) and how to resolve it
+- It forces to revisit allocation, class and object initialization, message passing as well as bootstrap. 
+- It can be implemented in less than 30 methods in Pharo. 
+
+
+!!! ObjVLisp's six postulates
+
+The original ObjVlisp kernel is defined by 6 postulates {cite=Coint86a}. Some of them are looking dated by today standards and the 6th postulate is simply wrong. 
+Here we report them as stated in the paper for sake of historical perspective. 
+
+# An object represents a piece of knowledge and a set of capabilities.
+# The only protocol to activate an object is message pass- ing : a message specifies which procedure to apply (denoted by its name, the selector) and its arguments.
+# Every object belongs to a class that specifies its data (attributes called fields) and its behavior (procedures called methods). Objects will be dynamically gener- ated from this model, they are called instances of the class. Following Plato, all instances of a class have same structure and shape, but differ through the val- ues of their common instance variables.
+# A class is also an object, instantiated by another class, called its metaclass. Consequently (P3), to each class is associated a metaclass which describes its behavior as an object. The initial primitive metaclass is the class Class, built as its own instance.
+# A class can be defined as a subclass of one (or many) other clsss(es). This subclassing mechanism allows sharing of instance variables and methods, and is called inheritance. The class Object represents the most common behavior shared by all objects.
+# If the instance variables owned by an object define a local environment, there are also class variables defining a global environment shared by all the instances of a same class. These class variables are defined at the metaclass level according to the following equation: class variable [an-object] = instance variable [an-object’s class].
+
++ObjVlisp kernel.>file://figures/ObjVlisp.png|width=60|label=fig:ObjVlisp+
+
+!!! Kernel overview
+
+Contrary to a real kernel, we do not consider arrays, strings, numbers or any other elementary objects as part of the kernel as this is the case in a real bootstrap such as the one of Pharo. 
+*@fig:ObjVlisp* shows the two core classes of the kernel: ==Object== which is the root of the inheritance graph and is instance of ==Class==. ==Class== is the first class and root of the instantiation graph and instance of itself as we will see later. 
+
+ Figure *fig:ObjVlispSingleton* shows that the class ==Workstation== is an instance of the class ==Class== since it is a class and it inherits from ==Object== the default behavior objects should exhibit. In addition the class ==WithSingleton== is an instance of the class ==Class== but in addition it inherits from ==Class== since this is a metaclass: its instances are classes. As such it changes the behavior of classes. The class ==SpecialWorkstation== is an instance of the class ==WithSingleton== and inherits from ==Workstation== since its instances exhibits the same behavior as ==Workstation==.
+
++ObjVlisp kernel with specialized metaclasses.>file://figures/ObjVlispSingleton.png|width=70|label=fig:ObjVlispSingleton+
+
+The following two diagrams fig:ObjVlispSingleton and *@fig:kernel2* and will be explained step by step during all this chapter. What is interesting to see is that a key to understand such reflective architecture is to use the fact that message passing always looks up method in the class of their receiver and then follow the inheritance chain as shown in Figure *@fig:kernel2*.
+
++Understanding metaclasses using message passing.>file://figures/ObjVlispSingleton2.png|width=70|label=fig:ObjVlispSingleton2+
+
+
+!!! Instances
+
+In this kernel, there is only one instantiation link, it is applied at all the levels as shown by Figure  *@fig:Instantiation*: 
+%+Simple instances.>file://figures/Ref-Instances.png|width=50|label=fig:Instances+
+- Terminal instances such a workstation named ==mac1== is an instance of the class ==Workstation==. 
+- Classes are also objects instances of other classes: ==Workstation== is an instance of the class ==Class==. 
+
+
++Instantiation of chain.>file://figures/Ref-InstantiationLink.png|width=70|label=fig:Instantiation+
+
++Looking at objects.>file://figures/Ref-InstanceGlobalPicture.png|width=70|label=fig:Instanceshier+
+
+!!!! Handling infinite recursion
+
+- A class is an object therefore instance of another class its metaclass that is an object too instance of a metametaclass that is an object too instance of another a metametametaclass......
+- To stop this potential infinite recursion 
+- Class is the initial class and metaclass
+- Class is instance of itself and all other metaclasses are instances of Class
+
+!!!! Unifying class/instance
+-Every object is instance of a class
+-A class is an object instance of a metaclass (P4)
+-But all the objects are not classes
+-Only one kind of objects without distinction between classes and final instances.
+
+!!!! Metaclass 
+-Every object is instance of a class
+-A class is an object instance of a metaclass (P4)
+-But all the objects are not classes
+-Only one kind of objects without distinction between classes and final instances.
+
+Sole difference is the ability to respond to the creation message: new. Only a class knows how to deal with it.
+A metaclass is only a class that generates classes
+
++Instantiation patatoid.>file://figures/Ref-InstantiationLink.png|width=70|label=fig:Instantiation+
 
 
 
-
-
-
-Delegation can be easily implemented with anonymous classes. When an object delegates to another one, it means that when a method is not found in its method pool, the lookup should look in the ones of his parent or prototype. We will reuse the Pharo method dispatch and dynamically change the superclass chain as shown in Figure *@fig:delegationAnoPrinciple*.
-When ==o2== delegates to ==o1==, its behavior should point to the one of ==o1== (notice that in Propha state is not shared by delegation). At the implementation level, the superclass of anonymous class of ==o2== will point the anonymous class of ==o1==.
-
-
-+Message passing .>file://figures/Ref-MsgPassing.png|width=90|label=fig:MsgPassing+
-
-!!! Kernel
-+ObjVlisp Kernel.>file://figures/ObjVlisp.png|width=90|label=fig:ObjVlisp+
-
-+ObjVlisp kernel with specialized metaclasses.>file://figures/ObjVlispSingleton.png|width=90|label=fig:ObjVlispSingleton+
-
-+ObjVlisp kernel with specialized metaclasses explained.>file://figures/ObjVlispSingleton2.png|width=90|label=fig:ObjVlispSingleton2+
-
-
-+ObjVlisp kernel.>file://figures/Ref-KernelTwo.png|width=90|label=fig:kernel2+
-
-!!! Instance of
-
-+Simple instances.>file://figures/Ref-Instances.png|width=90|label=fig:Instances+
-
-+Instantiation of chain.>file://figures/Ref-InstantiationLink.png|width=90|label=fig:Instantiation+
-
-+Looking at objects.>file://figures/Ref-InstanceGlobalPicture.png|width=90|label=fig:Instanceshier+
 
 
 !!! Sending a message
+
++Message passing .>file://figures/Ref-MsgPassing.png|width=60|label=fig:MsgPassing+
 
 +Sending a message.>file://figures/Ref-LookupNoError.png|width=90|label=fig:LookupNoError+
 
@@ -44,8 +97,11 @@ When ==o2== delegates to ==o1==, its behavior should point to the one of ==o1== 
 
 
 !!! Instantiation hierarchy
-+Full instance hierarchy.>file://figures/Ref-InstanceGlobalPictureWithObject.png|width=90|label=fig:Instanceshier+
++Full instance hierarchy.>file://figures/Ref-InstanceGlobalPictureWithObject.png|width=60|label=fig:Instanceshier+
 
+!!! Inheritance and instantiation
+
++ObjVlisp kernel with specialized metaclasses explained.>file://figures/Ref-KernelTwo.png|width=70|label=fig:kernel2+
 
 !!! Instance creation: Role of the metaclass
 
@@ -62,3 +118,10 @@ When ==o2== delegates to ==o1==, its behavior should point to the one of ==o1== 
 +Abstract metaclass.>file://figures/Ref-Abstract.png|width=90|label=fig:Abstract+
 
 +Abstract metaclass at work.>file://figures/Ref-AbstractLookup.png|width=90|label=fig:AbstractLookup+
+
+
+
+!!! Further readings
+
+The kernel presented inIt is a kernel with explicit metaclasses and as such it raised metaclass composition problems as explained in Bouraqadi et al. 
+excellent article {cite=Bour98a}
