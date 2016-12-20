@@ -53,7 +53,7 @@
 	<array>
 		<dict>
 			<key>Bounds</key>
-			<string>{{249.827, 166.91799499999999}, {99, 19}}</string>
+			<string>{{249.827, 185.91799499999999}, {99, 19}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -123,8 +123,8 @@
 			<integer>80</integer>
 			<key>Points</key>
 			<array>
-				<string>{255.20518175041477, 373.52926458994875}</string>
-				<string>{216.51556887917107, 337.50372541005129}</string>
+				<string>{255.20518175041477, 392.52926458994875}</string>
+				<string>{216.51556887917116, 356.50372541005135}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -148,7 +148,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{234.673, 373.86999500000002}, {121, 73.75}}</string>
+			<string>{{234.673, 392.86999500000002}, {121, 73.75}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -185,7 +185,7 @@ mac3}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{249.827, 343.45699500000001}, {99, 19}}</string>
+			<string>{{249.827, 362.45699500000001}, {99, 19}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -255,8 +255,8 @@ mac3}</string>
 			<integer>77</integer>
 			<key>Points</key>
 			<array>
-				<string>{131.38471358056611, 373.37068897774611}</string>
-				<string>{133.26806251114101, 337.66230102225393}</string>
+				<string>{131.38471358056611, 392.37068897774611}</string>
+				<string>{133.26806251114101, 356.66230102225393}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -280,7 +280,7 @@ mac3}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{77.653999999999996, 459.03299510681154}, {228, 19}}</string>
+			<string>{{77.653999999999996, 478.03299510681154}, {228, 19}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -333,7 +333,7 @@ mac3}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{56.5, 373.86999500000002}, {145.827, 73.75}}</string>
+			<string>{{56.5, 392.86999500000002}, {145.827, 73.75}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -387,8 +387,8 @@ mac1\
 			<integer>74</integer>
 			<key>Points</key>
 			<array>
-				<string>{520.63055172272027, 262.93820913966817}</string>
-				<string>{509.47004465360351, 218.72887925510543}</string>
+				<string>{520.38143754055568, 281.93859859564458}</string>
+				<string>{509.07212328471729, 237.72939428488934}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -429,8 +429,8 @@ mac1\
 			<integer>73</integer>
 			<key>Points</key>
 			<array>
-				<string>{247.30276281224559, 220.97872606847227}</string>
-				<string>{373.3612568582912, 172.16484259440131}</string>
+				<string>{247.30259408137528, 239.86052430595794}</string>
+				<string>{373.36090182082683, 190.91134018450194}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -459,7 +459,7 @@ mac1\
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{518.31700000000001, 239}, {120, 19}}</string>
+					<string>{{518.31700000000001, 258}, {120, 19}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -512,7 +512,7 @@ mac1\
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{429.654, 263.423}, {219.327, 147.077}}</string>
+					<string>{{429.654, 282.423}, {219.327, 147.077}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>ID</key>
@@ -564,7 +564,7 @@ methods(distance:...)}</string>
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{0, 165.662995}, {168, 19}}</string>
+					<string>{{0, 184.66299500000002}, {168, 19}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -617,7 +617,7 @@ methods(distance:...)}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{27.509499999999999, 190.08599500000003}, {219.327, 147.077}}</string>
+					<string>{{27.509499999999999, 209.08599500000003}, {219.327, 147.077}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>ID</key>
@@ -669,7 +669,7 @@ methods(accept: send:..}</string>
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{310.49999584960938, -5.8286708792820718e-16}, {99, 19}}</string>
+					<string>{{310.49999584960938, 19.000000000000014}, {99, 19}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -745,10 +745,10 @@ methods(accept: send:..}</string>
 					<real>0.80864042043685913</real>
 					<key>Points</key>
 					<array>
-						<string>{420.77085500362602, 37.762276355414691}</string>
-						<string>{408.15399584960937, 20.244995000000003}</string>
-						<string>{313.15399584960937, 106.244995}</string>
-						<string>{373.33098751083935, 113.89480298374679}</string>
+						<string>{420.77085500362602, 56.762276355414691}</string>
+						<string>{408.15399584960937, 39.244995000000017}</string>
+						<string>{313.15399584960937, 125.24499500000002}</string>
+						<string>{373.33098751083935, 132.89480298374679}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -774,7 +774,7 @@ methods(accept: send:..}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{373.82699584960938, 38.167995000000019}, {224.173, 180.077}}</string>
+					<string>{{373.82699584960938, 57.167995000000019}, {224.173, 180.077}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>ID</key>
@@ -817,7 +817,7 @@ methods(new  allocate..)}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{249.82699584960938, 138.74499500000002}, {123, 19}}</string>
+					<string>{{249.82699584960938, 157.74499500000002}, {123, 19}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -920,7 +920,7 @@ methods(new  allocate..)}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2016-12-19 20:48:07 +0000</string>
+	<string>2016-12-20 07:17:14 +0000</string>
 	<key>Modifier</key>
 	<string>ducasse</string>
 	<key>NotesVisible</key>
@@ -1001,7 +1001,7 @@ methods(new  allocate..)}</string>
 			</dict>
 		</array>
 		<key>Frame</key>
-		<string>{{966, 504}, {1391, 1053}}</string>
+		<string>{{1305, 320}, {1255, 777}}</string>
 		<key>ListView</key>
 		<true/>
 		<key>OutlineWidth</key>
@@ -1015,7 +1015,7 @@ methods(new  allocate..)}</string>
 		<key>SidebarWidth</key>
 		<integer>120</integer>
 		<key>VisibleRegion</key>
-		<string>{{-69, -64}, {1256, 911}}</string>
+		<string>{{0, 0}, {1106, 620}}</string>
 		<key>Zoom</key>
 		<real>1</real>
 		<key>ZoomValues</key>

@@ -46,11 +46,13 @@ The following two diagrams fig:ObjVlispSingleton and *@fig:kernel2* and will be 
 
 In this kernel, there is only one instantiation link, it is applied at all the levels as shown by Figure  *@fig:Instantiation*: 
 %+Simple instances.>file://figures/Ref-Instances.png|width=50|label=fig:Instances+
-- Terminal instances such a workstation named ==mac1== is an instance of the class ==Workstation==. 
-- Classes are also objects instances of other classes: ==Workstation== is an instance of the class ==Class==. 
+- Terminal instances are obviously objects: a workstation named ==mac1== is an instance of the class ==Workstation==, a point ==10@20== is instance of the class ==Point==. 
+- Classes are also objects instances of other classes: the class ==Workstation== is an instance of the class ==Class==, the class ==Point== is an instance of the class ==Class==.
 
++Chain of instantiation: classes are objects too.>file://figures/Ref-InstantiationLink.png|width=70|label=fig:Instantiation+
 
-+Instantiation of chain.>file://figures/Ref-InstantiationLink.png|width=70|label=fig:Instantiation+
+In our diagram, we represent objects (mainly terminal instances) as round corner rectangles with the list of variables.
+Since classes are objects, when we want to stress that classes are objects we use the same graphical convention as shown in Figure *@fig:Instantiation*.
 
 +Looking at objects.>file://figures/Ref-InstanceGlobalPicture.png|width=70|label=fig:Instanceshier+
 
@@ -76,7 +78,7 @@ In this kernel, there is only one instantiation link, it is applied at all the l
 Sole difference is the ability to respond to the creation message: new. Only a class knows how to deal with it.
 A metaclass is only a class that generates classes
 
-+Instantiation patatoid.>file://figures/Ref-InstantiationLink.png|width=70|label=fig:Instantiation+
++Instantiation patatoid.>file://figures/instancePatatoid.png|width=70|label=fig:Instantiation+
 
 
 
