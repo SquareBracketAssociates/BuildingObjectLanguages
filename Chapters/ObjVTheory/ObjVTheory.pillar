@@ -2,7 +2,7 @@
 
 ''"The difference between classes and objects has been repeatedly emphasized. In the view presented here, these concepts belong to different worlds: the program text only contains classes; at run-time, only objects exist. This is not the only approach. One of the subcultures of object-oriented programming, influenced by Lisp and exemplified by Smalltalk, views classes as object themselves, which still have an existence at run-time."'' B. Meyer Object-Oriented Software Construction
 
-In this chapter we will explore a minimal reflective class-based kernel, inspired from ObjVlisp {cite=Coint86a} which was also inspired from
+In this chapter we will explore a minimal reflective class-based kernel, inspired from ObjVlisp ${cite:Coint86a}$ which was also inspired from
 the kernel of Smalltalk-78. 
 
 
@@ -16,7 +16,7 @@ Studying this kernel is really worth since
 
 !!! ObjVLisp's six postulates
 
-The original ObjVlisp kernel is defined by 6 postulates {cite=Coint86a}. Some of them are looking dated by today standards and the 6th postulate is simply wrong. 
+The original ObjVlisp kernel is defined by 6 postulates ${cite:Coint86a}$. Some of them are looking dated by today standards and the 6th postulate is simply wrong. 
 Here we report them as stated in the paper for sake of historical perspective. 
 
 # An object represents a piece of knowledge and a set of capabilities.
@@ -37,7 +37,7 @@ Contrary to a real kernel, we do not consider arrays, strings, numbers or any ot
 
 +ObjVlisp kernel with specialized metaclasses.>file://figures/ObjVlispSingleton.png|width=70|label=fig:ObjVlispSingleton+
 
-The following two diagrams fig:ObjVlispSingleton and *@fig:kernel2* and will be explained step by step during all this chapter. What is interesting to see is that a key to understand such reflective architecture is to use the fact that message passing always looks up method in the class of their receiver and then follow the inheritance chain as shown in Figure *@fig:kernel2*.
+The following two diagrams *@fig:ObjVlispSingleton* and *@fig:kernel2* and will be explained step by step during all this chapter. What is interesting to see is that a key to understand such reflective architecture is to use the fact that message passing always looks up method in the class of their receiver and then follow the inheritance chain as shown in Figure *@fig:kernel2*.
 
 +Understanding metaclasses using message passing.>file://figures/ObjVlispSingleton2.png|width=70|label=fig:ObjVlispSingleton2+
 
@@ -54,20 +54,16 @@ In this kernel, there is only one instantiation link, it is applied at all the l
 In our diagram, we represent objects (mainly terminal instances) as round corner rectangles with the list of variables.
 Since classes are objects, when we want to stress that classes are objects we use the same graphical convention as shown in Figure *@fig:Instantiation*.
 
-+Looking at objects.>file://figures/Ref-InstanceGlobalPicture.png|width=70|label=fig:Instanceshier+
++When we look at classes as objects.>file://figures/Ref-InstanceGlobalPicture.png|width=70|label=fig:Instanceshier+
+
+
+
 
 !!!! Handling infinite recursion
 
-- A class is an object therefore instance of another class its metaclass that is an object too instance of a metametaclass that is an object too instance of another a metametametaclass......
-- To stop this potential infinite recursion 
-- Class is the initial class and metaclass
-- Class is instance of itself and all other metaclasses are instances of Class
-
-!!!! Unifying class/instance
--Every object is instance of a class
--A class is an object instance of a metaclass (P4)
--But all the objects are not classes
--Only one kind of objects without distinction between classes and final instances.
+A class is an object therefore instance of another class its metaclass that is an object too instance of a metametaclass that is an object too instance of another a metametametaclass...... To stop this potential infinite recursion is similar to solutions proposed in many meta circular systems: we have one entity instance or described by itself. Here: 
+- ==Class== is the initial class and metaclass.
+- ==Class== is instance of itself and directly or undirectly all other metaclasses are instances of ==Class==.
 
 !!!! Metaclass 
 -Every object is instance of a class
@@ -79,6 +75,14 @@ Sole difference is the ability to respond to the creation message: new. Only a c
 A metaclass is only a class that generates classes
 
 +Instantiation patatoid.>file://figures/instancePatatoid.png|width=70|label=fig:Instantiation+
+
+
+
+!!!! Unifying class/instance
+-Every object is instance of a class
+-A class is an object instance of a metaclass (P4)
+-But all the objects are not classes
+-Only one kind of objects without distinction between classes and final instances.
 
 
 
@@ -126,4 +130,4 @@ A metaclass is only a class that generates classes
 !!! Further readings
 
 The kernel presented inIt is a kernel with explicit metaclasses and as such it raised metaclass composition problems as explained in Bouraqadi et al. 
-excellent article {cite=Bour98a}
+excellent article ${cite:Bour98a}$
