@@ -2,9 +2,7 @@
 
 ''"The difference between classes and objects has been repeatedly emphasized. In the view presented here, these concepts belong to different worlds: the program text only contains classes; at run-time, only objects exist. This is not the only approach. One of the subcultures of object-oriented programming, influenced by Lisp and exemplified by Smalltalk, views classes as object themselves, which still have an existence at run-time."'' B. Meyer Object-Oriented Software Construction
 
-In this chapter we will explore a minimal reflective class-based kernel, inspired from ObjVlisp ${cite:Coint86a}$ which was also inspired from
-the kernel of Smalltalk-78. 
-
+In this chapter we will explore a minimal reflective class-based kernel, inspired from ObjVlisp  ${cite:Coint86a}$. ObjVlisp has explicit metaclasses and supports metaclass reuse. It was inspired from the kernel of Smalltalk-78. In comparison Pharo has implicit metaclasses and no metaclass reuse except by basic inheritance but it is more stable as explained by Bouraqadi et al ${cite:Bour98a}$.
 
 Studying this kernel is really worth since
 - It unifies class and instances (there is only one data structure to represent all objects classes included).
@@ -14,14 +12,16 @@ Studying this kernel is really worth since
 - It can be implemented in less than 30 methods in Pharo. 
 
 
+Just remember that this kernel is self described so we will start to explain some aspects and since everything is linked you may have to read the chapter twice to fully get it. 
+
 !!! ObjVLisp's six postulates
 
 The original ObjVlisp kernel is defined by 6 postulates ${cite:Coint86a}$. Some of them are looking dated by today standards and the 6th postulate is simply wrong. 
 Here we report them as stated in the paper for sake of historical perspective. 
 
 # An object represents a piece of knowledge and a set of capabilities.
-# The only protocol to activate an object is message pass- ing : a message specifies which procedure to apply (denoted by its name, the selector) and its arguments.
-# Every object belongs to a class that specifies its data (attributes called fields) and its behavior (procedures called methods). Objects will be dynamically gener- ated from this model, they are called instances of the class. Following Plato, all instances of a class have same structure and shape, but differ through the val- ues of their common instance variables.
+# The only protocol to activate an object is message passing : a message specifies which procedure to apply (denoted by its name, the selector) and its arguments.
+# Every object belongs to a class that specifies its data (attributes called fields) and its behavior (procedures called methods). Objects will be dynamically generated from this model, they are called instances of the class. Following Plato, all instances of a class have same structure and shape, but differ through the values of their common instance variables.
 # A class is also an object, instantiated by another class, called its metaclass. Consequently (P3), to each class is associated a metaclass which describes its behavior as an object. The initial primitive metaclass is the class Class, built as its own instance.
 # A class can be defined as a subclass of one (or many) other clsss(es). This subclassing mechanism allows sharing of instance variables and methods, and is called inheritance. The class Object represents the most common behavior shared by all objects.
 # If the instance variables owned by an object define a local environment, there are also class variables defining a global environment shared by all the instances of a same class. These class variables are defined at the metaclass level according to the following equation: class variable [an-object] = instance variable [an-object’s class].
@@ -54,7 +54,6 @@ In this kernel, there is only one instantiation link, it is applied at all the l
 In our diagram, we represent objects (mainly terminal instances) as round corner rectangles with the list of variables.
 Since classes are objects, when we want to stress that classes are objects we use the same graphical convention as shown in Figure *@fig:Instantiation*.
 
-+When we look at classes as objects.>file://figures/Ref-InstanceGlobalPicture.png|width=70|label=fig:Instanceshier+
 
 
 
@@ -65,36 +64,139 @@ A class is an object therefore instance of another class its metaclass that is a
 - ==Class== is the initial class and metaclass.
 - ==Class== is instance of itself and directly or undirectly all other metaclasses are instances of ==Class==.
 
-!!!! Metaclass 
--Every object is instance of a class
--A class is an object instance of a metaclass (P4)
--But all the objects are not classes
--Only one kind of objects without distinction between classes and final instances.
+We will see later the implication of this self instantiation at the level of the class structure itself. 
 
-Sole difference is the ability to respond to the creation message: new. Only a class knows how to deal with it.
-A metaclass is only a class that generates classes
+!!! Understanding metaclasses 
 
-+Instantiation patatoid.>file://figures/instancePatatoid.png|width=70|label=fig:Instantiation+
+The model unifies classes and instances. When we follow the instance related postulates of the kernel we get:
+- Every object is instance of a class.
+- A class is an object instance of a metaclass.
+- A metaclass is only a class that generates classes.
+
+At the implementation level there is only one kind of entity: objects. There is no special treatment for classes. Classes are instantiated following the same process than terminal instances. There are sent messages the same way other objects are sent messages too. 
+
+This unification between instances and classes does not mean that we do not distinguish objects and classes. 
+Indeed not all the objects are not classes. In particular, the sole difference is the ability to respond to the creation message: ==new==. Only a class knows how to deal with it. Then metaclass are just classes whose instances are classes as shown in Figure *@fig:Instantiation*.
+
++Everything is an object. Classes are just objects which can create other objects and metaclasses are just classes whose instances are classes.>file://figures/instancePatatoid.png|width=50|label=fig:Instantiation+
+
+
+!!! Instance structure 
+
+The model does not really bring anything new about instance structure when compared with languages such as Pharo or Java.
+
+Instance variables are an ordered sequence of instance variables defined by a class. Such 
+instance variables are  shared by all instances.
+The values of such instance variables are specific to each instance. 
+Figure *@fig:Ref-Instances* shows that instances of ==Workstation== have two values: a names and a next node. 
+
+
++Instances of ==Workstation== have two values: their names and their next node.>file://figures/Ref-Instances.png|width=60|label=fig:Ref-Instances+
+
+In addition we should note that an object has a pointer to its class. As we will see when we will come to inheritance,  every object possesses an instance variable class (inherited from ==Object==) that points to its class. 
+
+
+Note that this management of class instance variable defined in ==Object== is specific to the model. 
+In Pharo for example, the class identification is not managed as a declared instance variable but as an element part of any object. It is an index in a class-table.
+
+!!! About behavior
+
+Les us continue with basic instance behavior. As in modern class-based languages, this kernel has to represent how methods are stored and looked up. 
+
+Methods belong to a class. They define the behavior of all the instances of the class.
+They are stored into a method dictionary that associates a key (the method selector) and the method body. 
+
+Since the methods are stored in a class, the method dictionary should be described in the metaclass. Therefore, the method dictionary of a class is the ''value'' of the instance variable ==methodDict== defined on the metaclass ==Class==. Each class will have its own method dictionary.
+
+!!! Class as an object
+
+Now it is time to ask us the minimal information that a class should have. 
+Here is the minimal information required:
+- A list of instance variables to describe the values that the instances will hold. 
+- A method dictionary to hold methods.
+- A superclass to look up inherited methods.
+
+This minimal state is similar to the one of Pharo: Pharo ==Behavior== class has a format (compact description of instance variables), method dictionary and superclass link. 
+
+In our kernel we will had a name so that we can identify the class. As an instance factory the metaclass Class possesses 4 instance variables that describe a class:
+- name the class name
+- superclass its superclass (we limit to single inheritance)
+- i-v the list of its instance variables 
+- methodDict a method dictionary
+
+Since a class is an object. A class possesses the instance variable ==class== inherited from ==Object== that refers to its class as any object.
+
++==Point== as an object.>file://figures/Ref-PointClassAsObject.pdf|width=60|label=fig:PointClassAsObject+
+
+!!!! Example: class Point
+
+Figure *@fig:PointClassAsObject* shows the instance variable values for the class ==Point== as declared by the programmer and before class initialization and inheritance takes place. 
+
+- It is an instance of class ==Class==: indeed this is a class.
+- It is named =='Point'==.
+- It inherits from ==Object==.
+- It has two instance variables: x and y. After inheritance it will be three instance variables: class, x, and y.
+- It has a method dictionary. 
+
+
++==Class== as an object.>file://figures/Ref-ClassClassAsObject.pdf|width=60|label=fig:ClassClassAsObject+
+
+!!!! Example: class Class
+
+Figure *@fig:ClassClassAsObject* describes the class ==Class== itself. Indeed it is also an object.
+- It is an instance of class ==Class==: indeed this is a class.
+- It is named =='Class'==.
+- It inherits from ==Object==
+- It has five instance variables: 'name superclass i-v methodDict'.  
+- It has a method dictionary. 
 
 
 
-!!!! Unifying class/instance
--Every object is instance of a class
--A class is an object instance of a metaclass (P4)
--But all the objects are not classes
--Only one kind of objects without distinction between classes and final instances.
+!!!! Everything is an object
 
+Figure *@fig:Instanceshier* describes a typical situation of terminal instances, class and metaclasses when looked at them using an object perspective.
+
++When we look at classes as objects.>file://figures/Ref-InstanceGlobalPicture.png|width=70|label=fig:Instanceshier+
+
+
+
+
+!!! Class class (to be put later)
+
+Now we get a better understanding of what is the class ==Class==.
+The class ==Class== is 
+- Initial metaclass
+- It defines the behavior of all the metaclasses.
+- It defines the behavior of all the classes.
+
+In particular, metaclasses defines three messages related to instance creation. 
+- The ==new== creates an initialized instance of the class. It allocates the object using the class message ==allocate== and then initialize it by sending the message ==initialize== to the instance. 
+- The ==allocate== message. As message ==new== it is a class message. It allocates structure for newly created object. 
+
+- Finally the message ==initialize==. This message has two definitions one on ==Object== and one on ==Class==. 
+
+There is a difference between the method ==initialize== executed on an instance creation and the class ==initialize== method. 
+
+- The first one is a method defined on the class of the object and potentially inherited from ==Object==. On ==Object== this ==initialize== method just extract from the argument list the value corresponding to each instance variables and sets them in the corresponding instance variables. 
+
+- The class ==initialize== method is executed when a new instance representing a class is executed. The message initialize is sent to the newly created object but its specialisation for classes will be found during method lookup and it will be executed. Usually this method invokes the default ones because the class parameter should be extracted from the argument list and set in their corresponding instance variables but in addition, instance variable inheritance and class declaration in the class namespace is performed. 
+
+
+!!! Inheritance
 
 
 
 
 !!! Sending a message
 
-+Message passing .>file://figures/Ref-MsgPassing.png|width=60|label=fig:MsgPassing+
+Only message. Methods are all virtual public. 
 
-+Sending a message.>file://figures/Ref-LookupNoError.png|width=90|label=fig:LookupNoError+
 
-+Sending an erronous message.>file://figures/Ref-LookupWithError.png|width=90|label=fig:LookupWithError+
++Sending a message.>file://figures/Ref-LookupNoError.png|width=80|label=fig:LookupNoError+
+
++Sending an erronous message.>file://figures/Ref-LookupWithError.png|width=80|label=fig:LookupWithError+
+
+
 
 !!! Full inheritance 
 
