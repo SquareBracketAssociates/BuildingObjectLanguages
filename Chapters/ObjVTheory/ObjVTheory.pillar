@@ -156,7 +156,7 @@ Figure *@fig:ClassClassAsObject* describes the class ==Class== itself. Indeed it
 
 Figure *@fig:Instanceshier* describes a typical situation of terminal instances, class and metaclasses when looked at them using an object perspective.
 
-+When we look at classes as objects.>file://figures/Ref-InstanceGlobalPicture.png|width=70|label=fig:Instanceshier+
++Through the prism of objects.>file://figures/Ref-InstanceGlobalPicture.png|width=70|label=fig:Instanceshier+
 
 
 
@@ -184,7 +184,51 @@ There is a difference between the method ==initialize== executed on an instance 
 
 !!! Inheritance
 
+There are two aspects of inheritance: 
 
+- One static for the state where subclasses get superclass state. This instance variable inheritance happens once at class creation time. In traditional languages it happens at compilation-time. 
+
+- One dynamic for behavior where methods are looked up during program execution.  There the inheritance tree is walked at run-time. 
+
+Let's look at these two aspects:
+
+!!!! Instance variable inheritance
+
+Static for the instances variables
+Done once at the class creation
+When C is created, its instance variables are the union of the instance variables of its superclass with the instance variables defined in C.
+
+[[[
+final-instance-variables (C) =
+	OrderedUnion (iv (super C)), local-instance-variables(C))
+]]]
+
+!!!! Method lookup
+
+Walks through the inheritance graph between classes using the super instance variable
+
+[[[
+lookup (selector class receiver):
+	if the method  is found then return it
+	     else if class == Object
+		 then [receiver error selector]
+		   else lookup (selector super(class) receiver) 
+]]]
+		   
+the error method can be specialized to handle the error.
+
+A word on stack elements.... so better way
+A word on caches
+A word on DNU
+
+!!!! Inheritance graph
+
+Object is the root of the hierarchy.
+a Workstation is an object (should at least understand the minimal behavior), so Workstation inherits from Object
+a class is an object so Class inherits from Object
+In particular, class instance variable is inherited from Object class.
+
++Full inheritance graph.>file://figures/Ref-InheritanceGraph.png|width=90|label=fig:inheritancegraph+
 
 
 !!! Sending a message
@@ -200,7 +244,6 @@ Only message. Methods are all virtual public.
 
 !!! Full inheritance 
 
-+Full inheritance graph.>file://figures/Ref-InheritanceGraph.png|width=90|label=fig:inheritancegraph+
 
 
 
