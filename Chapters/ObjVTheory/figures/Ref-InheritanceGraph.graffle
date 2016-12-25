@@ -1,32 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>ActiveLayerIndex</key>
 	<integer>0</integer>
+	<key>ApplicationVersion</key>
+	<array>
+		<string>com.omnigroup.OmniGrafflePro</string>
+		<string>139.18.0.187838</string>
+	</array>
 	<key>AutoAdjust</key>
 	<false/>
-	<key>CanvasColor</key>
+	<key>BackgroundGraphic</key>
 	<dict>
-		<key>w</key>
-		<string>1</string>
+		<key>Bounds</key>
+		<string>{{0, 0}, {571, 818}}</string>
+		<key>Class</key>
+		<string>SolidGraphic</string>
+		<key>ID</key>
+		<integer>2</integer>
+		<key>Style</key>
+		<dict>
+			<key>shadow</key>
+			<dict>
+				<key>Draws</key>
+				<string>NO</string>
+			</dict>
+			<key>stroke</key>
+			<dict>
+				<key>Draws</key>
+				<string>NO</string>
+			</dict>
+		</dict>
 	</dict>
+	<key>BaseZoom</key>
+	<integer>0</integer>
 	<key>CanvasOrigin</key>
 	<string>{0, 0}</string>
-	<key>CanvasScale</key>
-	<real>1</real>
 	<key>ColumnAlign</key>
 	<integer>1</integer>
 	<key>ColumnSpacing</key>
 	<real>36</real>
 	<key>CreationDate</key>
-	<string>2005-08-25 15:05:56 +0200</string>
+	<string>2005-08-25 13:05:56 +0000</string>
 	<key>Creator</key>
 	<string>ducasse</string>
 	<key>DisplayScale</key>
-	<string>1 cm = 1 cm</string>
+	<string>1.000 cm = 1.000 cm</string>
 	<key>GraphDocumentVersion</key>
-	<integer>5</integer>
+	<integer>8</integer>
 	<key>GraphicsList</key>
 	<array>
 		<dict>
@@ -41,8 +63,8 @@
 			<integer>86</integer>
 			<key>Points</key>
 			<array>
-				<string>{271.553, 131.488}</string>
-				<string>{163.227, 121.716}</string>
+				<string>{357.77959999999996, 90.229192480973168}</string>
+				<string>{249.45319237060545, 80.457476195451434}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -50,6 +72,8 @@
 				<dict>
 					<key>HeadArrow</key>
 					<string>UMLInheritance</string>
+					<key>Legacy</key>
+					<true/>
 					<key>LineType</key>
 					<integer>1</integer>
 					<key>TailArrow</key>
@@ -76,8 +100,8 @@
 			<integer>85</integer>
 			<key>Points</key>
 			<array>
-				<string>{254.74, 257.5}</string>
-				<string>{152.235, 162.259}</string>
+				<string>{340.96624875569324, 216.24100000000001}</string>
+				<string>{238.46148650588944, 121}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -85,6 +109,8 @@
 				<dict>
 					<key>HeadArrow</key>
 					<string>UMLInheritance</string>
+					<key>Legacy</key>
+					<true/>
 					<key>LineType</key>
 					<integer>1</integer>
 					<key>TailArrow</key>
@@ -111,8 +137,8 @@
 			<integer>84</integer>
 			<key>Points</key>
 			<array>
-				<string>{107.727, 338.5}</string>
-				<string>{107.727, 302.38}</string>
+				<string>{193.95321373797628, 297.24099999999999}</string>
+				<string>{193.95321373797628, 261.12099999999998}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -120,6 +146,8 @@
 				<dict>
 					<key>HeadArrow</key>
 					<string>UMLInheritance</string>
+					<key>Legacy</key>
+					<true/>
 					<key>LineType</key>
 					<integer>1</integer>
 					<key>TailArrow</key>
@@ -146,8 +174,8 @@
 			<integer>83</integer>
 			<key>Points</key>
 			<array>
-				<string>{106.358, 222.38}</string>
-				<string>{104.301, 162.259}</string>
+				<string>{192.58446779284364, 181.12100000000001}</string>
+				<string>{190.52723480076787, 121}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -155,6 +183,8 @@
 				<dict>
 					<key>HeadArrow</key>
 					<string>UMLInheritance</string>
+					<key>Legacy</key>
+					<true/>
 					<key>LineType</key>
 					<integer>1</integer>
 					<key>TailArrow</key>
@@ -176,7 +206,7 @@
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{47.2266, 222.38}, {121, 20}}</string>
+					<string>{{133.45319999999998, 181.12100000000001}, {120.99999237060547, 20}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -198,10 +228,8 @@
 					<dict>
 						<key>fill</key>
 						<dict>
-							<key>GradientAngle</key>
-							<real>304</real>
 							<key>GradientCenter</key>
-							<string>{-0.294118, -0.264706}</string>
+							<string>{-0.29411799999999999, -0.264706}</string>
 						</dict>
 						<key>shadow</key>
 						<dict>
@@ -212,19 +240,21 @@
 					<key>Text</key>
 					<dict>
 						<key>Text</key>
-						<string>{\rtf1\mac\ansicpg10000\cocoartf824\cocoasubrtf330
-{\fonttbl\f0\fswiss\fcharset77 Helvetica-Bold;}
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+\cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\qc
 
 \f0\b\fs34 \cf0 Node}</string>
+						<key>VerticalPad</key>
+						<integer>0</integer>
 					</dict>
 					<key>TextPlacement</key>
 					<integer>0</integer>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{47.2266, 242.38}, {121, 40}}</string>
+					<string>{{133.45319999999998, 201.12100000000001}, {120.99999237060547, 40}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -246,10 +276,8 @@
 					<dict>
 						<key>fill</key>
 						<dict>
-							<key>GradientAngle</key>
-							<real>304</real>
 							<key>GradientCenter</key>
-							<string>{-0.294118, -0.264706}</string>
+							<string>{-0.29411799999999999, -0.264706}</string>
 						</dict>
 						<key>shadow</key>
 						<dict>
@@ -262,20 +290,22 @@
 						<key>Align</key>
 						<integer>0</integer>
 						<key>Text</key>
-						<string>{\rtf1\mac\ansicpg10000\cocoartf824\cocoasubrtf330
-{\fonttbl\f0\fswiss\fcharset77 Helvetica;}
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+\cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720
 
 \f0\fs34 \cf0 name\
 nextNode}</string>
+						<key>VerticalPad</key>
+						<integer>0</integer>
 					</dict>
 					<key>TextPlacement</key>
 					<integer>0</integer>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{47.2266, 282.38}, {121, 20}}</string>
+					<string>{{133.45319999999998, 241.12100000000001}, {120.99999237060547, 20}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -297,10 +327,8 @@ nextNode}</string>
 					<dict>
 						<key>fill</key>
 						<dict>
-							<key>GradientAngle</key>
-							<real>304</real>
 							<key>GradientCenter</key>
-							<string>{-0.294118, -0.264706}</string>
+							<string>{-0.29411799999999999, -0.264706}</string>
 						</dict>
 						<key>shadow</key>
 						<dict>
@@ -313,12 +341,14 @@ nextNode}</string>
 						<key>Align</key>
 						<integer>0</integer>
 						<key>Text</key>
-						<string>{\rtf1\mac\ansicpg10000\cocoartf824\cocoasubrtf330
-{\fonttbl\f0\fswiss\fcharset77 Helvetica;}
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+\cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720
 
 \f0\fs34 \cf0 accept:}</string>
+						<key>VerticalPad</key>
+						<integer>0</integer>
 					</dict>
 					<key>TextPlacement</key>
 					<integer>0</integer>
@@ -343,7 +373,7 @@ nextNode}</string>
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{42.2266, 70.259}, {121, 20}}</string>
+					<string>{{128.45319999999998, 29}, {120.99999237060547, 20}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -365,10 +395,8 @@ nextNode}</string>
 					<dict>
 						<key>fill</key>
 						<dict>
-							<key>GradientAngle</key>
-							<real>304</real>
 							<key>GradientCenter</key>
-							<string>{-0.294118, -0.264706}</string>
+							<string>{-0.29411799999999999, -0.264706}</string>
 						</dict>
 						<key>shadow</key>
 						<dict>
@@ -379,19 +407,21 @@ nextNode}</string>
 					<key>Text</key>
 					<dict>
 						<key>Text</key>
-						<string>{\rtf1\mac\ansicpg10000\cocoartf824\cocoasubrtf330
-{\fonttbl\f0\fswiss\fcharset77 Helvetica-Bold;}
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+\cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\qc
 
 \f0\b\fs34 \cf0 Object}</string>
+						<key>VerticalPad</key>
+						<integer>0</integer>
 					</dict>
 					<key>TextPlacement</key>
 					<integer>0</integer>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{42.2266, 90.259}, {121, 12}}</string>
+					<string>{{128.45319999999998, 49}, {120.99999237060547, 12}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -413,10 +443,8 @@ nextNode}</string>
 					<dict>
 						<key>fill</key>
 						<dict>
-							<key>GradientAngle</key>
-							<real>304</real>
 							<key>GradientCenter</key>
-							<string>{-0.294118, -0.264706}</string>
+							<string>{-0.29411799999999999, -0.264706}</string>
 						</dict>
 						<key>shadow</key>
 						<dict>
@@ -428,13 +456,15 @@ nextNode}</string>
 					<dict>
 						<key>Align</key>
 						<integer>0</integer>
+						<key>VerticalPad</key>
+						<integer>0</integer>
 					</dict>
 					<key>TextPlacement</key>
 					<integer>0</integer>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{42.2266, 102.259}, {121, 60}}</string>
+					<string>{{128.45319999999998, 61}, {120.99999237060547, 60}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -456,10 +486,8 @@ nextNode}</string>
 					<dict>
 						<key>fill</key>
 						<dict>
-							<key>GradientAngle</key>
-							<real>304</real>
 							<key>GradientCenter</key>
-							<string>{-0.294118, -0.264706}</string>
+							<string>{-0.29411799999999999, -0.264706}</string>
 						</dict>
 						<key>shadow</key>
 						<dict>
@@ -472,14 +500,16 @@ nextNode}</string>
 						<key>Align</key>
 						<integer>0</integer>
 						<key>Text</key>
-						<string>{\rtf1\mac\ansicpg10000\cocoartf824\cocoasubrtf330
-{\fonttbl\f0\fswiss\fcharset77 Helvetica;}
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+\cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720
 
 \f0\fs34 \cf0 error:\
 class?\
 iv-ref}</string>
+						<key>VerticalPad</key>
+						<integer>0</integer>
 					</dict>
 					<key>TextPlacement</key>
 					<integer>0</integer>
@@ -504,7 +534,7 @@ iv-ref}</string>
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{248.053, 257.5}, {121, 20}}</string>
+					<string>{{334.27960000000002, 216.24100000000001}, {121.00001525878906, 20}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -526,10 +556,8 @@ iv-ref}</string>
 					<dict>
 						<key>fill</key>
 						<dict>
-							<key>GradientAngle</key>
-							<real>304</real>
 							<key>GradientCenter</key>
-							<string>{-0.294118, -0.264706}</string>
+							<string>{-0.29411799999999999, -0.264706}</string>
 						</dict>
 						<key>shadow</key>
 						<dict>
@@ -540,19 +568,21 @@ iv-ref}</string>
 					<key>Text</key>
 					<dict>
 						<key>Text</key>
-						<string>{\rtf1\mac\ansicpg10000\cocoartf824\cocoasubrtf330
-{\fonttbl\f0\fswiss\fcharset77 Helvetica-Bold;}
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+\cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\qc
 
 \f0\b\fs34 \cf0 Point}</string>
+						<key>VerticalPad</key>
+						<integer>0</integer>
 					</dict>
 					<key>TextPlacement</key>
 					<integer>0</integer>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{248.053, 277.5}, {121, 40}}</string>
+					<string>{{334.27960000000002, 236.24099999999999}, {121.00001525878906, 40}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -574,10 +604,8 @@ iv-ref}</string>
 					<dict>
 						<key>fill</key>
 						<dict>
-							<key>GradientAngle</key>
-							<real>304</real>
 							<key>GradientCenter</key>
-							<string>{-0.294118, -0.264706}</string>
+							<string>{-0.29411799999999999, -0.264706}</string>
 						</dict>
 						<key>shadow</key>
 						<dict>
@@ -590,20 +618,22 @@ iv-ref}</string>
 						<key>Align</key>
 						<integer>0</integer>
 						<key>Text</key>
-						<string>{\rtf1\mac\ansicpg10000\cocoartf824\cocoasubrtf330
-{\fonttbl\f0\fswiss\fcharset77 Helvetica;}
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+\cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720
 
 \f0\fs34 \cf0 x\
 y}</string>
+						<key>VerticalPad</key>
+						<integer>0</integer>
 					</dict>
 					<key>TextPlacement</key>
 					<integer>0</integer>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{248.053, 317.5}, {121, 40}}</string>
+					<string>{{334.27960000000002, 276.24099999999999}, {121.00001525878906, 40}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -625,10 +655,8 @@ y}</string>
 					<dict>
 						<key>fill</key>
 						<dict>
-							<key>GradientAngle</key>
-							<real>304</real>
 							<key>GradientCenter</key>
-							<string>{-0.294118, -0.264706}</string>
+							<string>{-0.29411799999999999, -0.264706}</string>
 						</dict>
 						<key>shadow</key>
 						<dict>
@@ -641,13 +669,15 @@ y}</string>
 						<key>Align</key>
 						<integer>0</integer>
 						<key>Text</key>
-						<string>{\rtf1\mac\ansicpg10000\cocoartf824\cocoasubrtf330
-{\fonttbl\f0\fswiss\fcharset77 Helvetica;}
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+\cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720
 
 \f0\fs34 \cf0 distanceFrom:\
 ...}</string>
+						<key>VerticalPad</key>
+						<integer>0</integer>
 					</dict>
 					<key>TextPlacement</key>
 					<integer>0</integer>
@@ -672,7 +702,7 @@ y}</string>
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{271.553, 67.259}, {127.947, 20}}</string>
+					<string>{{357.77959999999996, 26}, {127.94699096679688, 20}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -694,10 +724,8 @@ y}</string>
 					<dict>
 						<key>fill</key>
 						<dict>
-							<key>GradientAngle</key>
-							<real>304</real>
 							<key>GradientCenter</key>
-							<string>{-0.294118, -0.264706}</string>
+							<string>{-0.29411799999999999, -0.264706}</string>
 						</dict>
 						<key>shadow</key>
 						<dict>
@@ -708,19 +736,21 @@ y}</string>
 					<key>Text</key>
 					<dict>
 						<key>Text</key>
-						<string>{\rtf1\mac\ansicpg10000\cocoartf824\cocoasubrtf330
-{\fonttbl\f0\fswiss\fcharset77 Helvetica-Bold;}
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+\cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\qc
 
 \f0\b\fs34 \cf0 Class}</string>
+						<key>VerticalPad</key>
+						<integer>0</integer>
 					</dict>
 					<key>TextPlacement</key>
 					<integer>0</integer>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{271.553, 87.259}, {127.947, 80}}</string>
+					<string>{{357.77959999999996, 46}, {127.94699096679688, 80}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -742,10 +772,8 @@ y}</string>
 					<dict>
 						<key>fill</key>
 						<dict>
-							<key>GradientAngle</key>
-							<real>304</real>
 							<key>GradientCenter</key>
-							<string>{-0.294118, -0.264706}</string>
+							<string>{-0.29411799999999999, -0.264706}</string>
 						</dict>
 						<key>shadow</key>
 						<dict>
@@ -758,22 +786,24 @@ y}</string>
 						<key>Align</key>
 						<integer>0</integer>
 						<key>Text</key>
-						<string>{\rtf1\mac\ansicpg10000\cocoartf824\cocoasubrtf330
-{\fonttbl\f0\fswiss\fcharset77 Helvetica;}
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+\cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720
 
 \f0\fs34 \cf0 name\
 superclass\
 iv\
 methodDict}</string>
+						<key>VerticalPad</key>
+						<integer>0</integer>
 					</dict>
 					<key>TextPlacement</key>
 					<integer>0</integer>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{271.553, 167.259}, {127.947, 40}}</string>
+					<string>{{357.77959999999996, 126}, {127.94699096679688, 40}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -795,10 +825,8 @@ methodDict}</string>
 					<dict>
 						<key>fill</key>
 						<dict>
-							<key>GradientAngle</key>
-							<real>304</real>
 							<key>GradientCenter</key>
-							<string>{-0.294118, -0.264706}</string>
+							<string>{-0.29411799999999999, -0.264706}</string>
 						</dict>
 						<key>shadow</key>
 						<dict>
@@ -811,13 +839,15 @@ methodDict}</string>
 						<key>Align</key>
 						<integer>0</integer>
 						<key>Text</key>
-						<string>{\rtf1\mac\ansicpg10000\cocoartf824\cocoasubrtf330
-{\fonttbl\f0\fswiss\fcharset77 Helvetica;}
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+\cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720
 
 \f0\fs34 \cf0 new\
 allocate}</string>
+						<key>VerticalPad</key>
+						<integer>0</integer>
 					</dict>
 					<key>TextPlacement</key>
 					<integer>0</integer>
@@ -842,7 +872,7 @@ allocate}</string>
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{47.2266, 338.5}, {121, 20}}</string>
+					<string>{{133.45319999999998, 297.24099999999999}, {120.99999237060547, 20}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -864,10 +894,8 @@ allocate}</string>
 					<dict>
 						<key>fill</key>
 						<dict>
-							<key>GradientAngle</key>
-							<real>304</real>
 							<key>GradientCenter</key>
-							<string>{-0.294118, -0.264706}</string>
+							<string>{-0.29411799999999999, -0.264706}</string>
 						</dict>
 						<key>shadow</key>
 						<dict>
@@ -878,19 +906,21 @@ allocate}</string>
 					<key>Text</key>
 					<dict>
 						<key>Text</key>
-						<string>{\rtf1\mac\ansicpg10000\cocoartf824\cocoasubrtf330
-{\fonttbl\f0\fswiss\fcharset77 Helvetica-Bold;}
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+\cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\qc
 
 \f0\b\fs34 \cf0 Workstation}</string>
+						<key>VerticalPad</key>
+						<integer>0</integer>
 					</dict>
 					<key>TextPlacement</key>
 					<integer>0</integer>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{47.2266, 358.5}, {121, 12}}</string>
+					<string>{{133.45319999999998, 317.24099999999999}, {120.99999237060547, 12}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -912,10 +942,8 @@ allocate}</string>
 					<dict>
 						<key>fill</key>
 						<dict>
-							<key>GradientAngle</key>
-							<real>304</real>
 							<key>GradientCenter</key>
-							<string>{-0.294118, -0.264706}</string>
+							<string>{-0.29411799999999999, -0.264706}</string>
 						</dict>
 						<key>shadow</key>
 						<dict>
@@ -927,13 +955,15 @@ allocate}</string>
 					<dict>
 						<key>Align</key>
 						<integer>0</integer>
+						<key>VerticalPad</key>
+						<integer>0</integer>
 					</dict>
 					<key>TextPlacement</key>
 					<integer>0</integer>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{47.2266, 370.5}, {121, 40}}</string>
+					<string>{{133.45319999999998, 329.24099999999999}, {120.99999237060547, 40}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -955,10 +985,8 @@ allocate}</string>
 					<dict>
 						<key>fill</key>
 						<dict>
-							<key>GradientAngle</key>
-							<real>304</real>
 							<key>GradientCenter</key>
-							<string>{-0.294118, -0.264706}</string>
+							<string>{-0.29411799999999999, -0.264706}</string>
 						</dict>
 						<key>shadow</key>
 						<dict>
@@ -971,13 +999,15 @@ allocate}</string>
 						<key>Align</key>
 						<integer>0</integer>
 						<key>Text</key>
-						<string>{\rtf1\mac\ansicpg10000\cocoartf824\cocoasubrtf330
-{\fonttbl\f0\fswiss\fcharset77 Helvetica;}
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+\cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720
 
 \f0\fs34 \cf0 send:\
 accept:}</string>
+						<key>VerticalPad</key>
+						<integer>0</integer>
 					</dict>
 					<key>TextPlacement</key>
 					<integer>0</integer>
@@ -1011,8 +1041,6 @@ accept:}</string>
 	<integer>1</integer>
 	<key>ImageCounter</key>
 	<integer>1</integer>
-	<key>IsPalette</key>
-	<string>NO</string>
 	<key>KeepToScale</key>
 	<false/>
 	<key>Layers</key>
@@ -1030,90 +1058,27 @@ accept:}</string>
 	</array>
 	<key>LayoutInfo</key>
 	<dict>
-		<key>ChildOrdering</key>
-		<integer>0</integer>
-		<key>LayoutTarget</key>
-		<integer>3</integer>
+		<key>Animate</key>
+		<string>NO</string>
+		<key>circoMinDist</key>
+		<real>18</real>
+		<key>circoSeparation</key>
+		<real>0.0</real>
+		<key>layoutEngine</key>
+		<string>dot</string>
+		<key>neatoSeparation</key>
+		<real>0.0</real>
+		<key>twopiSeparation</key>
+		<real>0.0</real>
 	</dict>
 	<key>LinksVisible</key>
 	<string>NO</string>
 	<key>MagnetsVisible</key>
 	<string>NO</string>
-	<key>MasterSheet</key>
-	<string>Master 1</string>
 	<key>MasterSheets</key>
-	<array>
-		<dict>
-			<key>ActiveLayerIndex</key>
-			<integer>0</integer>
-			<key>AutoAdjust</key>
-			<false/>
-			<key>CanvasColor</key>
-			<dict>
-				<key>w</key>
-				<string>1</string>
-			</dict>
-			<key>CanvasOrigin</key>
-			<string>{0, 0}</string>
-			<key>CanvasScale</key>
-			<real>1</real>
-			<key>ColumnAlign</key>
-			<integer>1</integer>
-			<key>ColumnSpacing</key>
-			<real>36</real>
-			<key>DisplayScale</key>
-			<string>1 cm = 1 cm</string>
-			<key>GraphicsList</key>
-			<array/>
-			<key>GridInfo</key>
-			<dict>
-				<key>GridSpacing</key>
-				<real>14.17322826385498</real>
-				<key>MajorGridSpacing</key>
-				<integer>10</integer>
-			</dict>
-			<key>HPages</key>
-			<integer>1</integer>
-			<key>IsPalette</key>
-			<string>NO</string>
-			<key>KeepToScale</key>
-			<false/>
-			<key>Layers</key>
-			<array>
-				<dict>
-					<key>Lock</key>
-					<string>NO</string>
-					<key>Name</key>
-					<string>Layer 1</string>
-					<key>Print</key>
-					<string>YES</string>
-					<key>View</key>
-					<string>YES</string>
-				</dict>
-			</array>
-			<key>LayoutInfo</key>
-			<dict>
-				<key>ChildOrdering</key>
-				<integer>0</integer>
-				<key>LayoutTarget</key>
-				<integer>3</integer>
-			</dict>
-			<key>Orientation</key>
-			<integer>2</integer>
-			<key>RowAlign</key>
-			<integer>1</integer>
-			<key>RowSpacing</key>
-			<real>36</real>
-			<key>SheetTitle</key>
-			<string>Master 1</string>
-			<key>UniqueID</key>
-			<integer>1</integer>
-			<key>VPages</key>
-			<integer>1</integer>
-		</dict>
-	</array>
+	<array/>
 	<key>ModificationDate</key>
-	<string>2006-02-23 12:01:15 +0100</string>
+	<string>2016-12-25 21:33:45 +0000</string>
 	<key>Modifier</key>
 	<string>ducasse</string>
 	<key>NotesVisible</key>
@@ -1129,24 +1094,39 @@ accept:}</string>
 		<key>NSBottomMargin</key>
 		<array>
 			<string>float</string>
-			<string>0</string>
+			<string>12</string>
+		</array>
+		<key>NSHorizonalPagination</key>
+		<array>
+			<string>coded</string>
+			<string>BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU051bWJlcgCEhAdOU1ZhbHVlAISECE5TT2JqZWN0AIWEASqEhAFxlwCG</string>
 		</array>
 		<key>NSJobFeatures</key>
 		<array>
 			<string>coded</string>
-			<string>BAt0eXBlZHN0cmVhbYED6IQBQISEhBNOU011dGFibGVEaWN0aW9uYXJ5AISEDE5TRGljdGlvbmFyeQCEhAhOU09iamVjdACFhAFpAIY=</string>
+			<string>BAtzdHJlYW10eXBlZIHoA4QBQISEhBNOU011dGFibGVEaWN0aW9uYXJ5AISEDE5TRGljdGlvbmFyeQCEhAhOU09iamVjdACFhAFpAIY=</string>
 		</array>
 		<key>NSLeftMargin</key>
 		<array>
 			<string>float</string>
-			<string>0</string>
+			<string>12</string>
 		</array>
 		<key>NSPagesPerSheet</key>
 		<array>
 			<string>int</string>
 			<string>1</string>
 		</array>
+		<key>NSPaperSize</key>
+		<array>
+			<string>size</string>
+			<string>{595, 842}</string>
+		</array>
 		<key>NSPrintAllPages</key>
+		<array>
+			<string>int</string>
+			<string>0</string>
+		</array>
+		<key>NSPrintReverseOrientation</key>
 		<array>
 			<string>int</string>
 			<string>0</string>
@@ -1159,14 +1139,16 @@ accept:}</string>
 		<key>NSRightMargin</key>
 		<array>
 			<string>float</string>
-			<string>0</string>
+			<string>12</string>
 		</array>
 		<key>NSTopMargin</key>
 		<array>
 			<string>float</string>
-			<string>0</string>
+			<string>12</string>
 		</array>
 	</dict>
+	<key>PrintOnePage</key>
+	<false/>
 	<key>ReadOnly</key>
 	<string>NO</string>
 	<key>RowAlign</key>
@@ -1188,25 +1170,33 @@ accept:}</string>
 	<key>WindowInfo</key>
 	<dict>
 		<key>CurrentSheet</key>
-		<string>0</string>
-		<key>DrawerOpen</key>
-		<false/>
-		<key>DrawerTab</key>
-		<string>Outline</string>
-		<key>DrawerWidth</key>
-		<real>209</real>
-		<key>FitInWindow</key>
-		<false/>
+		<integer>0</integer>
+		<key>ExpandedCanvases</key>
+		<array/>
 		<key>Frame</key>
 		<string>{{534, 53}, {859, 1023}}</string>
-		<key>ShowRuler</key>
+		<key>ListView</key>
 		<false/>
-		<key>ShowStatusBar</key>
-		<true/>
+		<key>OutlineWidth</key>
+		<integer>142</integer>
+		<key>RightSidebar</key>
+		<false/>
+		<key>Sidebar</key>
+		<false/>
+		<key>SidebarWidth</key>
+		<integer>138</integer>
 		<key>VisibleRegion</key>
-		<string>{{-142, -63}, {844, 909}}</string>
+		<string>{{-143, -53}, {859, 926}}</string>
 		<key>Zoom</key>
-		<string>1</string>
+		<real>1</real>
+		<key>ZoomValues</key>
+		<array>
+			<array>
+				<string>Canvas 1</string>
+				<real>1</real>
+				<real>1</real>
+			</array>
+		</array>
 	</dict>
 </dict>
 </plist>
