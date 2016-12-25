@@ -182,6 +182,118 @@ There is a difference between the method ==initialize== executed on an instance 
 - The class ==initialize== method is executed when a new instance representing a class is executed. The message initialize is sent to the newly created object but its specialisation for classes will be found during method lookup and it will be executed. Usually this method invokes the default ones because the class parameter should be extracted from the argument list and set in their corresponding instance variables but in addition, instance variable inheritance and class declaration in the class namespace is performed. 
 
 
+
+
++Sending a message is two step process.>file://figures/Ref-LookupNoError.png|width=80|label=fig:LookupNoError+
+!!! Sending a message 
+
+Sending a message is a two step process as shown by Figure *@fig:LookupNoError*
+# the method corresponding to the selector is looked up in the class of the receiver and its superclasses.
+# the method is applied to the receiver. It means that ==self== or ==this== in the method will be bound to the receiver.  
+
+Conceptually sending a message is the following: 
+
+[[[
+sending a message (receiver argument)
+
+	 return apply (lookup (selector classof(receiver) receiver) receiver arguments)
+]]]
+
+
+
+
+!!!! Method lookup
+
+In this kernel the postulate 2 states that the only way to kick computation is vai message passing. 
+
+Two steps process:
+# The lookup starts in the CLASS of the RECEIVER.
+# If the method is defined in the method dictionary, it is returned. Otherwise the search continues in the superclasses of the receiver's class. If no method is found and there is no superclass to explore (if we are in the class ==Object==), this is an error
+
+The method lookup walks through the inheritance graph between classes using the superclass link. Here is a possible description of the lookup algorithm. This lookup is conceptually the same in Pharo where all methods are public and virtual. There is no statically bound method, even class methods are looked up dynamically. This allows the possibility to define really elegant and dynamic registration mechanism. 
+
+
+[[[
+lookup (selector class receiver):
+   if the method is found in class then return it
+      else if class == Object
+           then send the message error to the receiver
+           else lookup (selector superclass(class) receiver) 
+]]]
+
+While the look up happens at runtime, it is often cached based on the class of the receiver and per call site.
+When the method is not found, the message ==error== is sent as shown in Figure *@fig:LookupWithError+*. It corresponds to the ==doesNotUnderstand:== in Pharo and it is an important reflective hook. 
+Now it should be notes that the algorithm is not really good because in case of error
+there can be a mismatch between the number of argument of the method we are looking for and the 
+number of argument of the error message. 
+
+A better way to handle error is to decompose the algorithm differently as follows: 
+
+[[[
+lookup (selector class receiver):
+   if the method is found in class then return it
+      else if class == Object
+           then return nil
+           else lookup (selector superclass(class) receiver) 
+]]]
+
+And then we redefined sending a message as follows: 
+
+[[[
+sending a message (receiver argument)
+
+   methodOrNil 
+   methodOrNil = lookup (selector classof(receiver) receiver).
+   if methodOrNil is nil
+      then return send the message errorr to the receiver
+      else return apply(methodOrNil receiver arguments)
+]]]
+
+
+
+!!!! Refresh on self and super semantics
+
+Since our experience showed us that even book writers got key semantics points of object-oriented programming totally wrong, 
+we just refresh some facts that normally programmers familiar with object-oriented programming should fully master. For further readings refer to Pharo By Example or the Pharo Mooc available at *http://mooc.pharo.org*. 
+
+
+- ""self"" / ""this"". 'self always represents the receiver of the message. The method lookup starts in the class of the receiver.  
+- ""super"". super always represents the receiver of the message (and not the superclass). The method lookup starts in the superclass of the class containing the super expression (and not in the superclass of the class of the receiver whose semantics loops forever in case of inheritance tree of three classes - We let you to find how).
+
++self always represents the receiver.>file://figures/LookupWithSelfInSuperclassMethod.png|width=70|label=fig:LookupWithSelfInSuperclassMethod+
+
+Looking at Figure *@fig:LookupWithSelfInSuperclassMethod*  we see that the key point is that ==B new bar== returns 50 since
+the method is dynamically looked up and self represents the receiver i.e., an instance of the class ==B==. What is important to see is that self acts as a hook and that subclasses code can be injected in superclass code. 
+
+[[[
+A new foo
+>>> 10 
+B new foo
+>>> 50
+A new bar
+>>> 10
+B new bar
+>>> 50
+]]]
+
+
++super represents the receiver but the method lookup method is modified and starts in the superclass of the class using super. .>file://figures/LookupWithSuperInSuperclassMethodThreeClasses.png|width=70|label=fig:LookupWithSuperInSuperclassMethodThreeClasses+
+
+
+For super, the following *@fig:LookupWithSuperInSuperclassMethodThreeClasses* shows that the super is not static but represents the receiver, hence ==C new bar== returns 100 and not 20 or 60. 
+
+[[[
+B new bar
+>>> 20
+C new bar
+>>> 100
+]]]
+
+
+
+
+
+
 !!! Inheritance
 
 There are two aspects of inheritance: 
@@ -203,46 +315,22 @@ final-instance-variables (C) =
 	OrderedUnion (iv (super C)), local-instance-variables(C))
 ]]]
 
-!!!! Method lookup
 
-Walks through the inheritance graph between classes using the super instance variable
-
-[[[
-lookup (selector class receiver):
-	if the method  is found then return it
-	     else if class == Object
-		 then [receiver error selector]
-		   else lookup (selector super(class) receiver) 
-]]]
-		   
-the error method can be specialized to handle the error.
-
-A word on stack elements.... so better way
-A word on caches
-A word on DNU
 
 !!!! Inheritance graph
 
-Object is the root of the hierarchy.
-a Workstation is an object (should at least understand the minimal behavior), so Workstation inherits from Object
-a class is an object so Class inherits from Object
-In particular, class instance variable is inherited from Object class.
+==Object== represents the minimal behavior any object should understand. For example, returning the class of an object, being able to handle errors, initializing an object.
+==Object== is the root of the hierarchy.
+A  Workstation is an object (should at least understand the minimal behavior), so the class ==Workstation== inherits from the class ==Object==.
+A class is an object (it should understand the minimal behavior) so the class ==Class== inherits from class ==Object==. In particular, the ==class== instance variable is inherited from ==Object== class.
+
+Figure *@inheritancegraph* shows the inheritance graph without the presence of instantiation. 
 
 +Full inheritance graph.>file://figures/Ref-InheritanceGraph.png|width=90|label=fig:inheritancegraph+
 
 
-!!! Sending a message
-
-Only message. Methods are all virtual public. 
 
 
-+Sending a message.>file://figures/Ref-LookupNoError.png|width=80|label=fig:LookupNoError+
-
-+Sending an erronous message.>file://figures/Ref-LookupWithError.png|width=80|label=fig:LookupWithError+
-
-
-
-!!! Full inheritance 
 
 
 
