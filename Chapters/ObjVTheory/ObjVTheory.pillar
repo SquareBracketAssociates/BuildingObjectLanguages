@@ -1,36 +1,35 @@
-!! Class-based reflective minimal kernel
+!! A class-based reflective minimal kernel
 
 ''"The difference between classes and objects has been repeatedly emphasized. In the view presented here, these concepts belong to different worlds: the program text only contains classes; at run-time, only objects exist. This is not the only approach. One of the subcultures of object-oriented programming, influenced by Lisp and exemplified by Smalltalk, views classes as object themselves, which still have an existence at run-time."'' B. Meyer Object-Oriented Software Construction
 
 In this chapter we will explore a minimal reflective class-based kernel, inspired from ObjVlisp  ${cite:Coint86a}$. ObjVlisp has explicit metaclasses and supports metaclass reuse. It was inspired from the kernel of Smalltalk-78. In comparison Pharo has implicit metaclasses and no metaclass reuse except by basic inheritance but it is more stable as explained by Bouraqadi et al ${cite:Bour98a}$.
 
-Studying this kernel is really worth since
+Studying this kernel is really worth since it has the following properties:
 - It unifies class and instances (there is only one data structure to represent all objects classes included).
 - It is composed of only two classes ==Class== and ==Object==. 
-- It raises the question of meta-circularity infinite regression (a class is instance of another class....) and how to resolve it
+- It raises the question of meta-circularity infinite regression (a class is instance of another class....) and how to resolve it.
 - It forces to revisit allocation, class and object initialization, message passing as well as bootstrap. 
 - It can be implemented in less than 30 methods in Pharo. 
-
 
 Just remember that this kernel is self described so we will start to explain some aspects and since everything is linked you may have to read the chapter twice to fully get it. 
 
 !!! ObjVLisp's six postulates
 
-The original ObjVlisp kernel is defined by 6 postulates ${cite:Coint86a}$. Some of them are looking dated by today standards and the 6th postulate is simply wrong. 
-Here we report them as stated in the paper for sake of historical perspective. 
+The original ObjVlisp kernel is defined by 6 postulates ${cite:Coint86a}$. Some of them are looking dated by today standards and the 6th postulate is simply wrong as we will explained later. A solution is simple to add and implement.  Here we report them as stated in the paper for sake of historical perspective. 
 
 # An object represents a piece of knowledge and a set of capabilities.
-# The only protocol to activate an object is message passing : a message specifies which procedure to apply (denoted by its name, the selector) and its arguments.
+# The only protocol to activate an object is message passing: a message specifies which procedure to apply (denoted by its name, the selector) and its arguments.
 # Every object belongs to a class that specifies its data (attributes called fields) and its behavior (procedures called methods). Objects will be dynamically generated from this model, they are called instances of the class. Following Plato, all instances of a class have same structure and shape, but differ through the values of their common instance variables.
 # A class is also an object, instantiated by another class, called its metaclass. Consequently (P3), to each class is associated a metaclass which describes its behavior as an object. The initial primitive metaclass is the class Class, built as its own instance.
-# A class can be defined as a subclass of one (or many) other clsss(es). This subclassing mechanism allows sharing of instance variables and methods, and is called inheritance. The class Object represents the most common behavior shared by all objects.
+# A class can be defined as a subclass of one (or many) other class(es). This subclassing mechanism allows sharing of instance variables and methods, and is called inheritance. The class Object represents the most common behavior shared by all objects.
 # If the instance variables owned by an object define a local environment, there are also class variables defining a global environment shared by all the instances of a same class. These class variables are defined at the metaclass level according to the following equation: class variable [an-object] = instance variable [an-object’s class].
 
 +ObjVlisp kernel.>file://figures/ObjVlisp.png|width=60|label=fig:ObjVlisp+
 
 !!! Kernel overview
 
-Contrary to a real kernel, we do not consider arrays, strings, numbers or any other elementary objects as part of the kernel as this is the case in a real bootstrap such as the one of Pharo. 
+Contrary to a real kernel, we do not consider arrays, boolean, strings, numbers or any other elementary objects as part of the kernel as this is the case in a real bootstrap such as the one of Pharo. Here the kernel focuses on understanding Class/Object core relationships.
+
 *@fig:ObjVlisp* shows the two core classes of the kernel: ==Object== which is the root of the inheritance graph and is instance of ==Class==. ==Class== is the first class and root of the instantiation graph and instance of itself as we will see later. 
 
  Figure *fig:ObjVlispSingleton* shows that the class ==Workstation== is an instance of the class ==Class== since it is a class and it inherits from ==Object== the default behavior objects should exhibit. In addition the class ==WithSingleton== is an instance of the class ==Class== but in addition it inherits from ==Class== since this is a metaclass: its instances are classes. As such it changes the behavior of classes. The class ==SpecialWorkstation== is an instance of the class ==WithSingleton== and inherits from ==Workstation== since its instances exhibits the same behavior as ==Workstation==.
@@ -76,7 +75,7 @@ The model unifies classes and instances. When we follow the instance related pos
 At the implementation level there is only one kind of entity: objects. There is no special treatment for classes. Classes are instantiated following the same process than terminal instances. There are sent messages the same way other objects are sent messages too. 
 
 This unification between instances and classes does not mean that we do not distinguish objects and classes. 
-Indeed not all the objects are not classes. In particular, the sole difference is the ability to respond to the creation message: ==new==. Only a class knows how to deal with it. Then metaclass are just classes whose instances are classes as shown in Figure *@fig:Instantiation*.
+Indeed not all the objects are classes. In particular, the sole difference between a class and an instance is the ability to respond to the creation message: ==new==. Only a class knows how to respond to it. Then metaclasses are just classes whose instances are classes as shown in Figure *@fig:Instantiation*.
 
 +Everything is an object. Classes are just objects which can create other objects and metaclasses are just classes whose instances are classes.>file://figures/instancePatatoid.png|width=50|label=fig:Instantiation+
 
