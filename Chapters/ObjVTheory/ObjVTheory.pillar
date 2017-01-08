@@ -340,29 +340,41 @@ C new bar
 As a conclusion, we can say that ==self== is dynamic: Using ==self== the lookup of the method begins in the class of the receiver. ==self== is bound at execution-time. We do not know its value until execution time. ==super== is static in the sence that while the object it will point to is only know at execution time, the place to look for the method is known at compile-time: it should start to look in the class above the one containing super. 
 
 
-
-
-
 !!! Object creation 
+Now we are ready to understand the creation of objects. In this model there is only one way to create instances: we should send the message ==new== to the class with a specification of the instance variable values as argument. 
 
-Now we are ready to understand the creation of objects. 
+!!! Creation of instances of the class Point
+The following examples show several point instantiations. What we see is that the model inherits from the lisp traditional of passing arguments using keys and that the order of arguments is not important.
 
-
-Creation of instances of the class Point
 [[[
 Point new :x 24 :y 6
+>>> aPoint (24 6)
+Point new :y 6 :x 24
+>>> aPoint (24 6)
+]]]
+
+When no argument are specified then the class may have a default instance variable initialization or not. 
+Here ==Point== does not and the instance variables are pointing to nil. 
+[[[
 Point new
+>>> aPoint (nil nil)
+]]]
+
+When the same argument is passed multiple times, then the implementation takes the first occurence. 
+[[[
 Point new :y 10 :y 15
+>>> aPoint (nil 10)
 ]]]
 
 
-Creation of the class Point instance of Class
+!!! Creation of the class Point instance of Class
+Since the class ==Point== is an instance of the class ==Class==, to create it we should send the message ==new== to the class as follows: 
 [[[
 Class new 
-   :name ‘Point’
-   :super ‘Object’
+   :name 'Point'
+   :super 'Object'
    :i-v #(x y)
-   :methods (x ...display ...)
+>>> aClass
 ]]]
 
 !!!! Object creation: new 
@@ -381,8 +393,7 @@ new creates an object: class or final instances new is a class method
 Object allocation should return:
 - Object with empty instance variables
 - Object with an identifier to its class
-Done by the method ==allocate== defined on the metaclass ==Class==
-allocate method is a class method
+Done by the method ==allocate== defined on the metaclass ==Class== allocate method is a class method
 
 [[[
 Point allocate
@@ -444,32 +455,14 @@ There is a difference between the method ==initialize== executed on an instance 
 
 - The class ==initialize== method is executed when a new instance representing a class is executed. The message initialize is sent to the newly created object but its specialisation for classes will be found during method lookup and it will be executed. Usually this method invokes the default ones because the class parameter should be extracted from the argument list and set in their corresponding instance variables but in addition, instance variable inheritance and class declaration in the class namespace is performed. 
 
-
-
-
-
-
-
-
-
 !!! Instantiation hierarchy
 +Full instance hierarchy.>file://figures/Ref-InstanceGlobalPictureWithObject.png|width=60|label=fig:Instanceshier+
-
-
-
-
-
-
-
-
 
 !!! Abstract Metaclass
 
 +Abstract metaclass.>file://figures/Ref-Abstract.png|width=90|label=fig:Abstract+
 
 +Abstract metaclass at work.>file://figures/Ref-AbstractLookup.png|width=90|label=fig:AbstractLookup+
-
-
 
 !!! Further readings
 
