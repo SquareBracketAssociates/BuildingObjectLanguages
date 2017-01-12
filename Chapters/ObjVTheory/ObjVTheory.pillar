@@ -79,9 +79,9 @@ The model unifies classes and instances. When we follow the instance related pos
 At the implementation level there is only one kind of entity: objects. There is no special treatment for classes. Classes are instantiated following the same process than terminal instances. There are sent messages the same way other objects are sent messages too. 
 
 This unification between instances and classes does not mean that we do not distinguish objects and classes. 
-Indeed not all the objects are classes. In particular, the sole difference between a class and an instance is the ability to respond to the creation message: ==new==. Only a class knows how to respond to it. Then metaclasses are just classes whose instances are classes as shown in Figure *@fig:Instantiation*.
+Indeed not all the objects are classes. In particular, the sole difference between a class and an instance is the ability to respond to the creation message: ==new==. Only a class knows how to respond to it. Then metaclasses are just classes whose instances are classes as shown in Figure *@fig:InstantiationPap*.
 
-+Everything is an object. Classes are just objects which can create other objects and metaclasses are just classes whose instances are classes.>file://figures/instancePatatoid.png|width=50|label=fig:Instantiation+
++Everything is an object. Classes are just objects which can create other objects and metaclasses are just classes whose instances are classes.>file://figures/instancePatatoid.png|width=50|label=fig:InstantiationPap+
 
 
 !!! Instance structure 
@@ -161,20 +161,16 @@ We see three level of instances: terminal objects, instances of ==Workstation==,
 
 
 
-
-
-
-
-+Sending a message is two step process: method lookup and execution.>file://figures/InheritanceDiagram-sendingMessage.pdf|width=35|label=fig:LookupNoError+
++Sending a message is two step process: method lookup and execution.>file://figures/InheritanceDiagram-sendingMessage.pdf|width=35|label=fig:ToSteps+
 !!! Sending a message 
 @sec_message
 In this kernel, the second postulate states that the only way to perform computation is via message passing. 
 
-Sending a message is a two step process as shown by Figure *@fig:LookupNoError*
+Sending a message is a two step process as shown by Figure *@fig:ToSteps*
 # Method lookup: the method corresponding to the selector is looked up in the class of the receiver and its superclasses.
 # Method execution: the method is applied to the receiver. It means that ==self== or ==this== in the method will be bound to the receiver.  
 
-Conceptually sending a message is the following: 
+Conceptually sending a message can be described by the following function composition:
 
 [[[
 sending a message (receiver argument)
@@ -257,8 +253,8 @@ with the instance variables defined locally in class ==C==.
 Each language defines the exact semantics of instance variable inheritance, for example if they accept instance variables with the same name or not. In our model, we decide to use the simplest way: there should be no name duplicates. 
 
 [[[
-instance-variables(C) =
-	Union (instance-variables(superclass(C)), local-instance-variables(C))
+instance-variables(aClass) =
+	union (instance-variables(superclass(aClass)), local-instance-variables(aClass))
 ]]]
 
 A word about union: when the implementation of the language is based on offsets to access instance variables, the union should make sure that the location of inherited instance variables are kept ordered compared to the superclass because in general we want that methods of the superclass can be applied to subclasses without copying them down and recompiling them. Indeed if a method uses a variable at a given position in the instance variable lists, applying this method to instance of subclasses should work.
@@ -360,12 +356,13 @@ Point new
 >>> aPoint (nil nil)
 ]]]
 
-When the same argument is passed multiple times, then the implementation takes the first occurence. 
+When the same argument is passed multiple times, then the implementation takes the first occurence.
 [[[
 Point new :y 10 :y 15
 >>> aPoint (nil 10)
 ]]]
 
+We should not worry too much about such details: The point is that we can pass multiple arguments with a tag to identify it. 
 
 !!! Creation of the class Point instance of Class
 Since the class ==Point== is an instance of the class ==Class==, to create it we should send the message ==new== to the class as follows: 
@@ -377,45 +374,64 @@ Class new
 >>> aClass
 ]]]
 
-!!!! Object creation: new 
+Here what is interesting to see is that we use exactly the same way to create an instance of the class ==Point== or the class itself. Note that this single way to create objects is supported by the argument variable list. 
+An implementation could have two different messages to create instances, as soon as the same ==new==, ==allocate==, ==initialize==
+methods are involved the essence of the object creation are similar and uniform. 
 
-Object Creation = initialisation O allocation
+!!!! Instance creation: Role of the metaclass
 
-Creating an instance is the composition of two actions: memory allocation: allocate method object initialisation: initialize  method
+The following diagram (Figure *@fig:metaclassrole*) shows that against common expectations, when we create a terminal instance the metaclass ==Class== is evolved in the process. Indeed, we send the message ==new== to the class, to resolve this message, the system will look for the method in the class of the receiver (here ==Workstation==) which the metaclass ==Class==. The method ==new== is found in the metaclass and applied to the receiver: the class ==Workstation==. Its effect is to create an instance of the class ==Workstation==. 
+
++Metaclass role during instance creation: Applying plain message resolution.>file://figures/Ref-InstanceCreationMetaclassRole.png|width=60|label=fig:metaclassrole+
+
+The same happens when creating a class. Figrue *@fig:ClassCreation* shows the process. We send a message now this time to the class ==Class==. The system makes no exception and to resolve the message, it looks for the method in the class of the receiver. The class of the receiver is itself, so the method ==new== found in ==Class== is applied to ==Class== (since it is the receiver of the message), and a new class is created. 
+
++Metaclass role during class creation: Applying plain message resolution - the self instantiation link is followed.>file://figures/Ref-ClassCreation.png|width=60|label=fig:ClassCreation+
+
+!!!! new = allocate and initialize
+In fact creating an object is a two step process: Creating an instance is the composition of two actions: memory allocation ==allocate== message and object initialisation message ==initialize==. 
+
+In Pharo syntax it means: 
 [[[
-(new aClass args) = (initialization (allocation aClass) args)
-aClass new args =                  [aClass allocate] initialize args
-new creates an object: class or final instances new is a class method
+aClass new: args = (aClass allocate) initialize: args
 ]]]
 
-!!!! Object allocation: Allocate
+What we should see is that
+- The message ==new== is a class message and method. 
+- The message ==allocate== is also a class message and method. 
+- The message ==initialize== will be executed on the newly created instance so it means that when it will be sent to a class, an class ==initialize== method will be involved and when it will be sent to a terminal object, an instance ==initialize== method will be executed (defined in ==Object==). 
+
+
+!!!! Object allocation: the message allocate
+Allocating an object means allocating enough space to the object state but not only: it should mark instances with their class name or id. There is a really strong invariant in the model and in general in object-oriented programming model. Every single object must have an identifier to its class else the system will break when trying to resolve a message.
 
 Object allocation should return:
-- Object with empty instance variables
-- Object with an identifier to its class
-Done by the method ==allocate== defined on the metaclass ==Class== allocate method is a class method
+- A newly created instance with empty instance variables (pointing to nil for example).
+- But marked with an identifier to its class.
+
+In our model, the marking of an object as instance of a class is performed by setting the value of the instance variable ==class== inherited from ==Object==. In Pharo this information is not recorded as a instance variable but encoded in the internal virtual machine object representation.
+
+The ==allocate== method is defined on the metaclass ==Class==. Here are some examples of allocation.
 
 [[[
 Point allocate
->>> #(Point nil nil) for x and y
+>>> #(Point nil nil)
 ]]]
-
-[[[
-Workstation allocate
->>>#(Workstation nil nil) for ‘name’ and ‘nextNode’
-]]]
+A point allocation allocates three slots: one for the class and two for x and y values.
 
 [[[
 Class allocate
->>>#(Class nil nil nil nil nil) for name, super, iv, keywords and methodDict
+>>>#(Class nil nil nil nil nil) 
 ]]]
+
+The allocation for an object representing a class alllocates five six slots: one for class and one for each of the class instance variable: name, super, iv, keywords and methodDict.
+
 
 !!!! Object initialization
 
 To specify the value of the instance variables by means of keywords (:x ,:y) associated with the instances variables
 
 [[[
-
 [ Point new :y 6  :x 24]  
 >>> [ #(Point nil nil) initialize (:y 6 :x 24)]
 >>> #(Point 24 6)
@@ -426,13 +442,6 @@ initialize: two steps
 get the values specified during the creation. (y -> 6, x -> 24)
 assign the values to the instance variables of the created object.
 
-!!! Instance creation: Role of the metaclass
-
-+Metaclass role during instance creation.>file://figures/Ref-InstanceCreationMetaclassRole.png|width=90|label=fig:metaclassrole+
-
-!!! Class creation: Role of the metaclass
-
-+Metaclass role during class creation.>file://figures/Ref-ClassCreation.png|width=90|label=fig:ClassCreation+
 
 
 !!! Class class
@@ -455,8 +464,6 @@ There is a difference between the method ==initialize== executed on an instance 
 
 - The class ==initialize== method is executed when a new instance representing a class is executed. The message initialize is sent to the newly created object but its specialisation for classes will be found during method lookup and it will be executed. Usually this method invokes the default ones because the class parameter should be extracted from the argument list and set in their corresponding instance variables but in addition, instance variable inheritance and class declaration in the class namespace is performed. 
 
-!!! Instantiation hierarchy
-+Full instance hierarchy.>file://figures/Ref-InstanceGlobalPictureWithObject.png|width=60|label=fig:Instanceshier+
 
 !!! Abstract Metaclass
 
