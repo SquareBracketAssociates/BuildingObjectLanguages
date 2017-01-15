@@ -370,7 +370,7 @@ Since the class ==Point== is an instance of the class ==Class==, to create it we
 Class new 
    :name 'Point'
    :super 'Object'
-   :i-v #(x y)
+   :ivs #(x y)
 >>> aClass
 ]]]
 
@@ -426,36 +426,38 @@ Class allocate
 
 The allocation for an object representing a class alllocates five six slots: one for class and one for each of the class instance variable: name, super, iv, keywords and methodDict.
 
-
 !!!! Object initialization
 
-To specify the value of the instance variables by means of keywords (:x ,:y) associated with the instances variables
+To specify the value of the instance variables by means of keywords (==:x== ,==:y==) associated with the instances variables.
 
 [[[
-[ Point new :y 6  :x 24]  
->>> [ #(Point nil nil) initialize (:y 6 :x 24)]
+Point new :y 6  :x 24
+>>>  #(Point nil nil) initialize: (:y 6 :x 24)]
 >>> #(Point 24 6)
-
 ]]]
 
-initialize: two steps
-get the values specified during the creation. (y -> 6, x -> 24)
-assign the values to the instance variables of the created object.
+When an object is initialized as an terminal instance (this remark exists because initializing a class relies on instance initialization and performing extra steps dedicated to class management), two actions are performed: 
+- First we should get the values specified during the creation, i.e., get that y value is 6 and x value is 24, 
+- Second we should assign the values to the corresponding instance variables of the created object.
 
+!!!! Class initialization
+During its initialization a class should perform several steps:
 
+- First as any it should get the arguments and assigned them to their corresponding instance variables. This is basically implemented by invoking the ==initialize== method of ==Object== via a super call since ==Object== is the superclass of ==Class==.
+- Second the inheritance of instance variables should be performed. Before this step the class ==iv== instance variable just contains the instance variables that are locally defined. After this step the instance variable ==iv== will contain all the instance variables inherited and local. In particular this is here that the ==class== instance variable inherited from ==Object== is added to the instance variables list of the subclass of ==Object==.
+- Third the class should be declared to a class pool or namespaces so that as programmers we can access it via its name. 
 
-!!! Class class
+!!! The Class class
 
 Now we get a better understanding of what is the class ==Class==.
-The class ==Class== is 
-- Initial metaclass
+The class ==Class== is:
+- the initial metaclass and intial class.
 - It defines the behavior of all the metaclasses.
 - It defines the behavior of all the classes.
 
 In particular, metaclasses defines three messages related to instance creation. 
 - The ==new== creates an initialized instance of the class. It allocates the object using the class message ==allocate== and then initialize it by sending the message ==initialize== to the instance. 
 - The ==allocate== message. As message ==new== it is a class message. It allocates structure for newly created object. 
-
 - Finally the message ==initialize==. This message has two definitions one on ==Object== and one on ==Class==. 
 
 There is a difference between the method ==initialize== executed on an instance creation and the class ==initialize== method. 
@@ -465,13 +467,108 @@ There is a difference between the method ==initialize== executed on an instance 
 - The class ==initialize== method is executed when a new instance representing a class is executed. The message initialize is sent to the newly created object but its specialisation for classes will be found during method lookup and it will be executed. Usually this method invokes the default ones because the class parameter should be extracted from the argument list and set in their corresponding instance variables but in addition, instance variable inheritance and class declaration in the class namespace is performed. 
 
 
+
+
+
 !!! Abstract Metaclass
+Now we can see how we can add new metaclasses and see how the system works in this case. To create a new metaclass is simple, it is enough to inherit from an existing one. May be this is obvious to you and this is what we will check now. 
 
-+Abstract metaclass.>file://figures/Ref-Abstract.png|width=90|label=fig:Abstract+
++Abstract metaclass: its instance (i.e., the class Node) are abstract.>file://figures/Ref-Abstract.png|width=60|label=fig:Abstract+
 
-+Abstract metaclass at work.>file://figures/Ref-AbstractLookup.png|width=90|label=fig:AbstractLookup+
+Imagine that we want to define a metaclass that represents that abstract classes (its instances) cannot create instances. 
+The solution is to create a new metaclass named ==AbstractMetaclass== which inherits from ==Class== and to redefine the method ==new== in this metaclass to raise an error (as shown in Figure *@fig:Abstract*). The following code snippet defines this. 
 
-!!! Further readings
+[[[
+Class new  
+	:name 'AbstractMetaclass' 
+	:super 'Class'
+]]]
 
-The kernel presented inIt is a kernel with explicit metaclasses and as such it raised metaclass composition problems as explained in Bouraqadi et al. 
-excellent article ${cite:Bour98a}$
+[[[
+AbstractMetaclass 
+	addMethod: #new
+	body: [ :receiver :initargs | receiver error: 'Cannot create instance of class' ]
+]]]
+
+Two simple facts describes the situation:
+- ==AbstractMetaclass== is a class: It is instance of ==Class==.
+- ==AbstractMetaclass== define class behavior: It inherits from Class.
+
++Abstract metaclass at work.>file://figures/Ref-AbstractLookup.png|width=60|label=fig:AbstractLookup+
+Now we can define an abstract class ==Node==. 
+
+[[[
+AbstractMetaclass new :name 'Node' :super 'Object'
+]]]
+Sending a message to Node will raise an error. 
+[[[
+Node new 
+>>> Cannot create instance of class Node
+]]]
+
+A subclass of ==Node== for example ==Workstation== can be a concrete class by being an instance of ==Class== instead of ==AbstractMetaclass== but still inheriting from ==Node==. What we see in Figure *@fig:AbstractLookup* is that there are two links: instanciation and inheritance and the method lookup follows them as we presented previously: always start in the class of the receiever and follow the inheritance link. 
+
+What is key to understand is that when we send the messsage ==new== to ==Workstation== we look for methods first in the metaclass ==Class==. When we send the message ==new== to ==Node== we look in its class: ==AbstractMetaclass== as shown in  Figure *@fig:AbstractLookup*. 
+
+
+
+Sending the message ==allocate== to ==Node== starts in ==AbstractMetaclass== and since we did not redefine it locally, and it is not found there, the lookup will continue in the superclass of ==AbstractClass==: ==Class==. We will be able to get instance of ==Node== but this is for the exercise. A class method is just implemented and following the same semantics that instance methods. 
+
+
+
+!!! About the 6th postulate 
+
+The 6th postulate of ObjVLisp is wrong. Let us read it again: 
+''If the instance variables owned by an object define a local environment, there are also class variables defining a global environment shared by all the instances of a same class. These class variables are defined at the metaclass level according to the following equation: class variable [an-object] = instance variable [an-object’s class].''
+
+It says that class instance variables are equivalent to shared variables between instances and this is wrong! Let us study this. According to the 6th postulate, a shared variable between instances is equal to an instance variable of the class. The definition is not totally clear so let us look at an example given in the article.
+ 
+!!!! Illustrating the problem
+Imagine that we would like the constant character '*' to be a class variable shared by all the points of a same class.
+We redefine the ==Point== class as before, but metaclass of which (let us call it ==MetaPoint==) specifies this common character 
+For example if a point has a shared variable named ==char==, this instance variable should be defined in the class of the class ==Point== called ==MetaPoint==. The author proposed to define a new metaclass ==MetaPoint== to hold a new instance variable to represent a shared variable between points.
+ 
+[[[
+Class new
+	:name 'MetaPoint'
+	:super 'Class'
+	:ivs #(char)
+]]]
+
+Then he proposed to use it as follows: 
+
+[[[
+MetaPoint new
+	:name Point
+	:super 'Object'
+	:ivs #(x y)
+	:char '*'
+]]]
+
+The class ==Point== can define a method that accesses the char just by going the class level. 
+
+So why this is approach is wrong. Because it mixes levels. The instance variable ==char== is not a class information. It describes the terminal instances and not the instance of the metaclass. Why the ''metaclass'' ==MetaPoint== would need a ==char== instance variable. 
+
+!!!! The solution
+The solution is that ==char== is a value held into a list of the shared variables of the class ==Point==. This means that
+a ''class'' should have an extra information to describe it: an instance variable ==sharedVariable== holding pairs.  So we should be able to write
+
+[[[
+Class new
+	:name Point
+	:super 'Object'
+	:ivs #(x y)
+	:sharedivs {#char -> '*'}
+]]]
+
+Therefore the metaclass ==Class== should get an extra instance variable named ==sharedivs== and each of its instances (the classes ==Point==, ==Node==, ==Object==) can have different ''values'' and such values can be shared among their instances by the compiler. 
+What we see is that ==sharedivs== is from the ==Class== vocabulary and we do not need one extra metaclass each time we want to share 
+a variable. This design is similar to the one of Pharo where a class has a classVariable instance variable.
+
+!!! Conclusion
+
+We presented a really small kernel composed of two classes ==Object== root of the inheritance tree and ==Class== the first metaclass root of the instantiation tree. We revisited all the key points related to method lookup, object and class creation and initialisation. In the subsequent chapter we propose you to implement such kernel. 
+
+!!!! Further readings
+
+The kernel presented in this chapter is a kernel with explicit metaclasses and as such it raised metaclass composition problems as explained in Bouraqadi et al. excellent article ${cite:Bour98a}$

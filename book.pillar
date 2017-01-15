@@ -20,12 +20,11 @@ Possible future adventures
 
 
 !! Implementation Techniques
-
 Here I will present 
-
 - Anonymous classes
 - and may be some tricks of the reflection chapter
 - Proxy?
+
 
 
 ${inputFile:Chapters/Proto/ProtoTheory.pillar}$
@@ -35,6 +34,8 @@ ${inputFile:Chapters/Proto/Proto.pillar}$
 ${inputFile:Chapters/ObjVTheory/ObjVTheory.pillar}$
 
 ${inputFile:Chapters/ObjV/ObjV.pillar}$
+
+!!! About bootstrap (TODO)
 
 ${inputFile:Chapters/Actalk/Actalk.pillar}$
 
