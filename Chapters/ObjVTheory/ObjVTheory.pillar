@@ -300,7 +300,7 @@ This process is also true when we send messages to the classes themselves. There
 
 !!! Refresh on self and super semantics
 
-Since our experience showed us that even book writers got key semantics of object-oriented programming totally wrong, we just refresh some facts that normally programmers familiar with object-oriented programming should fully master. For further readings refer to Pharo By Example or the Pharo Mooc available at *http://mooc.pharo.org*. 
+Since our experience showed us that even some book writers got key semantics of object-oriented programming wrong, we just refresh some facts that normally programmers familiar with object-oriented programming should fully master. For further readings refer to Pharo By Example or the Pharo Mooc available at *http://mooc.pharo.org*. 
 
 - ""self"" / ""this"". self always represents the receiver of the message. The method lookup starts in the class of the receiver.  
 - ""super"". super always represents the receiver of the message (and not the superclass). The method lookup starts in the superclass of the class containing the super expression (and not in the superclass of the class of the receiver: this would mean that it loops forever in case of inheritance tree of three classes - We let you to find how).
@@ -451,7 +451,7 @@ During its initialization a class should perform several steps:
 
 Now we get a better understanding of what is the class ==Class==.
 The class ==Class== is:
-- the initial metaclass and intial class.
+- The initial metaclass and intial class.
 - It defines the behavior of all the metaclasses.
 - It defines the behavior of all the classes.
 
@@ -465,9 +465,6 @@ There is a difference between the method ==initialize== executed on an instance 
 - The first one is a method defined on the class of the object and potentially inherited from ==Object==. On ==Object== this ==initialize== method just extract from the argument list the value corresponding to each instance variables and sets them in the corresponding instance variables. 
 
 - The class ==initialize== method is executed when a new instance representing a class is executed. The message initialize is sent to the newly created object but its specialisation for classes will be found during method lookup and it will be executed. Usually this method invokes the default ones because the class parameter should be extracted from the argument list and set in their corresponding instance variables but in addition, instance variable inheritance and class declaration in the class namespace is performed. 
-
-
-
 
 
 !!! Abstract Metaclass
@@ -500,10 +497,11 @@ Now we can define an abstract class ==Node==.
 [[[
 AbstractMetaclass new :name 'Node' :super 'Object'
 ]]]
+
 Sending a message to Node will raise an error. 
 [[[
 Node new 
->>> Cannot create instance of class Node
+>>> Cannot create instance of class
 ]]]
 
 A subclass of ==Node== for example ==Workstation== can be a concrete class by being an instance of ==Class== instead of ==AbstractMetaclass== but still inheriting from ==Node==. What we see in Figure *@fig:AbstractLookup* is that there are two links: instanciation and inheritance and the method lookup follows them as we presented previously: always start in the class of the receiever and follow the inheritance link. 
