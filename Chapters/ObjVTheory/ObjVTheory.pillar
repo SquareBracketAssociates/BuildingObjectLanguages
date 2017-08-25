@@ -9,13 +9,13 @@ As this quote expressed it, there is a realm where classes are true objects, ins
 ObjVlisp was published the first time in 1986 when the foundation of object-oriented programming was still emerging ${cite:Coint86a}$. ObjVlisp has explicit metaclasses and supports metaclass reuse. It was inspired from the kernel of Smalltalk-78. The IBM SOM-DSOM kernel is similar to ObjVLisp while implemented in C\+\+ ${cite:Danf94b}$. ObjVlisp is a subset of the reflective kernel of CLOS  since CLOS reifies instance variables, generic functions, and method combination ${cite:Stee90a}$ ${cite:Kicz91a}$. In comparison original Smalltalk or Pharo have implicit metaclasses and no metaclass reuse except by basic inheritance but it is more stable as explained by Bouraqadi et al ${cite:Grau89a}$ ${cite:Bour98a}$.
 
 Studying this kernel is really worth since it has the following properties:
-- It unifies class and instances (there is only one data structure to represent all objects classes included).
-- It is composed of only two classes ==Class== and ==Object==. 
-- It raises the question of meta-circularity infinite regression (a class is instance of another class....) and how to resolve it.
-- It forces to revisit allocation, class and object initialization, message passing as well as bootstrap. 
+- It unifies class and instances (there is only one data structure to represent all objects, classes included),
+- It is composed of only two classes ==Class== and ==Object==,
+- It raises the question of meta-circularity infinite regression (a class is instance of another class that is an instance of yet another class ...) and how to resolve it,
+- It forces to revisit allocation, class and object initialization, message passing as well as bootstrap,
 - It can be implemented in less than 30 methods in Pharo. 
 
-Just remember that this kernel is self described so we will start to explain some aspects and since everything is linked you may have to read the chapter twice to fully get it. 
+Just remember that this kernel is self-described so we will start to explain some aspects and since everything is linked you may have to read the chapter twice to fully get it. 
 
 !!! ObjVLisp's six postulates
 
@@ -63,8 +63,8 @@ Since classes are objects, when we want to stress that classes are objects we us
 
 !!!! Handling infinite recursion
 
-A class is an object therefore instance of another class its metaclass that is an object too instance of a metametaclass that is an object too instance of another a metametametaclass...... To stop this potential infinite recursion is similar to solutions proposed in many meta circular systems: we have one entity instance or described by itself. Here: 
-- ==Class== is the initial class and metaclass.
+A class is an object therefore instance of another class its metaclass that is an object too instance of a metametaclass that is an object too instance of another a metametametaclass...... To stop this potential infinite recursion, we use similar to solutions proposed in many meta circular systems: we have one entity instance that is described by itself. In ObjVLisp model: 
+- ==Class== is the initial class and metaclass,
 - ==Class== is instance of itself and directly or undirectly all other metaclasses are instances of ==Class==.
 
 We will see later the implication of this self instantiation at the level of the class structure itself. 
@@ -72,8 +72,8 @@ We will see later the implication of this self instantiation at the level of the
 !!! Understanding metaclasses 
 
 The model unifies classes and instances. When we follow the instance related postulates of the kernel we get:
-- Every object is instance of a class.
-- A class is an object instance of a metaclass.
+- Every object is instance of a class,
+- A class is an object instance of a metaclass,
 - A metaclass is only a class that generates classes.
 
 At the implementation level there is only one kind of entity: objects. There is no special treatment for classes. Classes are instantiated following the same process than terminal instances. There are sent messages the same way other objects are sent messages too. 
@@ -91,7 +91,7 @@ The model does not really bring anything new about instance structure when compa
 Instance variables are an ordered sequence of instance variables defined by a class. Such 
 instance variables are  shared by all instances.
 The values of such instance variables are specific to each instance. 
-Figure *@fig:Ref-Instances* shows that instances of ==Workstation== have two values: a names and a next node. 
+Figure *@fig:Ref-Instances* shows that instances of ==Workstation== have two values: a name and a next node. 
 
 
 +Instances of ==Workstation== have two values: their names and their next node.>file://figures/Ref-Instances.png|width=60|label=fig:Ref-Instances+
@@ -115,8 +115,8 @@ Since the methods are stored in a class, the method dictionary should be describ
 
 Now it is time to ask us about the minimal information that a class should have. 
 Here is the minimal information required:
-- A list of instance variables to describe the values that the instances will hold. 
-- A method dictionary to hold methods.
+- A list of instance variables to describe the values that the instances will hold,
+- A method dictionary to hold methods,
 - A superclass to look up inherited methods.
 
 This minimal state is similar to the one of Pharo: Pharo ==Behavior== class has a format (compact description of instance variables), method dictionary, and superclass link. 
@@ -281,8 +281,8 @@ A class is an object (it should understand the minimal behavior) so the class ==
 
 
 !!!! Remark. 
-In Pharo, ==Object== is not the root of inheritance. It is ==ProtoObject== and ==Object== inherits from it. Most of the classes still inherit from ==Object==. Indeed the design of ==ProtoObject== is special: the design goal of ==ProtoObject== is to generate as many as possible errors. Such errors are can capture via ==doesNotUnderstand:==
-redefinition and can support different scenarios such proxy implementation.
+In Pharo, ==Object== is not the root of inheritance. It is ==ProtoObject== and ==Object== inherits from it. Most of the classes still inherit from ==Object==. Indeed the design of ==ProtoObject== is special: the design goal of ==ProtoObject== is to generate as many as possible errors. Such errors can be captured via ==doesNotUnderstand:==
+redefinition and can support different scenarios such as proxy implementation.
 
 !!! Inheritance and instantiation together
 
@@ -302,7 +302,7 @@ This process is also true when we send messages to the classes themselves. There
 
 Since our experience showed us that even some book writers got key semantics of object-oriented programming wrong, we just refresh some facts that normally programmers familiar with object-oriented programming should fully master. For further readings refer to Pharo By Example or the Pharo Mooc available at *http://mooc.pharo.org*. 
 
-- ""self"" / ""this"". self always represents the receiver of the message. The method lookup starts in the class of the receiver.  
+- ""self"" (also called ""this"" in languages like Java). self always represents the receiver of the message. The method lookup starts in the class of the receiver.  
 - ""super"". super always represents the receiver of the message (and not the superclass). The method lookup starts in the superclass of the class containing the super expression (and not in the superclass of the class of the receiver: this would mean that it loops forever in case of inheritance tree of three classes - We let you to find how).
 
 +self always represents the receiver.>file://figures/LookupWithSelfInSuperclassMethod.png|width=40|label=fig:LookupWithSelfInSuperclassMethod+
@@ -333,7 +333,7 @@ C new bar
 >>> 100
 ]]]
 
-As a conclusion, we can say that ==self== is dynamic: Using ==self== the lookup of the method begins in the class of the receiver. ==self== is bound at execution-time. We do not know its value until execution time. ==super== is static in the sence that while the object it will point to is only know at execution time, the place to look for the method is known at compile-time: it should start to look in the class above the one containing super. 
+As a conclusion, we can say that ==self== is dynamic: Using ==self== the lookup of the method begins in the class of the receiver. ==self== is bound at execution-time. We do not know its value until execution time. ==super== is static in the sence that while the object it will point to is only known at execution time, the place to look for the method is known at compile-time: it should start to look in the class above the one containing super. 
 
 
 !!! Object creation 

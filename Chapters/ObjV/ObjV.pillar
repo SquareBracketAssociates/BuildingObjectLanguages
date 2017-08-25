@@ -1,14 +1,14 @@
 !! Building a minimal reflective class-based kernel
 
 This tutorial written by Stéphane Ducasse will guide you step by step to build 
-the kernel of the ObjVLisp model. ObjVlisp was designed by P. Cointe who got inspired by the kernel  of Smalltalk 78. It has explicit metaclasses and it is composed of two classes ==Object== and ==Class==.
+the kernel of the ObjVLisp model. ObjVlisp was designed by P. Cointe who got inspired by the kernel  of Smalltalk-78. It has explicit metaclasses and it is composed of two classes ==Object== and ==Class==.
 
 
 !!! Objectives
-During the lecture you saw the main points of the ObjVLisp model, now you 
+During the previous chapter, you saw the main points of the ObjVLisp model, now you 
 will implement it. The goals of this implementation are to give a 
-concrete understanding of the concepts presented in the lecture. Here 
-are some of the points you can deeply understand while doing the exercise.
+concrete understanding of the concepts presented previously. Here 
+are some of the points you can deeply understand while doing the exercise:
 
 - What is a possible object structure?
 - What is object  allocation and initialization?
@@ -26,11 +26,11 @@ You need to download and install Pharo from *http://www.pharo.org/*. You need a 
 
 All the necessary files are provided as a Monticello package. It contains all the classes, the method categories and the method signatures of the methods that you have to implement. It provides additional functionality such as a dedicated inspector and some extra methods that will make your life easy and help you to concentrate on the essence of the model. It contains also all the tests of the functionality you have to implement. For each functionality you will have to run some tests.
 
-For example to run a particular test named ==testPrimitive==, evaluate the following expression ==(ObjTest selector: #testPrimitiveStructure) run== or to click on the icon of the method named ==testPrimitiveStructure==.  
+For example to run a particular test named ==testPrimitive==, evaluate the following expression ==(ObjTest selector: #testPrimitiveStructure) run== or to click on the icon of the method named ==testPrimitiveStructure==.
 
 Note that since you are developing the kernel, to test it we implemented manually some mocks of the classes and kernel. This is the setup method of the test classes that build this fake kernel. Now pay attention because the setups are often taking shortcuts. 
 
-To load the code open a monticello browser, add a file repository to point to the ObjVLispSkeleton project under ==StephaneDucasse== in ht eObjVLispSkeleton project at *http://www.smalltalkhub.com* and select and load the package.
+To load the code open a monticello browser, add a file repository to point to an ObjVLispSkeleton project under ==StephaneDucasse== in ht eObjVLispSkeleton project at *http://www.smalltalkhub.com* and select and load the package.
  
 To do this, use the following expression in the smalltalkhub repository creation pop up.
 
