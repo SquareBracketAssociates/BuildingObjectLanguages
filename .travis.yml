@@ -7,7 +7,7 @@ install: docker pull dpollet/texlive:pillar
 script: |
   docker run --tty --rm --volume $PWD:/work dpollet/texlive:pillar bash -c "\
     wget --quiet --output-document=- 'https://raw.githubusercontent.com/pillar-markup/pillar/master/download.sh' | bash \
-    && make spiralbook \
+    && make book \
   "
 
 deploy:
@@ -18,9 +18,9 @@ deploy:
   skip_cleanup: true
   user: ducasse
   key:
-    secure: Zc192TbL035JBCigX/P9WZ3xeAEVYKX28qd/SWPzTl2+2gSZyyc6c8OmayJCwstixnJ5kXQqDN13xPe2COUE6ztBPYKUAnMgj06FqAG/RPUDLAQT1TrOrSfS39uw+gMtDWnDUXNMYZSQlw4NGulJLwBXSrsCRsGeJlHT4tjlXoxWzpX+/2rbDJxHYdh+UllSDFUdRQHfPjftHOoZQAuZZ9Cdu4dnI3rz10NZT1WAxaEXrwXt1IZKZUikmKg5tkfD9Ij5L0TKD1Ga7Vjzw80W+hTC1/gT/Kf34IfbNLXswp3VRUo7W2q4pYp5fBYwd6I4iSPu69ElDuQ19daFOWlTMpIyPhI7Mauraj/VTesh7aGfDMUSmuABXWHOpaFuE2LSHmzkhGBpNRtz7vAwFcmqFc5hyQngCsESaEgndU0WovA25z6yoPGpwmUAeqN1SY8kRzHvUmHW4VTfRp6vPL4f9CuxznyGa81eV263t/XQvVk03OSKuwlXBv8YN0NbPJ3JszMIFZcGf047/NAOqvPR4sNcNrFFYNPiXMrZdSwH4YgIo4GQOGD1jw4j9OZl5eUK6nzL2VsKujV9sZxrfnH5qaaUEo2hLFqUYg4rfbgPADztHcXFaxq/3hJ9Dv2cctWZefShhyZQRbNiZ7sTauOBVh1xJOwYzil8jfZtzJ6B26Q=
+    secure: cOsO78fxvkyyKFY04aJK7WWpOc31VXj451Lr9L7fkTVIHwLBqRcCfVSBTyctTUzfjPLfGInHxrOaT1FvR8VqC4BMuAiRne1Q1yN76TVvR4NFyELNmrw95JtVXs+TUZxIc+KeSDSBRb0tR3ZTNFy0+KxZhlu7pOwYkMulsIZ9D4Tq1Y6h16E7Mojfm+7jjw6GwJdUF3m3TSTdr3clNnafhyBPbEVZrNTkQcEcL7COCPrc6v4qqL49ITs4WsU7I7uj5IuZNHs9Ehz6q+PSMt8K1grlrDLyKeT8C10WEmDgoQKsSCK5quFE6scOgxZCyWfKQhUt09DCKosPPkZfwbJKFqYOxMNOSutG+wks5hqLUZDbf+Zoxa9nVVqk+B0FHubC6jFQ+AIRIuDQVPtBaMBF8DDPDr94PjO5ADWvwp0jMQchrVKJKhwYpVgRHVc0bGmsFkF+p+pSLr+Xm+JpVRNy3yMWKQQ+hp7uUjJD16hc0WH9Y6nxWoI63w3W8cpVtNBlFswBWQ3WkY0OBoZFe/y+LkrMqKCDci/RXbIOVYkAwgDrqSDirM5IXwujhG+BIXwV8hBiLLetckDNpOqRhVBWkgc0NhVnlKOfA8tv9dioXiIzlWIEUnvljmUI033YV+j7Jwr43jbba3Pw2ruhssYzhrMd4/+Ok7V1YrpPYkqZxhk=
 - provider: releases
-  file: build/book.spiral.pdf
+  file: build/book.pdf
   on:
     tags: true
   skip_cleanup: true
