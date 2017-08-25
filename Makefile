@@ -4,14 +4,13 @@ CHAPTERS = \
 	Chapters/Proto/ProtoTheory \
 	Chapters/ObjV/ObjV \
 	Chapters/ObjVTheory/ObjVTheory \
-	Chapters/Actalk/Actalk 
+	Chapters/Actalk/Actalk \
 
 OUTPUTDIRECTORY := $(shell ./pillar introspect outputDirectory)
 LATEXTEMPLATE := $(shell ./pillar introspect latexTemplate)
 LATEXCHAPTERTEMPLATE := $(shell ./pillar introspect latexChapterTemplate)
 HTMLTEMPLATE := $(shell ./pillar introspect htmlTemplate)
 HTMLCHAPTERTEMPLATE := $(shell ./pillar introspect htmlChapterTemplate)
-
 
 .DEFAULT_GOAL = help
 .phony: all book chapters
