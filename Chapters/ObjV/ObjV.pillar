@@ -3,6 +3,7 @@
 This tutorial written by Stéphane Ducasse will guide you step by step to build 
 the kernel of the ObjVLisp model. ObjVlisp was designed by P. Cointe who got inspired by the kernel  of Smalltalk 78. It has explicit metaclasses and it is composed of two classes ==Object== and ==Class==.
 
+
 !!! Objectives
 During the lecture you saw the main points of the ObjVLisp model, now you 
 will implement it. The goals of this implementation are to give a 
