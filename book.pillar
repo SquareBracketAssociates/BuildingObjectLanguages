@@ -1,5 +1,9 @@
-{ "metadata": { "title": "Exploring Object Language Kernels" ,
-	"attribution" : "Stéphane Ducasse"} } 
+{ 
+"metadata": { 
+	"title": "Exploring Object Language Kernels" ,
+	"attribution" : "Stéphane Ducasse"
+	}
+}
 
 In this book we will explore various language kernels by building them. 
 Doing so we will learn about objects, object creation instantiation, message lookup, delegation, inheritance and much more. 
@@ -13,18 +17,15 @@ Possible future adventures
 - Talents? (pablo?)
 - Mirrors?
 - MirrorMethod?
-- SplitObject Views (no.)
-- Mixin?
 - Traits?
 
 
-
 !! Implementation Techniques
-Here I will present 
+
+Here I will present
 - Anonymous classes
 - and may be some tricks of the reflection chapter
 - Proxy?
-
 
 
 ${inputFile:Chapters/Proto/ProtoTheory.pillar}$
@@ -35,10 +36,8 @@ ${inputFile:Chapters/ObjVTheory/ObjVTheory.pillar}$
 
 ${inputFile:Chapters/ObjV/ObjV.pillar}$
 
-!!! About bootstrap (TODO)
-
-${inputFile:Chapters/Actalk/Actalk.pillar}$
-
-{{{latex: \bibliographystyle{abbrv}
-\bibliography{rmod}
-}}}
+%!!! About bootstrap (TODO)
+%${inputFile:Chapters/Actalk/Actalk.pillar}$
+%{{{latex: \bibliographystyle{abbrv}
+%\bibliography{rmod}
+%}}}

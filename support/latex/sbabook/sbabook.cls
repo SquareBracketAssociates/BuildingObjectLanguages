@@ -12,12 +12,28 @@
 %%%
 %%% Page layout
 %%%
-\newcommand\stockustrade{\setstocksize{9in}{6in}}
-\newcommand\setbleed[1]{%
+\newcommand{\stockustrade}{\setstocksize{9in}{6in}}% Lulu final book proportions
+\newcommand{\stockaivus}{\setstocksize{11in}{210mm}}% intersection of A4 and US Letter
+\newcommand{\setbleed}[1]{%
     \settrimmedsize{\stockheight}{\stockwidth}{*}%
     \settrims{#1}{#1}%
     \advance\stockheight 2\trimtop
     \advance\stockwidth  2\trimedge}
+\newcommand{\paperbackpage}{
+  \stockustrade
+  \setbleed{.125in}
+  % \setbinding{5mm}
+  \setlrmarginsandblock{.85in}{.65in}{*}
+  \setulmarginsandblock{.75in}{.75in}{*}}
+\newcommand{\spiralboundpage}{
+  \stockaivus
+  \setbleed{0pt}% trims not required (unless we deliver this via Lulu as well?)
+  \setlrmarginsandblock{1.25in}{1.25in}{*}
+  \setulmarginsandblock{.75in}{1in}{*}}
+\newcommand{\pagelayout}[1]{
+  \providecommand{\setuppage}{#1}% set default page layout
+  \setuppage\checkandfixthelayout
+  \typeoutlayout}
 
 \settypeoutlayoutunit{mm}
 
@@ -43,7 +59,7 @@
   Scale=MatchLowercase
 ]{Fira Mono}%{Hack}
 \let\codefamily\ttfamily
-\let\textcode\texttt
+\newcommand\textcode[1]{\texttt{#1}}
 
 \noindentafterchapter
 \setlength{\parindent}{1.5em}
@@ -79,6 +95,11 @@
 %%%
 %%% Title page
 %%%
+
+% similar to \title, \author, \date from latex.ltx
+\def\series#1{\gdef\@series{#1}}
+\let\@series\@empty
+
 \setlength\droptitle{5cm}
 \pretitle{\begin{flushright}\HUGE\sffamily}
 \posttitle{\par\end{flushright}\vskip 1cm}
