@@ -5,11 +5,13 @@
 	}
 }
 
+This document is a working version of a future book on object language kernels. The idea is to focus on the essence of several models and to make you build them. 
+
 In this book we will explore various language kernels by building them. 
 Doing so we will learn about objects, object creation instantiation, message lookup, delegation, inheritance and much more. 
 
 We plan to have at least three kernels: 
-- Class based reflective (ObjVlisp)
+- Class based reflective (ObjVlisp) 
 - Prototypes
 - Actors
 
@@ -18,6 +20,12 @@ Possible future adventures
 - Mirrors?
 - MirrorMethod?
 - Traits?
+
+
+${inputFile:Chapters/ObjVTheory/ObjVTheory.pillar}$
+
+${inputFile:Chapters/ObjV/ObjV.pillar}$
+
 
 
 !! Implementation Techniques
@@ -32,12 +40,11 @@ ${inputFile:Chapters/Proto/ProtoTheory.pillar}$
 
 ${inputFile:Chapters/Proto/Proto.pillar}$
 
-${inputFile:Chapters/ObjVTheory/ObjVTheory.pillar}$
-
-${inputFile:Chapters/ObjV/ObjV.pillar}$
 
 %!!! About bootstrap (TODO)
 %${inputFile:Chapters/Actalk/Actalk.pillar}$
-%{{{latex: \bibliographystyle{abbrv}
-%\bibliography{rmod}
-%}}}
+
+{{{latex: 
+\bibliographystyle{abbrv}
+\bibliography{rmod}
+}}}
