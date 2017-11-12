@@ -94,7 +94,7 @@
 			<key>Points</key>
 			<array>
 				<string>{309, 139}</string>
-				<string>{379, 138}</string>
+				<string>{379.346, 138}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -451,7 +451,7 @@ initialize}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2017-11-12 20:20:59 +0000</string>
+	<string>2017-11-12 20:36:48 +0000</string>
 	<key>Modifier</key>
 	<string>ducasse</string>
 	<key>NotesVisible</key>

@@ -30,24 +30,34 @@ Here we report them as stated in the paper for sake of historical perspective.
 # A class can be defined as a subclass of one (or many) other class(es). This subclassing mechanism allows sharing of instance variables and methods, and is called inheritance. The class Object represents the most common behavior shared by all objects.
 # If the instance variables owned by an object define a local environment, there are also class variables defining a global environment shared by all the instances of a same class. These class variables are defined at the metaclass level according to the following equation: class variable [an-object] = instance variable [an-object’s class].
 
-+The ObjVlisp kernel: a minimal class-based kernel.>file://figures/ObjVlispMore.pdf|width=60|label=fig:ObjVlisp+
 
 !!! Kernel overview
+
+If you do not fully grasp the following overview, do not get worry, this full chapter is here to make sure that you will understand it. 
+Let us get started. 
 
 Contrary to a real uniform language kernel, ObjVlisp does not consider arrays, booleans, strings, numbers or any other elementary objects as part of the kernel as this is the case in a real bootstrap such as the one of Pharo. ObjVLisp's kernel focuses on understanding Class/Object core relationships.
 
 Figure *@fig:ObjVlisp* shows the two core classes of the kernel:
 -  ==Object== which is the root of the inheritance graph and is instance of ==Class==.
-- ==Class== is the first class and root of the instantiation graph and instance of itself as we will see later.
+- ==Class== is the first class and root of the instantiation tree and instance of itself as we will see later.
 
- Figure *fig:ObjVlispSingleton* shows that the class ==Workstation== is an instance of the class ==Class== since it is a class and it inherits from ==Object== the default behavior objects should exhibit. In addition the class ==WithSingleton== is an instance of the class ==Class== but in addition it inherits from ==Class== since this is a metaclass: its instances are classes. As such it changes the behavior of classes. The class ==SpecialWorkstation== is an instance of the class ==WithSingleton== and inherits from ==Workstation== since its instances exhibits the same behavior as ==Workstation==.
++The ObjVlisp kernel: a minimal class-based kernel.>file://figures/ObjVlispMore.pdf|width=60|label=fig:ObjVlisp+
+
+
+Figure *@withSing* shows that the class ==Workstation== is an instance of the class ==Class== since it is a class and it inherits from ==Object== the default behavior objects should exhibit. The class ==WithSingleton== is an instance of the class ==Class== but in addition it inherits from ==Class== since this is a metaclass: its instances are classes. As such, it changes the behavior of classes. The class ==SpecialWorkstation== is an instance of the class ==WithSingleton== and inherits from ==Workstation== since its instances exhibits the same behavior as ==Workstation==. 
  
- +The kernel in action with specialized metaclasses.>file://figures/ObjVlispSingleton.png|width=70|label=fig:ObjVlispSingleton+
+ +The kernel in action with specialized metaclasses.>file://figures/ObjVlispSingleton.pdf|width=90|label=withSing+
 
-The following two diagrams *@fig:ObjVlispSingleton* and *@fig:kernel2* will be explained step by step during all this chapter. The key to understand such reflective architecture is that message passing always looks up methods in the class of the receiver of the message and then follows the inheritance chain as shown in Figure *@fig:kernel2*.
+The two diagrams *@fig:ObjVlisp* and *@withSing* will be explained step by step during all this chapter.
 
-+Understanding metaclasses using message passing.>file://figures/ObjVlispSingleton2.png|width=70|label=fig:ObjVlispSingleton2+
+@@note The key point to understand such reflective architecture is that message passing always looks up methods in the class of the receiver of the message and then follows the inheritance chain as shown in Figure *@fig:kernel2*.
 
++Understanding metaclasses using message passing.>file://figures/ObjVlispSingleton2.pdf|width=90|label=fig:kernel2+
+
+Figure *@fig:kernel2* illustrates two main cases:
+- When we send a message to BigMac or Minna, the corresponding method is looked up in their corresponding classes ==Workstation== or ==SpecialWorkstation== and follow the inheritance link up to ==Object==.
+- When we send a messsage to the classes ==Workstation== or ==SpecialWorkstation==, the corresponding method is looked up in their class, the class ==Class== up to ==Object==.
 
 !!! Instances
 
