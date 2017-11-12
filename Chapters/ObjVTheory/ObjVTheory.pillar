@@ -2,15 +2,15 @@
 
 ''"The difference between classes and objects has been repeatedly emphasized. In the view presented here, these concepts belong to different worlds: the program text only contains classes; at run-time, only objects exist. This is not the only approach. One of the subcultures of object-oriented programming, influenced by Lisp and exemplified by Smalltalk, views classes as object themselves, which still have an existence at run-time."'' B. Meyer Object-Oriented Software Construction
 
-As this quote expressed it, there is a realm where classes are true objects, instances of other classes. In such systems such as Smalltalk, Pharo, CLOS, classes are described by other classes and form often reflective architectures each one describing the previous level. In this chapter we will explore a minimal reflective class-based kernel, inspired from ObjVlisp  ${cite:Coint86a}$. In the following chapter you will implement step by step such kernel in less than 30 methods.
+As this quote expresses it, there is a realm where classes are true objects, instances of other classes. In such systems such as Smalltalk, Pharo, CLOS, classes are described by other classes and form often reflective architectures each one describing the previous level. In this chapter we will explore a minimal reflective class-based kernel, inspired from ObjVlisp  ${cite:Coin87a}$. In the following chapter you will implement step by step such a kernel in less than 30 methods.
 
 !!! ObjVlisp 
 
-ObjVlisp was published the first time in 1986 when the foundation of object-oriented programming was still emerging ${cite:Coint86a}$. ObjVlisp has explicit metaclasses and supports metaclass reuse. It was inspired from the kernel of Smalltalk-78. The IBM SOM-DSOM kernel is similar to ObjVLisp while implemented in C\+\+ ${cite:Danf94b}$. ObjVlisp is a subset of the reflective kernel of CLOS  since CLOS reifies instance variables, generic functions, and method combination ${cite:Stee90a}$ ${cite:Kicz91a}$. In comparison original Smalltalk or Pharo have implicit metaclasses and no metaclass reuse except by basic inheritance but it is more stable as explained by Bouraqadi et al ${cite:Grau89a}$ ${cite:Bour98a}$.
-
+ObjVlisp was published the first time in 1986 when the foundation of object-oriented programming was still emerging ${cite:Coin87a}$. ObjVlisp has explicit metaclasses and supports metaclass reuse. It was inspired from the kernel of Smalltalk-78. The IBM SOM-DSOM kernel is similar to ObjVLisp while implemented in C\+\+ ${cite:Danf94b}$. ObjVlisp is a subset of the reflective kernel of CLOS  since CLOS reifies instance variables, generic functions, and method combination ${cite:Stee90a}$ ${cite:Kicz91a}$. In comparison to ObjVlisp, Smalltalk ${cite:Gold84a}$ or Pharo ${cite:Blac09a}$ have implicit metaclasses and no metaclass reuse except by basic inheritance but it is more stable as explained by Bouraqadi et al ${cite:Grau89a}$ ${cite:Bour98a}$.
+ 
 Studying this kernel is really worth since it has the following properties:
 - It unifies class and instances (there is only one data structure to represent all objects, classes included),
-- It is composed of only two classes ==Class== and ==Object==,
+- It is composed of only two classes ==Class== and ==Object== (It relies on existing elements such as booleans, arrays, string of the underlying implementation language),
 - It raises the question of meta-circularity infinite regression (a class is instance of another class that is an instance of yet another class ...) and how to resolve it,
 - It forces to revisit allocation, class and object initialization, message passing as well as bootstrap,
 - It can be implemented in less than 30 methods in Pharo. 
@@ -19,7 +19,9 @@ Just remember that this kernel is self-described so we will start to explain som
 
 !!! ObjVLisp's six postulates
 
-The original ObjVlisp kernel is defined by 6 postulates ${cite:Coint86a}$. Some of them are looking dated by today standards and the 6th postulate is simply wrong as we will explained later. A solution is simple to add and implement.  Here we report them as stated in the paper for sake of historical perspective. 
+The original ObjVlisp kernel is defined by six postulates ${cite:Coin87a}$. Some of them look a bit dated by today standards and the 6th postulate is simply wrong as we will explain later (A solution is simple to design and implement).
+
+Here we report them as stated in the paper for sake of historical perspective. 
 
 # An object represents a piece of knowledge and a set of capabilities.
 # The only protocol to activate an object is message passing: a message specifies which procedure to apply (denoted by its name, the selector) and its arguments.
@@ -28,13 +30,15 @@ The original ObjVlisp kernel is defined by 6 postulates ${cite:Coint86a}$. Some 
 # A class can be defined as a subclass of one (or many) other class(es). This subclassing mechanism allows sharing of instance variables and methods, and is called inheritance. The class Object represents the most common behavior shared by all objects.
 # If the instance variables owned by an object define a local environment, there are also class variables defining a global environment shared by all the instances of a same class. These class variables are defined at the metaclass level according to the following equation: class variable [an-object] = instance variable [an-object’s class].
 
-+The ObjVlisp kernel: a minimal class-based kernel.>file://figures/ObjVlisp.png|width=60|label=fig:ObjVlisp+
++The ObjVlisp kernel: a minimal class-based kernel.>file://figures/ObjVlispMore.pdf|width=60|label=fig:ObjVlisp+
 
 !!! Kernel overview
 
-Contrary to a real uniform language kernel, we do not consider arrays, boolean, strings, numbers or any other elementary objects as part of the kernel as this is the case in a real bootstrap such as the one of Pharo. Here the kernel focuses on understanding Class/Object core relationships.
+Contrary to a real uniform language kernel, ObjVlisp does not consider arrays, booleans, strings, numbers or any other elementary objects as part of the kernel as this is the case in a real bootstrap such as the one of Pharo. ObjVLisp's kernel focuses on understanding Class/Object core relationships.
 
-Figure *@fig:ObjVlisp* shows the two core classes of the kernel: ==Object== which is the root of the inheritance graph and is instance of ==Class==. ==Class== is the first class and root of the instantiation graph and instance of itself as we will see later. 
+Figure *@fig:ObjVlisp* shows the two core classes of the kernel:
+-  ==Object== which is the root of the inheritance graph and is instance of ==Class==.
+- ==Class== is the first class and root of the instantiation graph and instance of itself as we will see later.
 
  Figure *fig:ObjVlispSingleton* shows that the class ==Workstation== is an instance of the class ==Class== since it is a class and it inherits from ==Object== the default behavior objects should exhibit. In addition the class ==WithSingleton== is an instance of the class ==Class== but in addition it inherits from ==Class== since this is a metaclass: its instances are classes. As such it changes the behavior of classes. The class ==SpecialWorkstation== is an instance of the class ==WithSingleton== and inherits from ==Workstation== since its instances exhibits the same behavior as ==Workstation==.
  
