@@ -76,7 +76,7 @@
 					<key>LineType</key>
 					<integer>1</integer>
 					<key>Pattern</key>
-					<integer>1</integer>
+					<integer>3</integer>
 					<key>TailArrow</key>
 					<string>0</string>
 				</dict>
@@ -889,7 +889,7 @@ initialize}</string>
 {\*\expandedcolortbl;;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720
 
-\f0\b\fs32 \cf0 new}</string>
+\f0\fs32 \cf0 new}</string>
 						<key>VerticalPad</key>
 						<integer>0</integer>
 					</dict>
@@ -1455,7 +1455,7 @@ accept: aPacket}</string>
 					<key>LineType</key>
 					<integer>1</integer>
 					<key>Pattern</key>
-					<integer>1</integer>
+					<integer>3</integer>
 					<key>TailArrow</key>
 					<string>0</string>
 				</dict>
@@ -1584,7 +1584,7 @@ accept: aPacket}</string>
 					<key>LineType</key>
 					<integer>1</integer>
 					<key>Pattern</key>
-					<integer>1</integer>
+					<integer>3</integer>
 					<key>TailArrow</key>
 					<string>0</string>
 				</dict>
@@ -1643,7 +1643,7 @@ accept: aPacket}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2017-11-12 20:42:09 +0000</string>
+	<string>2017-11-12 21:12:51 +0000</string>
 	<key>Modifier</key>
 	<string>ducasse</string>
 	<key>NotesVisible</key>

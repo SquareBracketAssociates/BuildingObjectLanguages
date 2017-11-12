@@ -47,16 +47,16 @@ Figure *@fig:ObjVlisp* shows the two core classes of the kernel:
 
 Figure *@withSing* shows that the class ==Workstation== is an instance of the class ==Class== since it is a class and it inherits from ==Object== the default behavior objects should exhibit. The class ==WithSingleton== is an instance of the class ==Class== but in addition it inherits from ==Class== since this is a metaclass: its instances are classes. As such, it changes the behavior of classes. The class ==SpecialWorkstation== is an instance of the class ==WithSingleton== and inherits from ==Workstation== since its instances exhibits the same behavior as ==Workstation==. 
  
- +The kernel in action with specialized metaclasses.>file://figures/ObjVlispSingleton.pdf|width=90|label=withSing+
+ +The kernel with specialized metaclasses.>file://figures/ObjVlispSingleton.pdf|width=70|label=withSing+
 
 The two diagrams *@fig:ObjVlisp* and *@withSing* will be explained step by step during all this chapter.
 
-@@note The key point to understand such reflective architecture is that message passing always looks up methods in the class of the receiver of the message and then follows the inheritance chain as shown in Figure *@fig:kernel2*.
+@@note The key point to understand such a reflective architecture is that message passing always looks up methods in the class of the receiver of the message and then follows the inheritance chain (See Figure *@fig:kernel2*).
 
 +Understanding metaclasses using message passing.>file://figures/ObjVlispSingleton2.pdf|width=90|label=fig:kernel2+
 
 Figure *@fig:kernel2* illustrates two main cases:
-- When we send a message to BigMac or Minna, the corresponding method is looked up in their corresponding classes ==Workstation== or ==SpecialWorkstation== and follow the inheritance link up to ==Object==.
+- When we send a message to ==BigMac== or ==Minna==, the corresponding method is looked up in their corresponding classes ==Workstation== or ==SpecialWorkstation== and follows the inheritance link up to ==Object==.
 - When we send a messsage to the classes ==Workstation== or ==SpecialWorkstation==, the corresponding method is looked up in their class, the class ==Class== up to ==Object==.
 
 !!! Instances
@@ -66,10 +66,10 @@ In this kernel, there is only one instantiation link, it is applied at all the l
 - Terminal instances are obviously objects: a workstation named ==mac1== is an instance of the class ==Workstation==, a point ==10@20== is instance of the class ==Point==. 
 - Classes are also objects instances of other classes: the class ==Workstation== is an instance of the class ==Class==, the class ==Point== is an instance of the class ==Class==.
 
-+Chain of instantiation: classes are objects too.>file://figures/Ref-InstantiationLink.png|width=70|label=fig:Instantiation+
++Chain of instantiation: classes are objects too.>file://figures/Ref-InstantiationLink.pdf|width=70|label=fig:Instantiation+
 
-In our diagram, we represent objects (mainly terminal instances) as round corner rectangles with the list of variables.
-Since classes are objects, when we want to stress that classes are objects we use the same graphical convention as shown in Figure *@fig:Instantiation*.
+In our diagrams, we represent objects (mainly terminal instances) as round corner rectangles with the list of instance variable values.
+Since classes are objects, ''when we want to stress that classes are objects'' we use the same graphical convention as shown in Figure *@fig:PointClassAsObject*.
 
 
 
@@ -77,7 +77,9 @@ Since classes are objects, when we want to stress that classes are objects we us
 
 !!!! Handling infinite recursion
 
-A class is an object therefore instance of another class its metaclass that is an object too instance of a metametaclass that is an object too instance of another a metametametaclass...... To stop this potential infinite recursion, we use similar to solutions proposed in many meta circular systems: we have one entity instance that is described by itself. In ObjVLisp model: 
+A class is an object therefore instance of another class its metaclass that is an object too instance of a metametaclass that is an object too instance of another a metametametaclass...... To stop this potential infinite recursion, ObjVlisp uses similar to solutions proposed in many meta circular systems: one instance is instance of itself. 
+
+In ObjVLisp: 
 - ==Class== is the initial class and metaclass,
 - ==Class== is instance of itself and directly or undirectly all other metaclasses are instances of ==Class==.
 
@@ -118,7 +120,7 @@ In Pharo for example, the class identification is not managed as a declared inst
 
 !!! About behavior
 
-Les us continue with basic instance behavior. As in modern class-based languages, this kernel has to represent how methods are stored and looked up. 
+Let us continue with basic instance behavior. As in modern class-based languages, this kernel has to represent how methods are stored and looked up.
 
 Methods belong to a class. They define the behavior of all the instances of the class.
 They are stored into a method dictionary that associates a key (the method selector) and the method body. 
@@ -135,7 +137,7 @@ Here is the minimal information required:
 
 This minimal state is similar to the one of Pharo: Pharo ==Behavior== class has a format (compact description of instance variables), method dictionary, and superclass link. 
 
-In our kernel we will had a name so that we can identify the class. As an instance factory, the metaclass Class possesses 4 instance variables that describe a class:
+In ObjVLisp,  we will had a name so that we can identify the class. As an instance factory, the metaclass Class possesses 4 instance variables that describe a class:
 - name the class name,
 - superclass its superclass (we limit to single inheritance),
 - i-v the list of its instance variables, and 
@@ -143,7 +145,7 @@ In our kernel we will had a name so that we can identify the class. As an instan
 
 Since a class is an object. A class possesses the instance variable ==class== inherited from ==Object== that refers to its class as any object.
 
-+==Point== as an object.>file://figures/Ref-PointClassAsObject.pdf|width=50|label=fig:PointClassAsObject+
++==Point== class as an object.>file://figures/Ref-PointClassAsObject.pdf|width=70|label=fig:PointClassAsObject+
 
 !!!! Example: class Point
 
@@ -155,7 +157,7 @@ Figure *@fig:PointClassAsObject* shows the instance variable values for the clas
 - It has a method dictionary. 
 
 
-+==Class== as an object.>file://figures/Ref-ClassClassAsObject.pdf|width=50|label=fig:ClassClassAsObject+
++==Class== as an object.>file://figures/Ref-ClassClassAsObject.pdf|width=70|label=fig:ClassClassAsObject+
 
 !!!! Example: class Class
 
@@ -166,7 +168,7 @@ Figure *@fig:ClassClassAsObject* describes the class ==Class== itself. Indeed it
 - It has four locally defined instance variables: 'name superclass i-v methodDict'.  
 - It has a method dictionary. 
 
-+Through the prism of objects.>file://figures/Ref-InstanceGlobalPicture.png|width=50|label=fig:Instanceshier+
++Through the prism of objects.>file://figures/Ref-InstanceGlobalPicture.pdf|width=70|label=fig:Instanceshier+
 
 !!!! Everything is an object
 
@@ -175,9 +177,12 @@ We see three level of instances: terminal objects, instances of ==Workstation==,
 
 
 
-+Sending a message is two step process: method lookup and execution.>file://figures/InheritanceDiagram-sendingMessage.pdf|width=35|label=fig:ToSteps+
++Sending a message is two step process: method lookup and execution.>file://figures/InheritanceDiagram-sendingMessage.pdf|width=45|label=fig:ToSteps+
+
+
 !!! Sending a message 
 @sec_message
+
 In this kernel, the second postulate states that the only way to perform computation is via message passing. 
 
 Sending a message is a two step process as shown by Figure *@fig:ToSteps*
@@ -212,12 +217,9 @@ lookup (selector class receiver):
            else lookup (selector superclass(class) receiver) 
 ]]]
 
-+When a message is not found, another message is sent to the receiver supporting reflective operation.>file://figures/Ref-LookupWithError.png|width=60|label=fig:LookupWithError+
++When a message is not found, another message is sent to the receiver supporting reflective operation.>file://figures/Ref-LookupWithError.png|width=70|label=fig:LookupWithError+
 
-!!!! Remarks
-This lookup is conceptually the same in Pharo where all methods are public and virtual. There is no statically bound method, even class methods are looked up dynamically. This allows the possibility to define really elegant and dynamic registration mechanism. 
 
-While the look up happens at runtime, it is often cached. Languages usually have several systems of caches: one global (class, selector), one per call site.
 
 !!!! Handling errors
 
@@ -248,7 +250,10 @@ sending a message (receiver argument)
       else return apply(methodOrNil receiver arguments)
 ]]]
 
+!!!! Remarks
+This lookup is conceptually the same in Pharo where all methods are public and virtual. There is no statically bound method, even class methods are looked up dynamically. This allows the possibility to define really elegant and dynamic registration mechanism. 
 
+While the look up happens at runtime, it is often cached. Languages usually have several systems of caches: one global (class, selector), one per call site.
 
 !!! Inheritance
 

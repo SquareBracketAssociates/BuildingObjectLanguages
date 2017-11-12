@@ -53,7 +53,7 @@
 	<array>
 		<dict>
 			<key>Bounds</key>
-			<string>{{241.125, 263}, {88, 51}}</string>
+			<string>{{235.125, 263}, {100, 57}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -87,12 +87,13 @@
 				<key>Pad</key>
 				<integer>0</integer>
 				<key>Text</key>
-				<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+				<string>{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
 \cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
-\f0\b\fs28 \cf0 Metaclasses:\
+\f0\b\fs32 \cf0 Metaclasses:\
 instances \
 are classes}</string>
 				<key>VerticalPad</key>
@@ -103,7 +104,7 @@ are classes}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{227.5, 180}, {112, 51}}</string>
+			<string>{{221.125, 173}, {128, 57}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -137,12 +138,13 @@ are classes}</string>
 				<key>Pad</key>
 				<integer>0</integer>
 				<key>Text</key>
-				<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+				<string>{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
 \cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
-\f0\b\fs28 \cf0 Classes:\
+\f0\b\fs32 \cf0 Classes:\
 respond to new: \
 create instances}</string>
 				<key>VerticalPad</key>
@@ -153,7 +155,7 @@ create instances}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{247, 129}, {65, 17}}</string>
+			<string>{{221.5, 129}, {116, 30}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -187,12 +189,13 @@ create instances}</string>
 				<key>Pad</key>
 				<integer>0</integer>
 				<key>Text</key>
-				<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+				<string>{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
 \cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
-\f0\b\fs28 \cf0 Instances}</string>
+\f0\b\fs50 \cf0 Instances}</string>
 				<key>VerticalPad</key>
 				<integer>0</integer>
 			</dict>
@@ -355,7 +358,7 @@ create instances}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2016-12-21 12:10:18 +0000</string>
+	<string>2017-11-12 21:01:34 +0000</string>
 	<key>Modifier</key>
 	<string>ducasse</string>
 	<key>NotesVisible</key>

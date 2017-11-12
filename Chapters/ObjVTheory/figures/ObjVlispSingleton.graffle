@@ -65,7 +65,7 @@
 			<integer>61</integer>
 			<key>Points</key>
 			<array>
-				<string>{285.5, 82.283476994276043}</string>
+				<string>{285.5, 83.283476994276043}</string>
 				<string>{342.00000695800782, 82.683465003967257}</string>
 			</array>
 			<key>Style</key>
@@ -103,7 +103,7 @@
 			<key>Points</key>
 			<array>
 				<string>{342.00000695800782, 113.08345866203305}</string>
-				<string>{285.5, 112.28348191165918}</string>
+				<string>{285.5, 113.28348191165918}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -258,7 +258,7 @@ initialize}</string>
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{186.5, 52.283476547241207}, {99, 18}}</string>
+					<string>{{186.5, 53.283476547241207}, {99, 18}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -300,7 +300,7 @@ initialize}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{186.5, 70.283476547241207}, {99, 57}}</string>
+					<string>{{186.5, 71.283476547241207}, {99, 57}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -413,7 +413,7 @@ initialize}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{271.5, 340}, {57, 20}}</string>
+			<string>{{266, 340}, {57, 20}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -488,7 +488,7 @@ initialize}</string>
 			<integer>40</integer>
 			<key>Points</key>
 			<array>
-				<string>{367.15400830078124, 270.17298889160156}</string>
+				<string>{346.20604348053195, 277}</string>
 				<string>{396.34238745383271, 223.08650207519531}</string>
 			</array>
 			<key>Style</key>
@@ -502,6 +502,11 @@ initialize}</string>
 					<key>TailArrow</key>
 					<string>0</string>
 				</dict>
+			</dict>
+			<key>Tail</key>
+			<dict>
+				<key>ID</key>
+				<integer>38</integer>
 			</dict>
 		</dict>
 		<dict>
@@ -1280,7 +1285,7 @@ accept: aPacket}</string>
 			<key>Points</key>
 			<array>
 				<string>{205.58650110028188, 177.08649601745606}</string>
-				<string>{226.0999799370766, 127.28347654724119}</string>
+				<string>{226.0999799370766, 128.28347654724121}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -1355,7 +1360,7 @@ accept: aPacket}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2017-11-12 20:39:47 +0000</string>
+	<string>2017-11-12 20:44:27 +0000</string>
 	<key>Modifier</key>
 	<string>ducasse</string>
 	<key>NotesVisible</key>
