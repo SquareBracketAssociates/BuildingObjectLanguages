@@ -48,88 +48,6 @@
 	<key>GraphicsList</key>
 	<array>
 		<dict>
-			<key>AllowConnections</key>
-			<string>NO</string>
-			<key>AllowLabelDrop</key>
-			<false/>
-			<key>AllowToConnect</key>
-			<false/>
-			<key>Class</key>
-			<string>LineGraphic</string>
-			<key>ID</key>
-			<integer>185</integer>
-			<key>Points</key>
-			<array>
-				<string>{147, 617}</string>
-				<string>{178, 579}</string>
-				<string>{183.98001098632812, 599}</string>
-				<string>{199, 580}</string>
-			</array>
-			<key>Style</key>
-			<dict>
-				<key>stroke</key>
-				<dict>
-					<key>HeadArrow</key>
-					<string>FilledArrow</string>
-					<key>Legacy</key>
-					<true/>
-					<key>Pattern</key>
-					<integer>1</integer>
-					<key>TailArrow</key>
-					<string>0</string>
-				</dict>
-			</dict>
-		</dict>
-		<dict>
-			<key>Bounds</key>
-			<string>{{128, 613}, {153, 24}}</string>
-			<key>Class</key>
-			<string>ShapedGraphic</string>
-			<key>FitText</key>
-			<string>YES</string>
-			<key>Flow</key>
-			<string>Resize</string>
-			<key>ID</key>
-			<integer>184</integer>
-			<key>Shape</key>
-			<string>Rectangle</string>
-			<key>Style</key>
-			<dict>
-				<key>fill</key>
-				<dict>
-					<key>Draws</key>
-					<string>NO</string>
-				</dict>
-				<key>shadow</key>
-				<dict>
-					<key>Draws</key>
-					<string>NO</string>
-				</dict>
-				<key>stroke</key>
-				<dict>
-					<key>Draws</key>
-					<string>NO</string>
-				</dict>
-			</dict>
-			<key>Text</key>
-			<dict>
-				<key>Align</key>
-				<integer>0</integer>
-				<key>Text</key>
-				<string>{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
-\cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720
-
-\f0\fs40 \cf0 accept: aPacket}</string>
-				<key>VerticalPad</key>
-				<integer>0</integer>
-			</dict>
-			<key>Wrap</key>
-			<string>NO</string>
-		</dict>
-		<dict>
 			<key>Bounds</key>
 			<string>{{185, 527}, {73, 38}}</string>
 			<key>Class</key>
@@ -325,7 +243,7 @@ receiver}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{114, 599}, {153, 24}}</string>
+			<string>{{78, 599}, {153, 24}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -384,8 +302,8 @@ receiver}</string>
 			<integer>75</integer>
 			<key>Points</key>
 			<array>
-				<string>{239.49572708225512, 336.04096865932587}</string>
-				<string>{293.00436583143744, 343.08164729664657}</string>
+				<string>{239.49570888030698, 336.06124045270269}</string>
+				<string>{293.00431549729916, 343.11708841007265}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -1048,7 +966,7 @@ nextNode}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2017-11-13 11:03:06 +0000</string>
+	<string>2017-11-13 13:49:35 +0000</string>
 	<key>Modifier</key>
 	<string>ducasse</string>
 	<key>NotesVisible</key>

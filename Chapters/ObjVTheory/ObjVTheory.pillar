@@ -217,7 +217,7 @@ lookup (selector class receiver):
            else lookup (selector superclass(class) receiver) 
 ]]]
 
-+When a message is not found, another message is sent to the receiver supporting reflective operation.>file://figures/Ref-LookupWithError.png|width=70|label=fig:LookupWithError+
++When a message is not found, another message is sent to the receiver supporting reflective operation.>file://figures/Ref-LookupWithError.pdf|width=70|label=fig:LookupWithError+
 
 
 
@@ -491,13 +491,18 @@ There is a difference between the method ==initialize:== executed on any instanc
 - The class ==initialize:== method is executed when a new instance representing a class is executed. The message ==initialize:== is sent to the newly created object but its specialisation for classes will be found during method lookup and it will be executed. Usually this method invokes the default ones because the class parameter should be extracted from the argument list and set in their corresponding instance variables but in addition, instance variable inheritance and class declaration in the class namespace is performed.
 
 
-!!! Abstract Metaclass
-Now we can see how we can add new metaclasses and see how the system works in this case. To create a new metaclass is simple, it is enough to inherit from an existing one. May be this is obvious to you and this is what we will check now. 
+!!! Defining a new Metaclass
+Now we can study how we can add new metaclasses and see how the system handles them. 
+To create a new metaclass is simple, it is enough to inherit from an existing one. May be this is obvious to you but this is what we will check now.
 
 +Abstract metaclass: its instance (i.e., the class Node) are abstract.>file://figures/Ref-Abstract.pdf|width=60|label=fig:Abstract+
 
-Imagine that we want to define a metaclass that represents that abstract classes (its instances) cannot create instances. 
-The solution is to create a new metaclass named ==AbstractMetaclass== which inherits from ==Class== and to redefine the method ==new== in this metaclass to raise an error (as shown in Figure *@fig:Abstract*). The following code snippet defines this. 
+!!!! Abstract
+Imagine that we want to define abstract classes. We set the abstractness of a class as the fact that it cannot create instances.
+To control the creation of instances of a class, we should define a new metaclass which forbids it.
+Therefore we will define a metaclass whose instances (abstract classes) cannot create instances. 
+
+We create a new metaclass named ==AbstractMetaclass== which inherits from ==Class== and we redefine the method ==new== in this metaclass to raise an error (as shown in Figure *@fig:Abstract*). The following code snippet defines this new metaclass.
 
 [[[
 Class new  
@@ -511,31 +516,30 @@ AbstractMetaclass
 	body: [ :receiver :initargs | receiver error: 'Cannot create instance of class' ]
 ]]]
 
-Two simple facts describes the situation:
+Two facts describe the relations between this metaclass and the class ==Class==:
 - ==AbstractMetaclass== is a class: It is instance of ==Class==.
-- ==AbstractMetaclass== define class behavior: It inherits from Class.
+- ==AbstractMetaclass== defines class behavior: It inherits from ==Class==.
 
-+Abstract metaclass at work.>file://figures/Ref-AbstractLookup.png|width=60|label=fig:AbstractLookup+
++Abstract metaclass at work.>file://figures/Ref-AbstractLookup.pdf|width=60|label=fig:AbstractLookup+
 Now we can define an abstract class ==Node==. 
 
 [[[
 AbstractMetaclass new :name 'Node' :super 'Object'
 ]]]
 
-Sending a message to Node will raise an error. 
+Sending a message ==new== to the class ==Node== will raise an error.
 [[[
 Node new 
 >>> Cannot create instance of class
 ]]]
 
-A subclass of ==Node== for example ==Workstation== can be a concrete class by being an instance of ==Class== instead of ==AbstractMetaclass== but still inheriting from ==Node==. What we see in Figure *@fig:AbstractLookup* is that there are two links: instanciation and inheritance and the method lookup follows them as we presented previously: always start in the class of the receiever and follow the inheritance link. 
+A subclass of ==Node==, for example ==Workstation==, can be a concrete class by being an instance of ==Class== instead of ==AbstractMetaclass== but still inheriting from ==Node==. What we see in Figure *@fig:AbstractLookup* is that there are two links: instanciation and inheritance and the method lookup follows them as we presented previously: always start in the class of the receiever and follow the inheritance link. 
 
-What is key to understand is that when we send the messsage ==new== to ==Workstation== we look for methods first in the metaclass ==Class==. When we send the message ==new== to ==Node== we look in its class: ==AbstractMetaclass== as shown in  Figure *@fig:AbstractLookup*. 
+What is key to understand is that when we send the messsage ==new== to the class ==Workstation==, we look for methods first in the metaclass ==Class==. When we send the message ==new== to class ==Node== we look in its class: ==AbstractMetaclass== as shown in  Figure *@fig:AbstractLookup*. In fact we do what we do for any instances: we look in the class of the receiver. 
 
 
-
-Sending the message ==allocate== to ==Node== starts in ==AbstractMetaclass== and since we did not redefine it locally, and it is not found there, the lookup will continue in the superclass of ==AbstractClass==: ==Class==. We will be able to get instance of ==Node== but this is for the exercise. A class method is just implemented and following the same semantics that instance methods. 
-
+A class method is just implemented and following the same semantics that instance methods: 
+Sending the message ==error== to the class ==Node== starts in ==AbstractMetaclass== and since we did not redefine it locally, and it is not found there, the lookup will continue in the superclass of ==AbstractClass==: the class ==Class== and then the superclass of class ==Class==, the class ==Object==.
 
 
 !!! About the 6th postulate 
@@ -543,12 +547,12 @@ Sending the message ==allocate== to ==Node== starts in ==AbstractMetaclass== and
 The 6th postulate of ObjVLisp is wrong. Let us read it again: 
 ''If the instance variables owned by an object define a local environment, there are also class variables defining a global environment shared by all the instances of a same class. These class variables are defined at the metaclass level according to the following equation: class variable [an-object] = instance variable [an-object’s class].''
 
-It says that class instance variables are equivalent to shared variables between instances and this is wrong! Let us study this. According to the 6th postulate, a shared variable between instances is equal to an instance variable of the class. The definition is not totally clear so let us look at an example given in the article.
+It says that class instance variables are equivalent to shared variables between instances and this is wrong. Let us study this. According to the 6th postulate, a shared variable between instances is equal to an instance variable of the class. The definition is not totally clear so let us look at an example given in the article.
  
 !!!! Illustrating the problem
 Imagine that we would like the constant character '*' to be a class variable shared by all the points of a same class.
 We redefine the ==Point== class as before, but metaclass of which (let us call it ==MetaPoint==) specifies this common character 
-For example if a point has a shared variable named ==char==, this instance variable should be defined in the class of the class ==Point== called ==MetaPoint==. The author proposed to define a new metaclass ==MetaPoint== to hold a new instance variable to represent a shared variable between points.
+For example if a point has a shared variable named ==char==, this instance variable should be defined in the class of the class ==Point== called ==MetaPoint==. The author proposes to define a new metaclass ==MetaPoint== to hold a new instance variable to represent a shared variable between points.
  
 [[[
 Class new
@@ -557,7 +561,7 @@ Class new
 	:ivs #(char)
 ]]]
 
-Then he proposed to use it as follows: 
+Then he proposes to use it as follows: 
 
 [[[
 MetaPoint new
@@ -567,13 +571,12 @@ MetaPoint new
 	:char '*'
 ]]]
 
-The class ==Point== can define a method that accesses the char just by going the class level. 
-
-So why this is approach is wrong. Because it mixes levels. The instance variable ==char== is not a class information. It describes the terminal instances and not the instance of the metaclass. Why the ''metaclass'' ==MetaPoint== would need a ==char== instance variable. 
+The class ==Point== can define a method that accesses the character just by going the class level.
+So why this is approach is wrong? Because it mixes levels. The instance variable ==char== is not a class information. It describes the terminal instances and not the instance of the metaclass. Why the ''metaclass'' ==MetaPoint== would need a ==char== instance variable.
 
 !!!! The solution
-The solution is that ==char== is a value held into a list of the shared variables of the class ==Point==. This means that
-a ''class'' should have an extra information to describe it: an instance variable ==sharedVariable== holding pairs.  So we should be able to write
+
+The solution is that the shared variable ==char== should be held in a list of the shared variables of the class ==Point==. Any point instance can access this variable. The implication is that a ''class'' should have an extra information to describe it: an instance variable ==sharedVariable== holding pairs i.e., variable and its value.  We should be able to write:
 
 [[[
 Class new
@@ -583,9 +586,10 @@ Class new
 	:sharedivs {#char -> '*'}
 ]]]
 
-Therefore the metaclass ==Class== should get an extra instance variable named ==sharedivs== and each of its instances (the classes ==Point==, ==Node==, ==Object==) can have different ''values'' and such values can be shared among their instances by the compiler. 
+Therefore the metaclass ==Class== should get an extra instance variable named ==sharedivs== and each of its instances (the classes ==Point==, ==Node==, ==Object==) can have different ''values'' and such values can be shared among their instances by the compiler.
+
 What we see is that ==sharedivs== is from the ==Class== vocabulary and we do not need one extra metaclass each time we want to share 
-a variable. This design is similar to the one of Pharo where a class has a classVariable instance variable.
+a variable. This design is similar to the one of Pharo where a class has a classVariable instance variable holding variable shared in all the subclasses of the class defining it.
 
 !!! Conclusion
 
@@ -593,4 +597,4 @@ We presented a really small kernel composed of two classes ==Object== root of th
 
 !!!! Further readings
 
-The kernel presented in this chapter is a kernel with explicit metaclasses and as such it raised metaclass composition problems as explained in Bouraqadi et al. excellent article ${cite:Bour98a}$
+The kernel presented in this chapter is a kernel with explicit metaclasses and as such it is not a panacea. Indeed it raised metaclass composition problems as explained in Bouraqadi et al. excellent article ${cite:Bour98a}$ or ${cite:Danf94b}$.
