@@ -66,7 +66,7 @@ In this kernel, there is only one instantiation link, it is applied at all the l
 - Terminal instances are obviously objects: a workstation named ==mac1== is an instance of the class ==Workstation==, a point ==10@20== is instance of the class ==Point==. 
 - Classes are also objects instances of other classes: the class ==Workstation== is an instance of the class ==Class==, the class ==Point== is an instance of the class ==Class==.
 
-+Chain of instantiation: classes are objects too.>file://figures/Ref-InstantiationLink.pdf|width=70|label=fig:Instantiation+
++Chain of instantiation: classes are objects too.>file://figures/Ref-InstantiationLink.pdf|width=72|label=fig:Instantiation+
 
 In our diagrams, we represent objects (mainly terminal instances) as round corner rectangles with the list of instance variable values.
 Since classes are objects, ''when we want to stress that classes are objects'' we use the same graphical convention as shown in Figure *@fig:PointClassAsObject*.
@@ -89,7 +89,7 @@ We will see later the implication of this self instantiation at the level of the
 
 The model unifies classes and instances. When we follow the instance related postulates of the kernel we get:
 - Every object is instance of a class,
-- A class is an object instance of a metaclass,
+- A class is an object instance of a metaclass, and
 - A metaclass is only a class that generates classes.
 
 At the implementation level there is only one kind of entity: objects. There is no special treatment for classes. Classes are instantiated following the same process than terminal instances. There are sent messages the same way other objects are sent messages too. 
@@ -97,7 +97,7 @@ At the implementation level there is only one kind of entity: objects. There is 
 This unification between instances and classes does not mean that we do not distinguish objects and classes. 
 Indeed not all the objects are classes. In particular, the sole difference between a class and an instance is the ability to respond to the creation message: ==new==. Only a class knows how to respond to it. Then metaclasses are just classes whose instances are classes as shown in Figure *@fig:InstantiationPap*.
 
-+Everything is an object. Classes are just objects which can create other objects and metaclasses are just classes whose instances are classes.>file://figures/instancePatatoid.png|width=50|label=fig:InstantiationPap+
++Everything is an object. Classes are just objects which can create other objects and metaclasses are just classes whose instances are classes.>file://figures/instancePatatoid.pdf|width=45|label=fig:InstantiationPap+
 
 
 !!! Instance structure 
@@ -152,8 +152,8 @@ Since a class is an object. A class possesses the instance variable ==class== in
 Figure *@fig:PointClassAsObject* shows the instance variable values for the class ==Point== as declared by the programmer and before class initialization and inheritance take place. 
 - It is an instance of class ==Class==: indeed this is a class.
 - It is named =='Point'==.
-- It inherits from ==Object==.
-- It has two instance variables: x and y. After inheritance it will be three instance variables: class, x, and y.
+- It inherits from class ==Object==.
+- It has two instance variables: ==x== and ==y==. After inheritance it will be three instance variables: ==class==, ==x==, and ==y==.
 - It has a method dictionary. 
 
 
@@ -164,8 +164,8 @@ Figure *@fig:PointClassAsObject* shows the instance variable values for the clas
 Figure *@fig:ClassClassAsObject* describes the class ==Class== itself. Indeed it is also an object.
 - It is an instance of class ==Class==: indeed this is a class.
 - It is named =='Class'==.
-- It inherits from ==Object==
-- It has four locally defined instance variables: 'name superclass i-v methodDict'.  
+- It inherits from class ==Object==
+- It has four locally defined instance variables: ==name==, ==superclass==, ==i-v==, and  ==methodDict==.  
 - It has a method dictionary. 
 
 +Through the prism of objects.>file://figures/Ref-InstanceGlobalPicture.pdf|width=70|label=fig:Instanceshier+
@@ -204,7 +204,7 @@ Now the lookup process is conceptually defined as follows:
 # Otherwise the search continues in the superclass of the currently explored class. 
 # If no method is found and there is no superclass to explore (if we are in the class ==Object==), this is an error.
 
-+Looking for a method is two step process: first go to the class of receiver then follow inheritance.>file://figures/Ref-LookupNoError.png|width=50|label=fig:LookupNoError+
++Looking for a method is two step process: first go to the class of receiver then follow inheritance.>file://figures/Ref-LookupNoError.pdf|width=55|label=fig:LookupNoError+
 
 The method lookup walks through the inheritance graph one class at a time using the superclass link. Here is a possible description of the lookup algorithm that will be used for both instance and class methods.
 
@@ -259,7 +259,7 @@ While the look up happens at runtime, it is often cached. Languages usually have
 
 There are two aspects of inheritance to consider: 
 
-- One static for the state where subclasses get superclass state. This instance variable inheritance is static in the sense that it happens only once at class creation time. In traditional languages it happens at compilation-time. 
+- One static for the state where subclasses get superclass state. This instance variable inheritance is static in the sense that it happens only once at class creation time i.e., at compilation-time. 
 
 - One dynamic for behavior where methods are looked up during program execution. There the inheritance tree is walked at run-time. 
 
@@ -280,8 +280,9 @@ A word about union: when the implementation of the language is based on offsets 
 In the implementation proposed next chapter, we will use accessors and will not support direct access to instance variables from method body.
 
 !!!! Method lookup
-At runtime methods are looked up as described previously in Section *@sec_message*. 
-Methods of the superclasses are reused and apply to instances of subclasses. Contrary to instance variable inheritance this part of inheritance is dynamic. 
+As previously described in Section *@sec_message*, methods are looked up at runtime.
+Methods defined in superclasses are reused and applied to instances of subclasses.
+Contrary to instance variable inheritance, this part of inheritance is dynamic, i.e., it happens during program execution.
 
 
 !!! Object: defining the minimal behavior of any object
@@ -294,26 +295,24 @@ A Workstation is an object (should at least understand the minimal behavior), so
 A class is an object (it should understand the minimal behavior) so the class ==Class== inherits from class ==Object==. In particular, the ==class== instance variable is inherited from ==Object== class.
 
 
-
-+Full inheritance graph: Every class ultimately inherits from ==Object==.>file://figures/Ref-InheritanceGraph.png|width=45|label=fig:inheritancegraph+
-
++Full inheritance graph: Every class ultimately inherits from ==Object==.>file://figures/Ref-InheritanceGraph.pdf|width=45|label=fig:inheritancegraph+
 
 
-!!!! Remark. 
-In Pharo, ==Object== is not the root of inheritance. It is ==ProtoObject== and ==Object== inherits from it. Most of the classes still inherit from ==Object==. Indeed the design of ==ProtoObject== is special: the design goal of ==ProtoObject== is to generate as many as possible errors. Such errors can be captured via ==doesNotUnderstand:==
+
+!!!! Remark.
+In Pharo, the class ==Object== is not the root of inheritance. It is ==ProtoObject== and ==Object== inherits from it. Most of the classes still inherit from ==Object==.  The design of ==ProtoObject== is special: the design goal of ==ProtoObject== is to generate as many as errors as possible. Such errors can be then captured via ==doesNotUnderstand:==
 redefinition and can support different scenarios such as proxy implementation.
 
 !!! Inheritance and instantiation together
 
 Now that we saw independently the instantiation  and the inheritance graph we can look at the complete picture. 
-Figure *@fig:kernel2* shows the graphs and in particular how such graph are used during message resolution: 
+Figure *@fig:kernel22* shows the graphs and in particular how such graph are used during message resolution: 
 - the instantiation link is used to find the class where to start to look the method associated with the received message. 
 - the inheritance link is used to find inherited methods. 
 
 This process is also true when we send messages to the classes themselves. There is no difference between sending a message to an object or a class. The system ''always'' performs the same steps. 
 
-+Kernel with instantiation and inheritance.>file://figures/Ref-KernelTwo.png|width=50|label=fig:kernel2+
-
++Kernel with instantiation and inheritance link.>file://figures/Ref-KernelTwo.pdf|width=60|label=fig:kernel22+
 
 
 
@@ -324,7 +323,7 @@ Since our experience showed us that even some book writers got key semantics of 
 - ""self"" (also called ""this"" in languages like Java). self always represents the receiver of the message. The method lookup starts in the class of the receiver.  
 - ""super"". super always represents the receiver of the message (and not the superclass). The method lookup starts in the superclass of the class containing the super expression (and not in the superclass of the class of the receiver: this would mean that it loops forever in case of inheritance tree of three classes - We let you to find how).
 
-+self always represents the receiver.>file://figures/LookupWithSelfInSuperclassMethod.png|width=40|label=fig:LookupWithSelfInSuperclassMethod+
++self always represents the receiver.>file://figures/LookupWithSelfInSuperclassMethod.pdf|width=40|label=fig:LookupWithSelfInSuperclassMethod+
 
 Looking at Figure *@fig:LookupWithSelfInSuperclassMethod*  we see that the key point is that ==B new bar== returns 50 since
 the method is dynamically looked up and self represents the receiver i.e., the instance of the class ==B==. What is important to see is that ==self== sends act as a hook and that subclasses code can be injected in superclass code. 
@@ -340,7 +339,7 @@ B new bar
 >>> 50
 ]]]
 
-+super represents the receiver but the method lookup method is modified and starts in the superclass of the class using super. >file://figures/LookupWithSuperInSuperclassMethodThreeClasses.png|width=40|label=fig:LookupWithSuperInSuperclassMethodThreeClasses+
++super represents the receiver but the method lookup starts in the superclass of the class of the method using super. >file://figures/LookupWithSuperInSuperclassMethodThreeClasses.pdf|width=40|label=fig:LookupWithSuperInSuperclassMethodThreeClasses+
 
 
 For ==super==, the situation depicted in Figure *@fig:LookupWithSuperInSuperclassMethodThreeClasses* shows that ==super== represents the receiver, but that when ==super== is the receiver of a message, the method is looked up differently (starting from the superclass of the class using super) hence ==C new bar== returns 100 and not 20 nor 60. 
@@ -352,14 +351,15 @@ C new bar
 >>> 100
 ]]]
 
-As a conclusion, we can say that ==self== is dynamic: Using ==self== the lookup of the method begins in the class of the receiver. ==self== is bound at execution-time. We do not know its value until execution time. ==super== is static in the sence that while the object it will point to is only known at execution time, the place to look for the method is known at compile-time: it should start to look in the class above the one containing super. 
-
+As a conclusion, we can say that ==self== is dynamic and ==super== static. Let us explain this view: 
+- When sending a message to ==self== the lookup of the method begins in the class of the receiver. ==self== is bound at execution-time. We do not know its value until execution time.
+- ==super== is static in the sense that while the object it will point to is only known at execution time, the place to look for the method is known at compile-time: it should start to look in the class above the one containing super.
 
 !!! Object creation 
-Now we are ready to understand the creation of objects. In this model there is only one way to create instances: we should send the message ==new== to the class with a specification of the instance variable values as argument. 
+Now we are ready to understand the creation of objects. In this model there is only one way to create instances: we should send the message ==new== to the class with a specification of the instance variable values as argument.
 
 !!! Creation of instances of the class Point
-The following examples show several point instantiations. What we see is that the model inherits from the lisp traditional of passing arguments using keys and that the order of arguments is not important.
+The following examples show several point instantiations. What we see is that the model inherits from the Lisp traditional of passing arguments using keys and values, and that the order of arguments is not important.
 
 [[[
 Point new :x 24 :y 6
@@ -368,8 +368,8 @@ Point new :y 6 :x 24
 >>> aPoint (24 6)
 ]]]
 
-When no argument are specified then the class may have a default instance variable initialization or not. 
-Here ==Point== does not and the instance variables are pointing to nil. 
+When there is no value specified, the value of an instance variable is initialized to nil. CLOS provides the notion of default instance variable initialization. It can be added to ObjVlisp as an exercise and does not bring conceptual difficulties.
+
 [[[
 Point new
 >>> aPoint (nil nil)
@@ -384,7 +384,8 @@ Point new :y 10 :y 15
 We should not worry too much about such details: The point is that we can pass multiple arguments with a tag to identify it. 
 
 !!! Creation of the class Point instance of Class
-Since the class ==Point== is an instance of the class ==Class==, to create it we should send the message ==new== to the class as follows: 
+Since the class ==Point== is an instance of the class ==Class==, to create it, we should send the message ==new== to the class as follows: 
+
 [[[
 Class new 
    :name 'Point'
@@ -394,18 +395,18 @@ Class new
 ]]]
 
 Here what is interesting to see is that we use exactly the same way to create an instance of the class ==Point== or the class itself. Note that this single way to create objects is supported by the argument variable list. 
-An implementation could have two different messages to create instances, as soon as the same ==new==, ==allocate==, ==initialize==
-methods are involved the essence of the object creation are similar and uniform. 
+
+An implementation could have two different messages to create instances and classes. As soon as the same ==new==, ==allocate==, ==initialize== methods are involved, the essence of the object creation is similar and uniform.
 
 !!!! Instance creation: Role of the metaclass
 
 The following diagram (Figure *@fig:metaclassrole*) shows that against common expectations, when we create a terminal instance the metaclass ==Class== is evolved in the process. Indeed, we send the message ==new== to the class, to resolve this message, the system will look for the method in the class of the receiver (here ==Workstation==) which the metaclass ==Class==. The method ==new== is found in the metaclass and applied to the receiver: the class ==Workstation==. Its effect is to create an instance of the class ==Workstation==. 
 
-+Metaclass role during instance creation: Applying plain message resolution.>file://figures/Ref-InstanceCreationMetaclassRole.png|width=60|label=fig:metaclassrole+
++Metaclass role during instance creation: Applying plain message resolution.>file://figures/Ref-InstanceCreationMetaclassRole.pdf|width=60|label=fig:metaclassrole+
 
-The same happens when creating a class. Figrue *@fig:ClassCreation* shows the process. We send a message now this time to the class ==Class==. The system makes no exception and to resolve the message, it looks for the method in the class of the receiver. The class of the receiver is itself, so the method ==new== found in ==Class== is applied to ==Class== (since it is the receiver of the message), and a new class is created. 
+The same happens when creating a class. Figure *@fig:ClassCreation* shows the process. We send a message, now this time, to the class ==Class==. The system makes no exception and to resolve the message, it looks for the method in the class of the receiver. The class of the receiver is itself, so the method ==new== found in ==Class== is applied to ==Class== (since it is the receiver of the message), and a new class is created. 
 
-+Metaclass role during class creation: Applying plain message resolution - the self instantiation link is followed.>file://figures/Ref-ClassCreation.png|width=60|label=fig:ClassCreation+
++Metaclass role during class creation: Applying plain message resolution - the self instantiation link is followed.>file://figures/Ref-ClassCreation.pdf|width=60|label=fig:ClassCreation+
 
 !!!! new = allocate and initialize
 In fact creating an object is a two step process: Creating an instance is the composition of two actions: memory allocation ==allocate== message and object initialisation message ==initialize==. 

@@ -53,7 +53,7 @@
 	<array>
 		<dict>
 			<key>Bounds</key>
-			<string>{{235.125, 263}, {100, 57}}</string>
+			<string>{{226.625, 250.5}, {117, 76}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -94,6 +94,7 @@
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
 \f0\b\fs32 \cf0 Metaclasses:\
+classes whose \
 instances \
 are classes}</string>
 				<key>VerticalPad</key>
@@ -104,7 +105,7 @@ are classes}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{221.125, 173}, {128, 57}}</string>
+			<string>{{205.625, 173}, {159, 57}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -146,7 +147,7 @@ are classes}</string>
 
 \f0\b\fs32 \cf0 Classes:\
 respond to new: \
-create instances}</string>
+and create instances}</string>
 				<key>VerticalPad</key>
 				<integer>0</integer>
 			</dict>
@@ -204,7 +205,7 @@ create instances}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{218.25, 234}, {133.75, 109}}</string>
+			<string>{{214, 232}, {142, 111}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -227,7 +228,7 @@ create instances}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{143.5, 163}, {283.25, 251}}</string>
+			<string>{{143.5, 163}, {283.25, 242}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -275,7 +276,7 @@ create instances}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{65, 108}, {437, 361}}</string>
+			<string>{{75, 108}, {419, 349}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -358,7 +359,7 @@ create instances}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2017-11-12 21:01:34 +0000</string>
+	<string>2017-11-13 10:56:30 +0000</string>
 	<key>Modifier</key>
 	<string>ducasse</string>
 	<key>NotesVisible</key>
