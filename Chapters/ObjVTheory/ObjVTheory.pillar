@@ -402,11 +402,11 @@ An implementation could have two different messages to create instances and clas
 
 The following diagram (Figure *@fig:metaclassrole*) shows that against common expectations, when we create a terminal instance the metaclass ==Class== is evolved in the process. Indeed, we send the message ==new== to the class, to resolve this message, the system will look for the method in the class of the receiver (here ==Workstation==) which the metaclass ==Class==. The method ==new== is found in the metaclass and applied to the receiver: the class ==Workstation==. Its effect is to create an instance of the class ==Workstation==. 
 
-+Metaclass role during instance creation: Applying plain message resolution.>file://figures/Ref-InstanceCreationMetaclassRole.pdf|width=60|label=fig:metaclassrole+
++Metaclass role during instance creation: Applying plain message resolution.>file://figures/Ref-InstanceCreationMetaclassRole.pdf|width=65|label=fig:metaclassrole+
 
 The same happens when creating a class. Figure *@fig:ClassCreation* shows the process. We send a message, now this time, to the class ==Class==. The system makes no exception and to resolve the message, it looks for the method in the class of the receiver. The class of the receiver is itself, so the method ==new== found in ==Class== is applied to ==Class== (since it is the receiver of the message), and a new class is created. 
 
-+Metaclass role during class creation: Applying plain message resolution - the self instantiation link is followed.>file://figures/Ref-ClassCreation.pdf|width=60|label=fig:ClassCreation+
++Metaclass role during class creation: Applying plain message resolution - the self instantiation link is followed.>file://figures/Ref-ClassCreation.pdf|width=65|label=fig:ClassCreation+
 
 !!!! new = allocate and initialize
 In fact creating an object is a two step process: Creating an instance is the composition of two actions: memory allocation ==allocate== message and object initialisation message ==initialize==. 
@@ -416,10 +416,10 @@ In Pharo syntax it means:
 aClass new: args = (aClass allocate) initialize: args
 ]]]
 
-What we should see is that
-- The message ==new== is a class message and method. 
-- The message ==allocate== is also a class message and method. 
-- The message ==initialize== will be executed on the newly created instance so it means that when it will be sent to a class, an class ==initialize== method will be involved and when it will be sent to a terminal object, an instance ==initialize== method will be executed (defined in ==Object==). 
+What we should see is that:
+- The message ==new== is a message sent to a class. The method ==new== is a class method.
+- The message ==allocate== is a message sent to a class. The method ==allocate== is a class method.
+- The message ==initialize:== will be executed on any newly created instance.  It means that when it will be sent to a class, a class ==initialize:== method will be involved. When it will be sent to a terminal object, an instance ==initialize:== method will be executed (defined in ==Object==).
 
 
 !!!! Object allocation: the message allocate
@@ -444,19 +444,23 @@ Class allocate
 >>>#(Class nil nil nil nil nil) 
 ]]]
 
-The allocation for an object representing a class alllocates five six slots: one for class and one for each of the class instance variable: name, super, iv, keywords and methodDict.
+The allocation for an object representing a class allocates six slots: one for class and one for each of the class instance variable: name, super, iv, keywords, and methodDict.
 
 !!!! Object initialization
+Object initialization is the process to get the values passed as arguments as key/value pair and assigned the  
+value to the corresponding instance variable.
 
-To specify the value of the instance variables by means of keywords (==:x== ,==:y==) associated with the instances variables.
+The following snippet illustrates it. An instance of class ==Point== is created and the key/value pairs (:y 6) and (:x 24) are
+specified. The instance is created and it received the ==initialize:== messages with the key/value pairs.
+The ==initialize:== method is responsible to set the corresponding variables in the receiver.
 
 [[[
 Point new :y 6  :x 24
->>>  #(Point nil nil) initialize: (:y 6 :x 24)]
+>>> #(Point nil nil) initialize: (:y 6 :x 24)]
 >>> #(Point 24 6)
 ]]]
 
-When an object is initialized as an terminal instance (this remark exists because initializing a class relies on instance initialization and performing extra steps dedicated to class management), two actions are performed: 
+When an object is initialized as a terminal instance, two actions are performed: 
 - First we should get the values specified during the creation, i.e., get that y value is 6 and x value is 24, 
 - Second we should assign the values to the corresponding instance variables of the created object.
 
@@ -471,26 +475,26 @@ During its initialization a class should perform several steps:
 
 Now we get a better understanding of what is the class ==Class==.
 The class ==Class== is:
-- The initial metaclass and intial class.
+- The initial metaclass and initial class.
 - It defines the behavior of all the metaclasses.
 - It defines the behavior of all the classes.
 
-In particular, metaclasses defines three messages related to instance creation. 
-- The ==new== creates an initialized instance of the class. It allocates the object using the class message ==allocate== and then initialize it by sending the message ==initialize== to the instance. 
-- The ==allocate== message. As message ==new== it is a class message. It allocates structure for newly created object. 
-- Finally the message ==initialize==. This message has two definitions one on ==Object== and one on ==Class==. 
+In particular, metaclasses define three messages related to instance creation.
+- The ==new== message creates an initialized instance of the class. It allocates the instance using the class message ==allocate== and then initializes it by sending the message ==initialize:== to this instance.
+- The ==allocate== message. As message ==new== it is a class message. It allocates structure for newly created object.
+- Finally the message ==initialize:==. This message has two definitions one on ==Object== and one on ==Class==.
 
-There is a difference between the method ==initialize== executed on an instance creation and the class ==initialize== method. 
+There is a difference between the method ==initialize:== executed on any instance creation and the class ==initialize:== method only executed when the created instance is a class.
 
-- The first one is a method defined on the class of the object and potentially inherited from ==Object==. On ==Object== this ==initialize== method just extract from the argument list the value corresponding to each instance variables and sets them in the corresponding instance variables. 
+- The first one is a method defined on the class of the object and potentially inherited from ==Object==.  This ==initialize:== method just extracts the value corresponding to each instance variables from the argument list and sets them in the corresponding instance variables.
 
-- The class ==initialize== method is executed when a new instance representing a class is executed. The message initialize is sent to the newly created object but its specialisation for classes will be found during method lookup and it will be executed. Usually this method invokes the default ones because the class parameter should be extracted from the argument list and set in their corresponding instance variables but in addition, instance variable inheritance and class declaration in the class namespace is performed. 
+- The class ==initialize:== method is executed when a new instance representing a class is executed. The message ==initialize:== is sent to the newly created object but its specialisation for classes will be found during method lookup and it will be executed. Usually this method invokes the default ones because the class parameter should be extracted from the argument list and set in their corresponding instance variables but in addition, instance variable inheritance and class declaration in the class namespace is performed.
 
 
 !!! Abstract Metaclass
 Now we can see how we can add new metaclasses and see how the system works in this case. To create a new metaclass is simple, it is enough to inherit from an existing one. May be this is obvious to you and this is what we will check now. 
 
-+Abstract metaclass: its instance (i.e., the class Node) are abstract.>file://figures/Ref-Abstract.png|width=60|label=fig:Abstract+
++Abstract metaclass: its instance (i.e., the class Node) are abstract.>file://figures/Ref-Abstract.pdf|width=60|label=fig:Abstract+
 
 Imagine that we want to define a metaclass that represents that abstract classes (its instances) cannot create instances. 
 The solution is to create a new metaclass named ==AbstractMetaclass== which inherits from ==Class== and to redefine the method ==new== in this metaclass to raise an error (as shown in Figure *@fig:Abstract*). The following code snippet defines this. 
