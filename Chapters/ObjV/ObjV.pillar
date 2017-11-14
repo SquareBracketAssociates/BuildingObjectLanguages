@@ -241,7 +241,7 @@ ObjText >> testIVOffset
 
 Make sure that you execute the test method: ==testIVOffset==
 
-+Instance variable offset asked to the class.>file://figures/offsetFromClass.pdf|width=60|label=fig:offset2+
++Instance variable offset asked to the instance itself.>file://figures/offsetFromObject.pdf|width=60|label=fig:offset2+
 
 Using the preceeding method, define in the protocol =='iv management'==
 # the method ==offsetFromObjectOfInstanceVariable: aSymbol== that returns the offset of the instance variable. Note that this time the method is applied to an objInstance presenting an instance and not a class (as shown in Figure *@fig:offset2*).
