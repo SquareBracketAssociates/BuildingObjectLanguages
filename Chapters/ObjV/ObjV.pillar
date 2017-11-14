@@ -1,14 +1,14 @@
-!! Building a minimal reflective class-based kernel
+!!Building a minimal reflective class-based kernel
 
-This tutorial written by Stéphane Ducasse will guide you step by step to build 
-the kernel of the ObjVLisp model. ObjVlisp was designed by P. Cointe who got inspired by the kernel  of Smalltalk-78. It has explicit metaclasses and it is composed of two classes ==Object== and ==Class==.
-
+The objectives of this chapter is to help you step by step to implement the ObjVlisp model explained
+in the previous chapter. ObjVlisp was designed by P. Cointe who got inspired by the kernel  of Smalltalk-78. 
+It has explicit metaclasses and it is composed of two classes ==Object== and ==Class==.
 
 !!! Objectives
 During the previous chapter, you saw the main points of the ObjVLisp model, now you 
 will implement it. The goals of this implementation are to give a 
 concrete understanding of the concepts presented previously. Here 
-are some of the points you can deeply understand while doing the exercise:
+are some of the points you can deeply understand while writing the implementation:
 
 - What is a possible object structure?
 - What is object  allocation and initialization?
@@ -18,21 +18,35 @@ are some of the points you can deeply understand while doing the exercise:
 - What are the roles of the classes ==Class== and ==Object==?
 - What is the role of a metaclass? 
 
-!!!Before starting
-In this section we discuss the files that you will use, the implementation choices and the conventions that we will follow during all this tutorial. 
+!!!Preparation
+In this section we discuss the set up that you will use, the implementation choices and the conventions that we will follow during all this chapter.
 
-!!!!Provided files
-You need to download and install Pharo from *http://www.pharo.org/*. You need a virtual machine, and the couple image and changes. You can use *http://get.pharo.org* to get a script to download Pharo. You can use the book Pharo by Example from *http://www.pharo.org/PharoByExample/* for an overview of the syntax and the system. 
+!!!!Getting Pharo
+You need to download and install Pharo from *http://www.pharo.org/*. You need a virtual machine, and the couple image and changes. You can use *http://get.pharo.org* to get a script to download Pharo. 
 
-All the necessary files are provided as a Monticello package. It contains all the classes, the method categories and the method signatures of the methods that you have to implement. It provides additional functionality such as a dedicated inspector and some extra methods that will make your life easy and help you to concentrate on the essence of the model. It contains also all the tests of the functionality you have to implement. For each functionality you will have to run some tests.
+The current version that you can use is Pharo 6.1.
 
-For example to run a particular test named ==testPrimitive==, evaluate the following expression ==(ObjTest selector: #testPrimitiveStructure) run== or to click on the icon of the method named ==testPrimitiveStructure==.
+[[[
+wget -O- get.pharo.org/61+vm | bash
+]]]
 
-Note that since you are developing the kernel, to test it we implemented manually some mocks of the classes and kernel. This is the setup method of the test classes that build this fake kernel. Now pay attention because the setups are often taking shortcuts. 
+You can use the book Pharo by Example from *http://www.pharo.org/PharoByExample/* for an overview of the syntax and the system.
 
-To load the code open a monticello browser, add a file repository to point to an ObjVLispSkeleton project under ==StephaneDucasse== in ht eObjVLispSkeleton project at *http://www.smalltalkhub.com* and select and load the package.
- 
-To do this, use the following expression in the smalltalkhub repository creation pop up.
+
+!!!! Getting infrastructure definitions
+All the necessary definitions are provided as a Monticello package. It contains all the classes, the method categories and the method signatures of the methods that you have to implement. It provides additional functionality such as a dedicated inspector and some extra methods that will make your life easy and help you to concentrate on the essence of the model. It contains also all the tests of the functionality you have to implement. 
+
+To load the code, execute the following expression:
+
+[[[
+Gofer new
+	url: 'http://smalltalkhub.com/mc/StephaneDucasse/ObjVLispSkeleton/main'; 
+	package: 'ObjVLispSkeleton';
+	load.
+]]]
+
+Alternatively, to load the code open a monticello browser, 
+- Add a file repository to point to an ObjVLispSkeleton project under ==StephaneDucasse== in the ObjVLispSkeleton project at *http://www.smalltalkhub.com*. Use the following expression in the smalltalkhub repository creation pop up.
 
 [[[
 MCSmalltalkhubRepository
@@ -41,47 +55,63 @@ MCSmalltalkhubRepository
     user: ''
     password: ''
 ]]]
-
-Select the latest file and load it. 
+- Select the latest file and load it. 
  
-!!! Conventions
-We use the following conventions: we name as ''primitives'' all the Pharo methods that participate 
-in the building of ObjVLisp. These primitives are mainly implemented as methods of the class ==Obj==.  Note that in a Lisp implementation such primitives would be just lambda expressions, in a C implementation such primitives would be represented by C functions.
+!!!! Running tests
+For each functionality you will have to run some tests.
 
-To help you to distinguish between classes in the implementation language (Pharo) and the ObjVLisp model, we prefix  all the ObjVLisp classes by ==Obj==. Finally, some of the crucial and confusing primitives (mainly the class structure ones) are all prefixed by ==obj==. For example the primitive that given an 'objInstance' returns its class identifier is named ==objClassId==.
+For example to run a particular test named ==testPrimitive==, 
+- evaluate the following expression ==(ObjTest selector: #testPrimitiveStructure) run== or 
+- click on the icon of the method named ==testPrimitiveStructure==.
+
+Note that since you are developing the kernel, to test it we implemented manually some mocks of the classes and kernel. This is the setup method of the test classes that build this fake kernel. Now pay attention because the setups are often taking shortcuts, so do not copy them blindly. 
+
+
+
+!!! Naming conventions
+We use the following conventions: we name as ''primitives'' all the Pharo methods that participate in the building of ObjVLisp. These primitives are mainly implemented as methods of the class ==Obj==. Note that in a Lisp implementation such primitives would be just lambda expressions, in a C implementation such primitives would be represented by C functions.
+
+To help you to distinguish between classes in the implementation language (Pharo) and the ObjVLisp model, we prefix  all the ObjVLisp classes by ==Obj==. Finally, some of the crucial and confusing primitives (mainly the class structure ones) are all prefixed by ==obj==. For example the primitive that given an ''objInstance'' returns its class identifier is named ==objClassId==.
 We also talk about objInstances, objObjects and objClasses to refer to 
 specific instances, objects or classes defined in ObjVLisp. 
 
-!!!! Inheriting from Array
+!!! Inheriting from Array
 
 We do not want to implement a scanner, a parser and a compiler for ObjVLisp but concentrate on the essence of the language. That's why we chose to use as much as possible the implementation language, here Pharo. As Pharo does not support macro definition, we will use as much as possible the existing classes to avoid extra syntactic problems.
 
-Every object in the ObjVLisp world is instance of ==Obj== in our implementation world (Pharo).
-In Pharo ==Obj== is a subclass of ==Array==.
 
-Since ==Obj== is a subclass of ==Array==, ==#(#ObjPoint 10 15)== is an objInstance of the class ==ObjPoint==. ==ObjPoint== is the name of an objClass.   ==#(#ObjClass #ObjPoint #ObjObject #(class x y) #(:x :y) nil )== is the array that represents the objclass  ==ObjPoint==.
+In our implementation, every object in the ObjVLisp world is instance of the class ==Obj==.
+The class ==Obj== is a subclass of ==Array==.
+
+Since ==Obj== is a subclass of ==Array==, ==#(#ObjPoint 10 15)== is an objInstance of the class ==ObjPoint==. 
+
+As we will see:
+
+- ==#(#ObjPoint 10 15)== represents an objPoint (10,15). It is an objInstance of the class ==ObjPoint==.
+
+- ==#(#ObjClass #ObjPoint #ObjObject #(class x y) #(:x :y) nil )== is the array that represents the objclass  ==ObjPoint==.
+ 
 
 !!!! About representation choices
-
-We could have implemented ObjVLisp functionality at the class level of a class named ==Obj== inheriting only from ==Object==. However, to use the ObjVlisp primitive (a Pharo method) ==objInstanceVariableValue: anObject for: anInstanceVariable== that returns the value of the instance variable in ==anObject==, we would have been forced to write the following expression: 
+You can skip this discussion in a first reading. We could have implemented ObjVLisp functionality at the class level of a class named ==Obj== inheriting simply from ==Object==. However, to use the ObjVlisp primitive (a Pharo method) ==objInstanceVariableValue: anObject for: anInstanceVariable== that returns the value of the instance variable in ==anObject==, we would have been forced to write the following expression: 
 
 [[[
 Obj objInstanceVariableValue: 'x' for: aPoint
 ]]]
 
-We chose to represent any ObjVLisp object by an array and to define the ObjVLisp functionality in the instance side of a subclass of ==Array== named ==Obj==. That way we can write in a more natural and readable way  the previous functionality as:
+We chose to represent any ObjVLisp object by an array and to define the ObjVLisp functionality in the instance side of the class ==Obj== (a subclass of ==Array==). That way we can write in a more natural and readable way  the previous functionality as:
 
 [[[
 aPoint objInstanceVariableValue: 'x'.
 ]]]
 
+!!! Facilitating objclass class access
 
-!!! Facilitating ObjVLisp class access
 We need a way to declare, store and access ObjVLisp classes. As a
 solution, on the class level of the Pharo class ==Obj== we defined a
 dictionary holding the defined classes. This dictionary acts as the namespace for our language. We defined the following methods to store and access defined classes.
 
-- ==declareClass: anObjClass== stores the instance of ==ObjClass== given as arguments in the class repository (here a dictionary whose keys are the names of the classes and values the ObjVLisp classes themselves).
+- ==declareClass: anObjClass== stores the objinstance of ==ObjClass== given as argument in the class repository (here a dictionary whose keys are the names of the classes and values the ObjVLisp classes themselves).
 
 - ==giveClassNamed: aSymbol== returns if it exists the ObjVLisp
 class  named ==aSymbol==. The class should have been declared previously.
@@ -106,33 +136,34 @@ Now you are ready to start.
 
 !!! Structure and primitives
 
-The first issue is how to represent objects.  We have to agree on an initial representation. In this implementation we chose to represent the objinstances as arrays (instances of ==Obj== a subclass of ==Array==). In the following we used the terms array for talking about instances of the class ==Obj==.  
+The first issue is how to represent objects.  We have to agree on an initial representation. In this implementation we chose to represent the objinstances as arrays (instances of ==Obj== a subclass of ==Array==). In the following we use the terms array for talking about instances of the class ==Obj==.  
 
-Note that we could extend the model so that the metaclasses support possible
-instance structure changes  but in the current implementation
-we will simply hardcode the class structure.
-
-!!!! Your job. 
+!!!! Your job.
 Check that the class ==Obj== exists and  inherits from ==Array==. 
 
 !!! Structure of a class
-As one of the first objects that we will create is the class ==ObjClass== we
-focus now on the minimal structure of the classes in our language.  Given an
-array  a class has the following structure: an identifier to its class, a name, 
-an identifier to its superclass (we limit the model to single inheritance), a list of 
-instance variables, a list of initialization keywords, and a method dictionary. 
+The first object that we will create is the class ==ObjClass==. Therefore we
+focus now on the minimal structure of the classes in our language. 
+
+An objinstance representing a class has the following structure: an identifier to its class, a name, an identifier to its superclass (we limit the model to single inheritance), a list of instance variables, a list of initialization keywords, and a method dictionary. 
 
 For example the class ==ObjPoint== has then the following structure: 
 
 [[[
-#(#ObjClass #ObjPoint #ObjObject #(class x y) #(:x :y) nil ))
+#(#ObjClass #ObjPoint #ObjObject #(class x y) #(:x :y) nil)
 ]]]
 
 
-It means that ==ObjPoint== is an instance of ==ObjClass==, is named ==#ObjPoint==, inherits from a class named ==ObjObject==, has three instance variables, two initialization keywords and an uninitialized method dictionary. To access this structure we define some primitives.
+It means that ==ObjPoint== is an instance of ==ObjClass==, is named ==#ObjPoint==, inherits from a class named ==ObjObject==, has three instance variables, two initialization keywords and an uninitialized method dictionary. To access this structure we define some primitives as shown in Figure *@fig:structure*.
 
 
-!!!! Your job. 
+
+
++Class structure representation.>file://figures/ClassRepresentationAsArray.pdf|width=60|label=fig:structure+
+
+
+!!!! Your job.
+
  The test methods of the class ==RawObjTest== that are in the categories =='step1-tests-structure of objects'== and =='step2-tests-structure of classes'== give some examples of structure accesses.
  
 [[[
@@ -149,10 +180,13 @@ RawObjTest >> testPrimitiveStructureObjIVs
    self assert: ((pointClass objIVs) = #(#class #x #y)).
 ]]]
  
++Using offset to access information.>file://figures/AccessObjName.pdf|width=60|label=fig:offset+
  
+Figure *@fig:offse* shows how offsets are used to access in an controlled manner the raw objclass information. 
+
 Implement the primitives that are missing to run the following tests ==testPrimitiveStructureObjClassId==,
  ==testPrimitiveStructureObjIVs==, ==testPrimitiveStructureObjKeywords==, 
- ==testPrimitiveStructureObjMethodDict==, ==testPrimitiveStructureObjName== and ==testPrimitiveStructureObjSuperclassId==. 
+ ==testPrimitiveStructureObjMethodDict==, ==testPrimitiveStructureObjName==, and ==testPrimitiveStructureObjSuperclassId==. 
 
 You can execute them by selecting the following expression ==(RawObjTest selector:
  #testPrimitiveStructureObjClassId) run==.  Note that arrays start at 1 in Pharo. Below is the list of the primitives that you should implement.
@@ -169,12 +203,12 @@ Implement in protocol =='class structure primitives'== the primitives that manag
 
 
 
+
+
 !!! Finding the class of an object
 Every object keeps the identifier of its class (its name). For example an instance of ==ObjPoint== has then the following structure: ==#(#ObjPoint 10 15)== where ==#ObjPoint== is a symbol identifying  the class ==ObjPoint==.
  
 !!!! Your job. 
-
-Implement the following:
 
 Using the primitive ==giveClassNamed: aSymbol== defined at the class level of Obj, define the primitive  ==objClass== in the protocol =='object-structure primitive'== that returns the objInstance that represents its class (Classes are objects too in ObjVLisp).
 
@@ -187,7 +221,13 @@ RawObjTest >> testClassAccess
    self assert: (aPoint objClass = pointClass)
 ]]]
 
-Now we will be ready to manipulate objInstances via proper API. We will now use the class ==ObjTest==.
+Now we will be ready to manipulate objInstances via proper API. We will now use the class ==ObjTest== for more elaborated tests.
+
+
+!!! Accessing object instance variable values
+
++Instance variable offset asked to the class.>file://figures/offsetFromClass.pdf|width=60|label=fig:offset+
+
 
 In the protocol =='iv management'== define a method called ==offsetFromClassOfInstanceVariable: aSymbol== that returns the offset of the instance variable represented by the symbol given in parameter. It returns 0 if the variable is not defined. Look at the tests ==#testIVOffset== of the class ==ObjTest==. (Hints: Use the Pharo method ==indexOf:==). Pay attention that such primitive is applied to an objClass as shown in the test.
 
@@ -195,14 +235,16 @@ In the protocol =='iv management'== define a method called ==offsetFromClassOfIn
 ObjText >> testIVOffset
    "(self  selector: #testIVOffset) run"
 
-   self assert: ((pointClass offsetFromClassOfInstanceVariable: #x ) = 2).
-   self assert: ((pointClass offsetFromClassOfInstanceVariable: #lulu ) = 0)
+   self assert: ((pointClass offsetFromClassOfInstanceVariable: #x) = 2).
+   self assert: ((pointClass offsetFromClassOfInstanceVariable: #lulu) = 0)
 ]]]
 
 Make sure that you execute the test method: ==testIVOffset==
 
-Using the preceding method, define in the protocol =='iv management'== 
-# the method ==offsetFromObjectOfInstanceVariable: aSymbol== that returns the offset of the instance variable. Note that this time the method is applied to an objInstance presenting an instance and not a class. 
++Instance variable offset asked to the class.>file://figures/offsetFromClass.pdf|width=60|label=fig:offset2+
+
+Using the preceeding method, define in the protocol =='iv management'==
+# the method ==offsetFromObjectOfInstanceVariable: aSymbol== that returns the offset of the instance variable. Note that this time the method is applied to an objInstance presenting an instance and not a class (as shown in Figure *@fig:offset2*).
 # the method ==valueOfInstanceVariable: aSymbol== that returns the value of this instance variable in the given object as shown in the test below.   
 
 The following test illustrates the expected behavior
@@ -211,8 +253,8 @@ The following test illustrates the expected behavior
 ObjTest >> testIVOffsetAndValue
    "(self  selector: #testIVOffsetAndValue) run"
 
-   self assert: ((aPoint offsetFromObjectOfInstanceVariable: #x ) = 2).
-   self assert: ((aPoint valueOfInstanceVariable: #x ) = 10)
+   self assert: ((aPoint offsetFromObjectOfInstanceVariable: #x) = 2).
+   self assert: ((aPoint valueOfInstanceVariable: #x) = 10)
 ]]]
 
 Note that for the method ==offsetFromObjectOfInstanceVariable:== you can check that the instance variable exists in the class of the object and else raise an error using the Pharo method ==error:==.
