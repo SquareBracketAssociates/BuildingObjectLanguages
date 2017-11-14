@@ -1,26 +1,11 @@
-{ 
-"metadata": { 
-	"title": "Exploring Object Language Kernels" ,
-	"attribution" : "Stéphane Ducasse"
-	}
-}
-
-This document is a working version of a future book on object language kernels. The idea is to focus on the essence of several models and to make you build them. 
-
-In this book we will explore various language kernels by building them. 
-Doing so we will learn about objects, object creation instantiation, message lookup, delegation, inheritance and much more. 
+This document is a working version of a future book on object language kernels. The idea is to focus on the essence of several models and to make you build them. Doing so we will learn about objects, object creation instantiation, message lookup, delegation, inheritance and much more. 
 
 We plan to have at least three kernels: 
 - Class based reflective (ObjVlisp) 
 - Prototypes
 - Actors
 
-Possible future adventures
-- Talents? (pablo?)
-- Mirrors?
-- MirrorMethod?
-- Traits?
-
+Currently two chapters reached a stable state, the explanation of the ObjVlisp model and its implementation.
 
 ${inputFile:Chapters/ObjVTheory/ObjVTheory.pillar}$
 
@@ -28,19 +13,15 @@ ${inputFile:Chapters/ObjV/ObjV.pillar}$
 
 
 
-!! Implementation Techniques
+%!! Implementation Techniques
+%Here I will present
+%- Anonymous classes
+%- and may be some tricks of the reflection chapter
+%- Proxy?
 
-Here I will present
-- Anonymous classes
-- and may be some tricks of the reflection chapter
-- Proxy?
-
-
-${inputFile:Chapters/Proto/ProtoTheory.pillar}$
-
-${inputFile:Chapters/Proto/Proto.pillar}$
-
-
+%${inputFile:Chapters/Proto/ProtoTheory.pillar}$
+%${inputFile:Chapters/Proto/Proto.pillar}$
+%May be introduces map.
 %!!! About bootstrap (TODO)
 %${inputFile:Chapters/Actalk/Actalk.pillar}$
 
